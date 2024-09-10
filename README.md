@@ -1,5 +1,7 @@
 # Scrapybara TypeScript Client
 
+Official TypeScript client for Scrapybara ₍ᐢ•(ܫ)•ᐢ₎
+
 ## Documentation
 
 [Scrapybara API Documentation](https://docs.scrapybara.com/api-reference)

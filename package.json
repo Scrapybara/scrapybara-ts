@@ -1,28 +1,21 @@
 {
   "name": "scrapybara",
   "version": "1.0.0",
-  "description": "NodeJS client for scrapybara",
+  "description": "OpenAPI client for scrapybara",
+  "author": "OpenAPI-Generator",
   "repository": {
     "type": "git",
     "url": "https://github.com/scrapybara/scrapybara-ts.git"
   },
-  "main": "dist/api.js",
-  "types": "dist/api.d.ts",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "sideEffects": false,
   "scripts": {
-    "clean": "rm -Rf node_modules/ *.js",
-    "build": "tsc",
-    "test": "npm run build && node dist/client.js"
-  },
-  "author": "OpenAPI-Generator Contributors",
-  "license": "Unlicense",
-  "dependencies": {
-    "bluebird": "^3.7.2",
-    "request": "^2.88.2"
+    "build": "tsc && tsc -p tsconfig.esm.json",
+    "prepare": "npm run build"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.33",
-    "@types/node": "^12",
-    "@types/request": "^2.48.8",
     "typescript": "^4.0 || ^5.0"
   }
 }
