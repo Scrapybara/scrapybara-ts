@@ -3,12 +3,15 @@
  */
 
 import * as serializers from "../index";
-import * as ScrapybaraApi from "../../api/index";
+import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 
-export const Status: core.serialization.Schema<serializers.Status.Raw, ScrapybaraApi.Status> = core.serialization.enum_(
-    ["deploying", "running", "terminated", "error"]
-);
+export const Status: core.serialization.Schema<serializers.Status.Raw, Scrapybara.Status> = core.serialization.enum_([
+    "deploying",
+    "running",
+    "terminated",
+    "error",
+]);
 
 export declare namespace Status {
     type Raw = "deploying" | "running" | "terminated" | "error";

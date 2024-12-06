@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../index";
-import * as ScrapybaraApi from "../../../../../api/index";
+import * as Scrapybara from "../../../../../api/index";
 import * as core from "../../../../../core";
 
-export const BashRequest: core.serialization.Schema<serializers.BashRequest.Raw, ScrapybaraApi.BashRequest> =
+export const BashRequest: core.serialization.Schema<serializers.BashRequest.Raw, Scrapybara.BashRequest> =
     core.serialization.object({
         command: core.serialization.string().optional(),
         restart: core.serialization.boolean().optional(),

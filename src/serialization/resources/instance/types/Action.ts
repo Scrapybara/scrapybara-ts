@@ -3,23 +3,21 @@
  */
 
 import * as serializers from "../../../index";
-import * as ScrapybaraApi from "../../../../api/index";
+import * as Scrapybara from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const Action: core.serialization.Schema<serializers.Action.Raw, ScrapybaraApi.Action> = core.serialization.enum_(
-    [
-        "key",
-        "type",
-        "mouse_move",
-        "left_click",
-        "left_click_drag",
-        "right_click",
-        "middle_click",
-        "double_click",
-        "screenshot",
-        "cursor_position",
-    ]
-);
+export const Action: core.serialization.Schema<serializers.Action.Raw, Scrapybara.Action> = core.serialization.enum_([
+    "key",
+    "type",
+    "mouse_move",
+    "left_click",
+    "left_click_drag",
+    "right_click",
+    "middle_click",
+    "double_click",
+    "screenshot",
+    "cursor_position",
+]);
 
 export declare namespace Action {
     type Raw =

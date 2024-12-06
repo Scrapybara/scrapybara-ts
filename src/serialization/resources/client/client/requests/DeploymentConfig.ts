@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../../../index";
-import * as ScrapybaraApi from "../../../../../api/index";
+import * as Scrapybara from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { DeploymentConfigInstanceType } from "../../types/DeploymentConfigInstanceType";
 
 export const DeploymentConfig: core.serialization.Schema<
     serializers.DeploymentConfig.Raw,
-    ScrapybaraApi.DeploymentConfig
+    Scrapybara.DeploymentConfig
 > = core.serialization.object({
     instanceType: core.serialization.property("instance_type", DeploymentConfigInstanceType.optional()),
     timeoutHours: core.serialization.property("timeout_hours", core.serialization.number().optional()),

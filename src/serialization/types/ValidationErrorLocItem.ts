@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../index";
-import * as ScrapybaraApi from "../../api/index";
+import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 
 export const ValidationErrorLocItem: core.serialization.Schema<
     serializers.ValidationErrorLocItem.Raw,
-    ScrapybaraApi.ValidationErrorLocItem
+    Scrapybara.ValidationErrorLocItem
 > = core.serialization.undiscriminatedUnion([core.serialization.string(), core.serialization.number()]);
 
 export declare namespace ValidationErrorLocItem {

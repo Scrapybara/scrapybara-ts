@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../index";
-import * as ScrapybaraApi from "../../api/index";
+import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 import { Status } from "./Status";
 
 export const GetInstanceResponse: core.serialization.ObjectSchema<
     serializers.GetInstanceResponse.Raw,
-    ScrapybaraApi.GetInstanceResponse
+    Scrapybara.GetInstanceResponse
 > = core.serialization.object({
     id: core.serialization.string(),
     launchTime: core.serialization.property("launch_time", core.serialization.date()),

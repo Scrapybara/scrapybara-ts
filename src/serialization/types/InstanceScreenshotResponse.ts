@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../index";
-import * as ScrapybaraApi from "../../api/index";
+import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 
 export const InstanceScreenshotResponse: core.serialization.ObjectSchema<
     serializers.InstanceScreenshotResponse.Raw,
-    ScrapybaraApi.InstanceScreenshotResponse
+    Scrapybara.InstanceScreenshotResponse
 > = core.serialization.object({
     base64Image: core.serialization.property("base64_image", core.serialization.string()),
 });

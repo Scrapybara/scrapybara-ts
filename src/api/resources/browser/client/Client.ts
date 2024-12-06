@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as ScrapybaraApi from "../../../index";
+import * as Scrapybara from "../../../index";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Browser {
     interface Options {
-        environment?: core.Supplier<environments.ScrapybaraApiEnvironment | string>;
+        environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
         /** Override the authorization header */
         authorization: core.Supplier<string>;
     }
@@ -25,6 +25,8 @@ export declare namespace Browser {
         abortSignal?: AbortSignal;
         /** Override the authorization header */
         authorization?: string;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -35,7 +37,7 @@ export class Browser {
      * @param {string} instanceId
      * @param {Browser.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link ScrapybaraApi.UnprocessableEntityError}
+     * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
      *     await client.browser.start("instance_id")
@@ -43,21 +45,22 @@ export class Browser {
     public async start(
         instanceId: string,
         requestOptions?: Browser.RequestOptions
-    ): Promise<ScrapybaraApi.StartBrowserResponse> {
+    ): Promise<Scrapybara.StartBrowserResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
                 `v1/instance/${encodeURIComponent(instanceId)}/browser/start`
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "scrapybara/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "scrapybara/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -77,7 +80,7 @@ export class Browser {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new ScrapybaraApi.UnprocessableEntityError(
+                    throw new Scrapybara.UnprocessableEntityError(
                         serializers.HttpValidationError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -86,7 +89,7 @@ export class Browser {
                         })
                     );
                 default:
-                    throw new errors.ScrapybaraApiError({
+                    throw new errors.ScrapybaraError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -95,14 +98,16 @@ export class Browser {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScrapybaraApiError({
+                throw new errors.ScrapybaraError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScrapybaraApiTimeoutError();
+                throw new errors.ScrapybaraTimeoutError(
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/start."
+                );
             case "unknown":
-                throw new errors.ScrapybaraApiError({
+                throw new errors.ScrapybaraError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -112,7 +117,7 @@ export class Browser {
      * @param {string} instanceId
      * @param {Browser.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link ScrapybaraApi.UnprocessableEntityError}
+     * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
      *     await client.browser.getCdpUrl("instance_id")
@@ -120,21 +125,22 @@ export class Browser {
     public async getCdpUrl(
         instanceId: string,
         requestOptions?: Browser.RequestOptions
-    ): Promise<ScrapybaraApi.BrowserGetCdpUrlResponse> {
+    ): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
                 `v1/instance/${encodeURIComponent(instanceId)}/browser/cdp_url`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "scrapybara/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "scrapybara/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -154,7 +160,7 @@ export class Browser {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new ScrapybaraApi.UnprocessableEntityError(
+                    throw new Scrapybara.UnprocessableEntityError(
                         serializers.HttpValidationError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -163,7 +169,7 @@ export class Browser {
                         })
                     );
                 default:
-                    throw new errors.ScrapybaraApiError({
+                    throw new errors.ScrapybaraError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -172,14 +178,16 @@ export class Browser {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScrapybaraApiError({
+                throw new errors.ScrapybaraError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScrapybaraApiTimeoutError();
+                throw new errors.ScrapybaraTimeoutError(
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/browser/cdp_url."
+                );
             case "unknown":
-                throw new errors.ScrapybaraApiError({
+                throw new errors.ScrapybaraError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -189,10 +197,10 @@ export class Browser {
      * Authenticate browser with Anon for all available apps
      *
      * @param {string} instanceId
-     * @param {ScrapybaraApi.BrowserAuthenticateRequest} request
+     * @param {Scrapybara.BrowserAuthenticateRequest} request
      * @param {Browser.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link ScrapybaraApi.UnprocessableEntityError}
+     * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
      *     await client.browser.authenticate("instance_id", {
@@ -201,26 +209,27 @@ export class Browser {
      */
     public async authenticate(
         instanceId: string,
-        request: ScrapybaraApi.BrowserAuthenticateRequest,
+        request: Scrapybara.BrowserAuthenticateRequest,
         requestOptions?: Browser.RequestOptions
-    ): Promise<ScrapybaraApi.BrowserAuthenticateResponse> {
+    ): Promise<Scrapybara.BrowserAuthenticateResponse> {
         const { contextId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         _queryParams["context_id"] = contextId;
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
                 `v1/instance/${encodeURIComponent(instanceId)}/browser/authenticate`
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "scrapybara/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "scrapybara/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -241,7 +250,7 @@ export class Browser {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new ScrapybaraApi.UnprocessableEntityError(
+                    throw new Scrapybara.UnprocessableEntityError(
                         serializers.HttpValidationError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -250,7 +259,7 @@ export class Browser {
                         })
                     );
                 default:
-                    throw new errors.ScrapybaraApiError({
+                    throw new errors.ScrapybaraError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -259,14 +268,16 @@ export class Browser {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScrapybaraApiError({
+                throw new errors.ScrapybaraError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScrapybaraApiTimeoutError();
+                throw new errors.ScrapybaraTimeoutError(
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/authenticate."
+                );
             case "unknown":
-                throw new errors.ScrapybaraApiError({
+                throw new errors.ScrapybaraError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -276,7 +287,7 @@ export class Browser {
      * @param {string} instanceId
      * @param {Browser.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link ScrapybaraApi.UnprocessableEntityError}
+     * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
      *     await client.browser.stop("instance_id")
@@ -284,21 +295,22 @@ export class Browser {
     public async stop(
         instanceId: string,
         requestOptions?: Browser.RequestOptions
-    ): Promise<ScrapybaraApi.StopBrowserResponse> {
+    ): Promise<Scrapybara.StopBrowserResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
                 `v1/instance/${encodeURIComponent(instanceId)}/browser/stop`
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "scrapybara/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "scrapybara/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -318,7 +330,7 @@ export class Browser {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new ScrapybaraApi.UnprocessableEntityError(
+                    throw new Scrapybara.UnprocessableEntityError(
                         serializers.HttpValidationError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -327,7 +339,7 @@ export class Browser {
                         })
                     );
                 default:
-                    throw new errors.ScrapybaraApiError({
+                    throw new errors.ScrapybaraError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -336,14 +348,16 @@ export class Browser {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScrapybaraApiError({
+                throw new errors.ScrapybaraError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScrapybaraApiTimeoutError();
+                throw new errors.ScrapybaraTimeoutError(
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/stop."
+                );
             case "unknown":
-                throw new errors.ScrapybaraApiError({
+                throw new errors.ScrapybaraError({
                     message: _response.error.errorMessage,
                 });
         }

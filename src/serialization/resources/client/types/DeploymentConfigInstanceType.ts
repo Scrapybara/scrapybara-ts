@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../index";
-import * as ScrapybaraApi from "../../../../api/index";
+import * as Scrapybara from "../../../../api/index";
 import * as core from "../../../../core";
 
 export const DeploymentConfigInstanceType: core.serialization.Schema<
     serializers.DeploymentConfigInstanceType.Raw,
-    ScrapybaraApi.DeploymentConfigInstanceType
+    Scrapybara.DeploymentConfigInstanceType
 > = core.serialization.enum_(["small", "medium", "large"]);
 
 export declare namespace DeploymentConfigInstanceType {

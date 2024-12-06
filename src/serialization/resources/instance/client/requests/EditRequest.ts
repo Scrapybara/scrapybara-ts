@@ -3,11 +3,11 @@
  */
 
 import * as serializers from "../../../../index";
-import * as ScrapybaraApi from "../../../../../api/index";
+import * as Scrapybara from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { Command } from "../../types/Command";
 
-export const EditRequest: core.serialization.Schema<serializers.EditRequest.Raw, ScrapybaraApi.EditRequest> =
+export const EditRequest: core.serialization.Schema<serializers.EditRequest.Raw, Scrapybara.EditRequest> =
     core.serialization.object({
         command: Command,
         path: core.serialization.string(),

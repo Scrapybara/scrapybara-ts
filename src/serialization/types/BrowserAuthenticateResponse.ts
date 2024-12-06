@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../index";
-import * as ScrapybaraApi from "../../api/index";
+import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 
 export const BrowserAuthenticateResponse: core.serialization.ObjectSchema<
     serializers.BrowserAuthenticateResponse.Raw,
-    ScrapybaraApi.BrowserAuthenticateResponse
+    Scrapybara.BrowserAuthenticateResponse
 > = core.serialization.object({
     status: core.serialization.string(),
     authenticatedApps: core.serialization.property(

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../index";
-import * as ScrapybaraApi from "../../api/index";
+import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 
 export const InstanceGetStreamUrlResponse: core.serialization.ObjectSchema<
     serializers.InstanceGetStreamUrlResponse.Raw,
-    ScrapybaraApi.InstanceGetStreamUrlResponse
+    Scrapybara.InstanceGetStreamUrlResponse
 > = core.serialization.object({
     streamUrl: core.serialization.property("stream_url", core.serialization.string()),
 });

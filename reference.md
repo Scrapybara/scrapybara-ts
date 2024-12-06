@@ -2,7 +2,7 @@
 
 ## Client
 
-<details><summary><code>client.client.<a href="/src/api/resources/client/client/Client.ts">start</a>({ ...params }) -> ScrapybaraApi.GetInstanceResponse</code></summary>
+<details><summary><code>client.client.<a href="/src/api/resources/client/client/Client.ts">start</a>({ ...params }) -> Scrapybara.GetInstanceResponse</code></summary>
 <dl>
 <dd>
 
@@ -31,7 +31,7 @@ await client.client.start();
 <dl>
 <dd>
 
-**request:** `ScrapybaraApi.DeploymentConfig`
+**request:** `Scrapybara.DeploymentConfig`
 
 </dd>
 </dl>
@@ -50,7 +50,7 @@ await client.client.start();
 </dl>
 </details>
 
-<details><summary><code>client.client.<a href="/src/api/resources/client/client/Client.ts">get</a>(instanceId) -> ScrapybaraApi.GetInstanceResponse</code></summary>
+<details><summary><code>client.client.<a href="/src/api/resources/client/client/Client.ts">get</a>(instanceId) -> Scrapybara.GetInstanceResponse</code></summary>
 <dl>
 <dd>
 
@@ -100,7 +100,7 @@ await client.client.get("instance_id");
 
 ## Instance
 
-<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">screenshot</a>(instanceId) -> ScrapybaraApi.InstanceScreenshotResponse</code></summary>
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">screenshot</a>(instanceId) -> Scrapybara.InstanceScreenshotResponse</code></summary>
 <dl>
 <dd>
 
@@ -148,7 +148,7 @@ await client.instance.screenshot("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">getStreamUrl</a>(instanceId) -> ScrapybaraApi.InstanceGetStreamUrlResponse</code></summary>
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">getStreamUrl</a>(instanceId) -> Scrapybara.InstanceGetStreamUrlResponse</code></summary>
 <dl>
 <dd>
 
@@ -210,7 +210,7 @@ await client.instance.getStreamUrl("instance_id");
 
 ```typescript
 await client.instance.computer("instance_id", {
-    action: ScrapybaraApi.Action.Key,
+    action: "key",
 });
 ```
 
@@ -235,7 +235,7 @@ await client.instance.computer("instance_id", {
 <dl>
 <dd>
 
-**request:** `ScrapybaraApi.ComputerRequest`
+**request:** `Scrapybara.ComputerRequest`
 
 </dd>
 </dl>
@@ -291,7 +291,7 @@ await client.instance.bash("instance_id");
 <dl>
 <dd>
 
-**request:** `ScrapybaraApi.BashRequest`
+**request:** `Scrapybara.BashRequest`
 
 </dd>
 </dl>
@@ -324,7 +324,7 @@ await client.instance.bash("instance_id");
 
 ```typescript
 await client.instance.edit("instance_id", {
-    command: ScrapybaraApi.Command.View,
+    command: "view",
     path: "path",
 });
 ```
@@ -350,7 +350,7 @@ await client.instance.edit("instance_id", {
 <dl>
 <dd>
 
-**request:** `ScrapybaraApi.EditRequest`
+**request:** `Scrapybara.EditRequest`
 
 </dd>
 </dl>
@@ -369,7 +369,7 @@ await client.instance.edit("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">stop</a>(instanceId) -> ScrapybaraApi.StopInstanceResponse</code></summary>
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">stop</a>(instanceId) -> Scrapybara.StopInstanceResponse</code></summary>
 <dl>
 <dd>
 
@@ -419,7 +419,7 @@ await client.instance.stop("instance_id");
 
 ## Browser
 
-<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">start</a>(instanceId) -> ScrapybaraApi.StartBrowserResponse</code></summary>
+<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">start</a>(instanceId) -> Scrapybara.StartBrowserResponse</code></summary>
 <dl>
 <dd>
 
@@ -467,7 +467,7 @@ await client.browser.start("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">getCdpUrl</a>(instanceId) -> ScrapybaraApi.BrowserGetCdpUrlResponse</code></summary>
+<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">getCdpUrl</a>(instanceId) -> Scrapybara.BrowserGetCdpUrlResponse</code></summary>
 <dl>
 <dd>
 
@@ -515,7 +515,7 @@ await client.browser.getCdpUrl("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">authenticate</a>(instanceId, { ...params }) -> ScrapybaraApi.BrowserAuthenticateResponse</code></summary>
+<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">authenticate</a>(instanceId, { ...params }) -> Scrapybara.BrowserAuthenticateResponse</code></summary>
 <dl>
 <dd>
 
@@ -569,7 +569,7 @@ await client.browser.authenticate("instance_id", {
 <dl>
 <dd>
 
-**request:** `ScrapybaraApi.BrowserAuthenticateRequest`
+**request:** `Scrapybara.BrowserAuthenticateRequest`
 
 </dd>
 </dl>
@@ -588,7 +588,7 @@ await client.browser.authenticate("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">stop</a>(instanceId) -> ScrapybaraApi.StopBrowserResponse</code></summary>
+<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">stop</a>(instanceId) -> Scrapybara.StopBrowserResponse</code></summary>
 <dl>
 <dd>
 

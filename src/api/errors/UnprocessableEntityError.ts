@@ -3,10 +3,10 @@
  */
 
 import * as errors from "../../errors/index";
-import * as ScrapybaraApi from "../index";
+import * as Scrapybara from "../index";
 
-export class UnprocessableEntityError extends errors.ScrapybaraApiError {
-    constructor(body: ScrapybaraApi.HttpValidationError) {
+export class UnprocessableEntityError extends errors.ScrapybaraError {
+    constructor(body: Scrapybara.HttpValidationError) {
         super({
             message: "UnprocessableEntityError",
             statusCode: 422,

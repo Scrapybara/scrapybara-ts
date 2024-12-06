@@ -3,18 +3,16 @@
  */
 
 import * as serializers from "../../../../index";
-import * as ScrapybaraApi from "../../../../../api/index";
+import * as Scrapybara from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { Action } from "../../types/Action";
 
-export const ComputerRequest: core.serialization.Schema<
-    serializers.ComputerRequest.Raw,
-    ScrapybaraApi.ComputerRequest
-> = core.serialization.object({
-    action: Action,
-    coordinate: core.serialization.list(core.serialization.number()).optional(),
-    text: core.serialization.string().optional(),
-});
+export const ComputerRequest: core.serialization.Schema<serializers.ComputerRequest.Raw, Scrapybara.ComputerRequest> =
+    core.serialization.object({
+        action: Action,
+        coordinate: core.serialization.list(core.serialization.number()).optional(),
+        text: core.serialization.string().optional(),
+    });
 
 export declare namespace ComputerRequest {
     interface Raw {

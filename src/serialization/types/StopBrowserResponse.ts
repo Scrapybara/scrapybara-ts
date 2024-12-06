@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../index";
-import * as ScrapybaraApi from "../../api/index";
+import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 
 export const StopBrowserResponse: core.serialization.ObjectSchema<
     serializers.StopBrowserResponse.Raw,
-    ScrapybaraApi.StopBrowserResponse
+    Scrapybara.StopBrowserResponse
 > = core.serialization.object({
     status: core.serialization.string(),
 });

@@ -8,9 +8,9 @@ import { Client } from "./api/resources/client/client/Client";
 import { Instance } from "./api/resources/instance/client/Client";
 import { Browser } from "./api/resources/browser/client/Client";
 
-export declare namespace ScrapybaraApiClient {
+export declare namespace ScrapybaraClient {
     interface Options {
-        environment?: core.Supplier<environments.ScrapybaraApiEnvironment | string>;
+        environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
         /** Override the authorization header */
         authorization: core.Supplier<string>;
     }
@@ -24,11 +24,13 @@ export declare namespace ScrapybaraApiClient {
         abortSignal?: AbortSignal;
         /** Override the authorization header */
         authorization?: string;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
-export class ScrapybaraApiClient {
-    constructor(protected readonly _options: ScrapybaraApiClient.Options) {}
+export class ScrapybaraClient {
+    constructor(protected readonly _options: ScrapybaraClient.Options) {}
 
     protected _client: Client | undefined;
 

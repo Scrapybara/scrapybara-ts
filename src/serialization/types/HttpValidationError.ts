@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../index";
-import * as ScrapybaraApi from "../../api/index";
+import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 import { ValidationError } from "./ValidationError";
 
 export const HttpValidationError: core.serialization.ObjectSchema<
     serializers.HttpValidationError.Raw,
-    ScrapybaraApi.HttpValidationError
+    Scrapybara.HttpValidationError
 > = core.serialization.object({
     detail: core.serialization.list(ValidationError).optional(),
 });

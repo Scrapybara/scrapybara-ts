@@ -1,2 +1,2 @@
-export { ScrapybaraApiError } from "./ScrapybaraApiError";
-export { ScrapybaraApiTimeoutError } from "./ScrapybaraApiTimeoutError";
+export { ScrapybaraError } from "./ScrapybaraError";
+export { ScrapybaraTimeoutError } from "./ScrapybaraTimeoutError";

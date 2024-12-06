@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../index";
-import * as ScrapybaraApi from "../../api/index";
+import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 
 export const StartBrowserResponse: core.serialization.ObjectSchema<
     serializers.StartBrowserResponse.Raw,
-    ScrapybaraApi.StartBrowserResponse
+    Scrapybara.StartBrowserResponse
 > = core.serialization.object({
     cdpUrl: core.serialization.property("cdp_url", core.serialization.string()),
 });

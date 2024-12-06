@@ -11,14 +11,18 @@ The Scrapybara TypeScript library provides convenient access to the Scrapybara A
 npm i -s scrapybara
 ```
 
+## Reference
+
+A full reference for this library is available [here](./reference.md).
+
 ## Usage
 
 Instantiate and use the client with the following:
 
 ```typescript
-import { ScrapybaraApiClient } from "scrapybara";
+import { ScrapybaraClient } from "scrapybara";
 
-const client = new ScrapybaraApiClient({ authorization: "YOUR_AUTHORIZATION" });
+const client = new ScrapybaraClient({ authorization: "YOUR_AUTHORIZATION" });
 await client.client.start();
 ```
 
@@ -28,9 +32,9 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { ScrapybaraApi } from "scrapybara";
+import { Scrapybara } from "scrapybara";
 
-const request: ScrapybaraApi.DeploymentConfig = {
+const request: Scrapybara.DeploymentConfig = {
     ...
 };
 ```
@@ -41,12 +45,12 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { ScrapybaraApiError } from "scrapybara";
+import { ScrapybaraError } from "scrapybara";
 
 try {
     await client.client.start(...);
 } catch (err) {
-    if (err instanceof ScrapybaraApiError) {
+    if (err instanceof ScrapybaraError) {
         console.log(err.statusCode);
         console.log(err.message);
         console.log(err.body);
@@ -55,6 +59,18 @@ try {
 ```
 
 ## Advanced
+
+### Additional Headers
+
+If you would like to send additional headers as part of the request, use the `headers` request option.
+
+```typescript
+const response = await client.client.start(..., {
+    headers: {
+        'X-Custom-Header': 'custom value'
+    }
+});
+```
 
 ### Retries
 
@@ -116,9 +132,9 @@ The SDK provides a way for your to customize the underlying HTTP client / Fetch 
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { ScrapybaraApiClient } from "scrapybara";
+import { ScrapybaraClient } from "scrapybara";
 
-const client = new ScrapybaraApiClient({
+const client = new ScrapybaraClient({
     ...
     fetcher: // provide your implementation here
 });

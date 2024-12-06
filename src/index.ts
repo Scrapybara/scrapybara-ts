@@ -1,4 +1,4 @@
-export * as ScrapybaraApi from "./api";
-export { ScrapybaraApiClient } from "./Client";
-export { ScrapybaraApiEnvironment } from "./environments";
-export { ScrapybaraApiError, ScrapybaraApiTimeoutError } from "./errors";
+export * as Scrapybara from "./api";
+export { ScrapybaraClient } from "./Client";
+export { ScrapybaraEnvironment } from "./environments";
+export { ScrapybaraError, ScrapybaraTimeoutError } from "./errors";
