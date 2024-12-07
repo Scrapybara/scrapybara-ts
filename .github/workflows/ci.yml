@@ -27,7 +27,9 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: Compile
-        run: yarn && yarn test    
+        run: yarn && yarn test
+        env:
+          SCRAPYBARA_API_KEY: ${{ secrets.SCRAPYBARA_API_KEY }}
 
   publish:
     needs: [ compile, test ]
@@ -55,4 +57,3 @@ jobs:
           fi
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          SCRAPYBARA_API_KEY: ${{ secrets.SCRAPYBARA_API_KEY }}
