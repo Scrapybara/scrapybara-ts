@@ -1,3 +1,4 @@
+export * from "./DeploymentConfigInstanceType";
 export * from "./BrowserAuthenticateResponse";
 export * from "./BrowserGetCdpUrlResponse";
 export * from "./Status";
