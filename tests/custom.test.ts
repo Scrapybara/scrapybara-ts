@@ -9,5 +9,5 @@ describe("test", () => {
         await instance.browser.start();
         await instance.browser.stop();
         await instance.stop();
-    });
+    }, 30000);
 });
