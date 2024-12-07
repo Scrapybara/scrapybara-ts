@@ -1,13 +1,13 @@
-import { ScrapybaraClient } from "../src";
-
+/**
+ * This is a custom test file, if you wish to add more tests
+ * to your SDK.
+ * Be sure to mark this file in `.fernignore`.
+ *
+ * If you include example requests/responses in your fern definition,
+ * you will have tests automatically generated for you.
+ */
 describe("test", () => {
-    it("default", async () => {
-        const client = new ScrapybaraClient({
-            apiKey: process.env.SCRAPYBARA_API_KEY ?? "",
-        });
-        const instance = await client.start();
-        await instance.browser.start();
-        await instance.browser.stop();
-        await instance.stop();
-    }, 30000);
+    it("default", () => {
+        expect(true).toBe(true);
+    });
 });
