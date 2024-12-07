@@ -22,7 +22,7 @@ Instantiate and use the client with the following:
 ```typescript
 import { ScrapybaraClient } from "scrapybara";
 
-const client = new ScrapybaraClient({ authorization: "YOUR_AUTHORIZATION" });
+const client = new ScrapybaraClient({ apiKey: "YOUR_API_KEY" });
 await client.start();
 ```
 
