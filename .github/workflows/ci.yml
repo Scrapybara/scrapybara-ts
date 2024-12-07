@@ -55,3 +55,4 @@ jobs:
           fi
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          SCRAPYBARA_API_KEY: ${{ secrets.SCRAPYBARA_API_KEY }}
