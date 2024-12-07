@@ -14,8 +14,7 @@ import { Browser } from "./api/resources/browser/client/Client";
 export declare namespace ScrapybaraClient {
     interface Options {
         environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
-        /** Override the authorization header */
-        authorization: core.Supplier<string>;
+        apiKey: core.Supplier<string>;
     }
 
     interface RequestOptions {
@@ -25,8 +24,6 @@ export declare namespace ScrapybaraClient {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the authorization header */
-        authorization?: string;
         /** Additional headers to include in the request. */
         headers?: Record<string, string>;
     }
@@ -57,8 +54,8 @@ export class ScrapybaraClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.3",
-                "User-Agent": "scrapybara/0.1.3",
+                "X-Fern-SDK-Version": "0.1.4",
+                "User-Agent": "scrapybara/0.1.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -136,8 +133,8 @@ export class ScrapybaraClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.3",
-                "User-Agent": "scrapybara/0.1.3",
+                "X-Fern-SDK-Version": "0.1.4",
+                "User-Agent": "scrapybara/0.1.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -207,7 +204,7 @@ export class ScrapybaraClient {
     }
 
     protected async _getCustomAuthorizationHeaders() {
-        const authorizationValue = await core.Supplier.get(this._options.authorization);
-        return { authorization: authorizationValue };
+        const apiKeyValue = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["SCRAPYBARA_API_KEY"];
+        return { "X-API-Key": apiKeyValue };
     }
 }
