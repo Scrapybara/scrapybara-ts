@@ -47,15 +47,15 @@ export class ScrapybaraClient {
     ): Promise<Scrapybara.GetInstanceResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
                 "v1/start"
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.4",
-                "User-Agent": "scrapybara/0.1.4",
+                "X-Fern-SDK-Version": "0.1.5",
+                "User-Agent": "scrapybara/0.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -126,15 +126,15 @@ export class ScrapybaraClient {
     ): Promise<Scrapybara.GetInstanceResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
                 `v1/instance/${encodeURIComponent(instanceId)}`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.4",
-                "User-Agent": "scrapybara/0.1.4",
+                "X-Fern-SDK-Version": "0.1.5",
+                "User-Agent": "scrapybara/0.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -205,6 +205,6 @@ export class ScrapybaraClient {
 
     protected async _getCustomAuthorizationHeaders() {
         const apiKeyValue = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["SCRAPYBARA_API_KEY"];
-        return { "X-API-Key": apiKeyValue };
+        return { "x-api-key": apiKeyValue };
     }
 }

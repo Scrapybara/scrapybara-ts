@@ -45,15 +45,15 @@ export class Browser {
     ): Promise<Scrapybara.StartBrowserResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
                 `v1/instance/${encodeURIComponent(instanceId)}/browser/start`
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.4",
-                "User-Agent": "scrapybara/0.1.4",
+                "X-Fern-SDK-Version": "0.1.5",
+                "User-Agent": "scrapybara/0.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -125,15 +125,15 @@ export class Browser {
     ): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
                 `v1/instance/${encodeURIComponent(instanceId)}/browser/cdp_url`
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.4",
-                "User-Agent": "scrapybara/0.1.4",
+                "X-Fern-SDK-Version": "0.1.5",
+                "User-Agent": "scrapybara/0.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -214,15 +214,15 @@ export class Browser {
         _queryParams["context_id"] = contextId;
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
                 `v1/instance/${encodeURIComponent(instanceId)}/browser/authenticate`
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.4",
-                "User-Agent": "scrapybara/0.1.4",
+                "X-Fern-SDK-Version": "0.1.5",
+                "User-Agent": "scrapybara/0.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -295,15 +295,15 @@ export class Browser {
     ): Promise<Scrapybara.StopBrowserResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
                 `v1/instance/${encodeURIComponent(instanceId)}/browser/stop`
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.1.4",
-                "User-Agent": "scrapybara/0.1.4",
+                "X-Fern-SDK-Version": "0.1.5",
+                "User-Agent": "scrapybara/0.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -362,6 +362,6 @@ export class Browser {
 
     protected async _getCustomAuthorizationHeaders() {
         const apiKeyValue = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["SCRAPYBARA_API_KEY"];
-        return { "X-API-Key": apiKeyValue };
+        return { "x-api-key": apiKeyValue };
     }
 }

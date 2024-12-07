@@ -3,7 +3,7 @@
  */
 
 export const ScrapybaraEnvironment = {
-    Default: "https://api.scrapybara.com",
+    Production: "https://api.scrapybara.com",
 } as const;
 
-export type ScrapybaraEnvironment = typeof ScrapybaraEnvironment.Default;
+export type ScrapybaraEnvironment = typeof ScrapybaraEnvironment.Production;
