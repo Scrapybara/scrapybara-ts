@@ -1,8 +1,6 @@
 # Reference
 
-## Client
-
-<details><summary><code>client.client.<a href="/src/api/resources/client/client/Client.ts">start</a>({ ...params }) -> Scrapybara.GetInstanceResponse</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">get</a>(instanceId) -> Scrapybara.GetInstanceResponse</code></summary>
 <dl>
 <dd>
 
@@ -15,55 +13,7 @@
 <dd>
 
 ```typescript
-await client.client.start();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.DeploymentConfig`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Client.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.client.<a href="/src/api/resources/client/client/Client.ts">get</a>(instanceId) -> Scrapybara.GetInstanceResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.client.get("instance_id");
+await client.get("instance_id");
 ```
 
 </dd>
@@ -87,7 +37,7 @@ await client.client.get("instance_id");
 <dl>
 <dd>
 
-**requestOptions:** `Client.RequestOptions`
+**requestOptions:** `ScrapybaraClient.RequestOptions`
 
 </dd>
 </dl>
@@ -97,6 +47,8 @@ await client.client.get("instance_id");
 </dd>
 </dl>
 </details>
+
+##
 
 ## Instance
 
