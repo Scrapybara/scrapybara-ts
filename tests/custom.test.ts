@@ -1,10 +1,11 @@
 import { ScrapybaraClient } from "../src";
 
 describe("test", () => {
-    it("default", () => {
+    it("default", async () => {
         const client = new ScrapybaraClient({
-            authorization: "asdfadsf"
+            authorization: "",
         });
-        const instanceclient.instance("asdfasdf")
+        const instance = await client.start();
+        await instance.browser.start();
     });
 });
