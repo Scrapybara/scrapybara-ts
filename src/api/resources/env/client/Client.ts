@@ -37,9 +37,9 @@ export class Env {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.env.getEnv("instance_id")
+     *     await client.env.get("instance_id")
      */
-    public async getEnv(instanceId: string, requestOptions?: Env.RequestOptions): Promise<Scrapybara.EnvGetResponse> {
+    public async get(instanceId: string, requestOptions?: Env.RequestOptions): Promise<Scrapybara.EnvGetResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
@@ -49,8 +49,8 @@ export class Env {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -115,13 +115,13 @@ export class Env {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.env.setEnv("instance_id", {
+     *     await client.env.set("instance_id", {
      *         variables: {
      *             "key": "value"
      *         }
      *     })
      */
-    public async setEnv(
+    public async set(
         instanceId: string,
         request: Scrapybara.EnvSetRequest,
         requestOptions?: Env.RequestOptions
@@ -135,8 +135,8 @@ export class Env {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -202,11 +202,11 @@ export class Env {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.env.deleteEnv("instance_id", {
+     *     await client.env.delete("instance_id", {
      *         keys: ["keys"]
      *     })
      */
-    public async deleteEnv(
+    public async delete(
         instanceId: string,
         request: Scrapybara.EnvDeleteRequest,
         requestOptions?: Env.RequestOptions
@@ -220,8 +220,8 @@ export class Env {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

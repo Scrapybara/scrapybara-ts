@@ -1,3 +1,3 @@
-export * as writeFile from "./writeFile";
-export * as uploadFile from "./uploadFile";
+export * as write from "./write";
+export * as upload from "./upload";
 export * from "./requests";

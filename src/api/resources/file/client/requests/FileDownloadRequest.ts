@@ -8,6 +8,6 @@
  *         path: "path"
  *     }
  */
-export interface FileDownloadFileRequest {
+export interface FileDownloadRequest {
     path: string;
 }

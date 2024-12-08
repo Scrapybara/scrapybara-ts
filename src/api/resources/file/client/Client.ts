@@ -32,19 +32,19 @@ export class File_ {
 
     /**
      * @param {string} instanceId
-     * @param {Scrapybara.FileReadFileRequest} request
+     * @param {Scrapybara.FileReadRequest} request
      * @param {File_.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.file.readFile("instance_id", {
+     *     await client.file.read("instance_id", {
      *         path: "path"
      *     })
      */
-    public async readFile(
+    public async read(
         instanceId: string,
-        request: Scrapybara.FileReadFileRequest,
+        request: Scrapybara.FileReadRequest,
         requestOptions?: File_.RequestOptions
     ): Promise<Scrapybara.FileReadResponse> {
         const { path, encoding } = request;
@@ -63,8 +63,8 @@ export class File_ {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -130,12 +130,12 @@ export class File_ {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.file.writeFile("instance_id", {
+     *     await client.file.write("instance_id", {
      *         path: "path",
      *         content: "content"
      *     })
      */
-    public async writeFile(
+    public async write(
         instanceId: string,
         request: Scrapybara.FileWriteRequest,
         requestOptions?: File_.RequestOptions
@@ -149,8 +149,8 @@ export class File_ {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -164,7 +164,7 @@ export class File_ {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.file.writeFile.Response.parseOrThrow(_response.body, {
+            return serializers.file.write.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -216,12 +216,12 @@ export class File_ {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.file.uploadFile("instance_id", {
+     *     await client.file.upload("instance_id", {
      *         path: "path",
      *         content: "content"
      *     })
      */
-    public async uploadFile(
+    public async upload(
         instanceId: string,
         request: Scrapybara.FileUploadRequest,
         requestOptions?: File_.RequestOptions
@@ -235,8 +235,8 @@ export class File_ {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -250,7 +250,7 @@ export class File_ {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.file.uploadFile.Response.parseOrThrow(_response.body, {
+            return serializers.file.upload.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -296,19 +296,19 @@ export class File_ {
 
     /**
      * @param {string} instanceId
-     * @param {Scrapybara.FileDownloadFileRequest} request
+     * @param {Scrapybara.FileDownloadRequest} request
      * @param {File_.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.file.downloadFile("instance_id", {
+     *     await client.file.download("instance_id", {
      *         path: "path"
      *     })
      */
-    public async downloadFile(
+    public async download(
         instanceId: string,
-        request: Scrapybara.FileDownloadFileRequest,
+        request: Scrapybara.FileDownloadRequest,
         requestOptions?: File_.RequestOptions
     ): Promise<Scrapybara.FileDownloadResponse> {
         const { path } = request;
@@ -323,8 +323,8 @@ export class File_ {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
