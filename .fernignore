@@ -2,3 +2,4 @@
 
 src/wrapper
 src/index.ts
+tests/custom.test.ts
