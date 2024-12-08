@@ -10,6 +10,10 @@ import urlJoin from "url-join";
 import * as errors from "./errors/index";
 import { Instance } from "./api/resources/instance/client/Client";
 import { Browser } from "./api/resources/browser/client/Client";
+import { File_ } from "./api/resources/file/client/Client";
+import { Env } from "./api/resources/env/client/Client";
+import { Notebook } from "./api/resources/notebook/client/Client";
+import { Code } from "./api/resources/code/client/Client";
 
 export declare namespace ScrapybaraClient {
     interface Options {
@@ -54,8 +58,8 @@ export class ScrapybaraClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.0",
-                "User-Agent": "scrapybara/0.2.0",
+                "X-Fern-SDK-Version": "0.2.1",
+                "User-Agent": "scrapybara/0.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -133,8 +137,8 @@ export class ScrapybaraClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.0",
-                "User-Agent": "scrapybara/0.2.0",
+                "X-Fern-SDK-Version": "0.2.1",
+                "User-Agent": "scrapybara/0.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -201,6 +205,30 @@ export class ScrapybaraClient {
 
     public get browser(): Browser {
         return (this._browser ??= new Browser(this._options));
+    }
+
+    protected _file: File_ | undefined;
+
+    public get file(): File_ {
+        return (this._file ??= new File_(this._options));
+    }
+
+    protected _env: Env | undefined;
+
+    public get env(): Env {
+        return (this._env ??= new Env(this._options));
+    }
+
+    protected _notebook: Notebook | undefined;
+
+    public get notebook(): Notebook {
+        return (this._notebook ??= new Notebook(this._options));
+    }
+
+    protected _code: Code | undefined;
+
+    public get code(): Code {
+        return (this._code ??= new Code(this._options));
     }
 
     protected async _getCustomAuthorizationHeaders() {

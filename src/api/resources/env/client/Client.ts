@@ -9,7 +9,7 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
-export declare namespace Browser {
+export declare namespace Env {
     interface Options {
         environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
         apiKey: core.Supplier<string>;
@@ -27,106 +27,23 @@ export declare namespace Browser {
     }
 }
 
-export class Browser {
-    constructor(protected readonly _options: Browser.Options) {}
+export class Env {
+    constructor(protected readonly _options: Env.Options) {}
 
     /**
      * @param {string} instanceId
-     * @param {Browser.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Env.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.browser.start("instance_id")
+     *     await client.env.getEnv("instance_id")
      */
-    public async start(
-        instanceId: string,
-        requestOptions?: Browser.RequestOptions
-    ): Promise<Scrapybara.StartBrowserResponse> {
+    public async getEnv(instanceId: string, requestOptions?: Env.RequestOptions): Promise<Scrapybara.EnvGetResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/browser/start`
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.StartBrowserResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Scrapybara.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.ScrapybaraError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.ScrapybaraError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/start."
-                );
-            case "unknown":
-                throw new errors.ScrapybaraError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * @param {string} instanceId
-     * @param {Browser.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Scrapybara.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.browser.getCdpUrl("instance_id")
-     */
-    public async getCdpUrl(
-        instanceId: string,
-        requestOptions?: Browser.RequestOptions
-    ): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/browser/cdp_url`
+                `v1/instance/${encodeURIComponent(instanceId)}/env`
             ),
             method: "GET",
             headers: {
@@ -146,7 +63,7 @@ export class Browser {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.BrowserGetCdpUrlResponse.parseOrThrow(_response.body, {
+            return serializers.EnvGetResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -181,7 +98,7 @@ export class Browser {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/browser/cdp_url."
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/env."
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -191,31 +108,28 @@ export class Browser {
     }
 
     /**
-     * Authenticate browser with Anon for all available apps
-     *
      * @param {string} instanceId
-     * @param {Scrapybara.BrowserAuthenticateRequest} request
-     * @param {Browser.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Scrapybara.EnvSetRequest} request
+     * @param {Env.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.browser.authenticate("instance_id", {
-     *         contextId: "context_id"
+     *     await client.env.setEnv("instance_id", {
+     *         variables: {
+     *             "key": "value"
+     *         }
      *     })
      */
-    public async authenticate(
+    public async setEnv(
         instanceId: string,
-        request: Scrapybara.BrowserAuthenticateRequest,
-        requestOptions?: Browser.RequestOptions
-    ): Promise<Scrapybara.BrowserAuthenticateResponse> {
-        const { contextId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["context_id"] = contextId;
+        request: Scrapybara.EnvSetRequest,
+        requestOptions?: Env.RequestOptions
+    ): Promise<Scrapybara.EnvResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/browser/authenticate`
+                `v1/instance/${encodeURIComponent(instanceId)}/env`
             ),
             method: "POST",
             headers: {
@@ -229,14 +143,14 @@ export class Browser {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
-            queryParameters: _queryParams,
             requestType: "json",
+            body: serializers.EnvSetRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.BrowserAuthenticateResponse.parseOrThrow(_response.body, {
+            return serializers.EnvResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -271,7 +185,7 @@ export class Browser {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/authenticate."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/env."
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -282,21 +196,25 @@ export class Browser {
 
     /**
      * @param {string} instanceId
-     * @param {Browser.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Scrapybara.EnvDeleteRequest} request
+     * @param {Env.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.browser.stop("instance_id")
+     *     await client.env.deleteEnv("instance_id", {
+     *         keys: ["keys"]
+     *     })
      */
-    public async stop(
+    public async deleteEnv(
         instanceId: string,
-        requestOptions?: Browser.RequestOptions
-    ): Promise<Scrapybara.StopBrowserResponse> {
+        request: Scrapybara.EnvDeleteRequest,
+        requestOptions?: Env.RequestOptions
+    ): Promise<Scrapybara.EnvResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/browser/stop`
+                `v1/instance/${encodeURIComponent(instanceId)}/env/delete`
             ),
             method: "POST",
             headers: {
@@ -311,12 +229,13 @@ export class Browser {
             },
             contentType: "application/json",
             requestType: "json",
+            body: serializers.EnvDeleteRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.StopBrowserResponse.parseOrThrow(_response.body, {
+            return serializers.EnvResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -351,7 +270,7 @@ export class Browser {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/stop."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/env/delete."
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({

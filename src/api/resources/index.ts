@@ -1,5 +1,13 @@
 export * as instance from "./instance";
 export * from "./instance/types";
 export * as browser from "./browser";
+export * as file from "./file";
+export * as env from "./env";
+export * as notebook from "./notebook";
+export * as code from "./code";
 export * from "./instance/client/requests";
 export * from "./browser/client/requests";
+export * from "./file/client/requests";
+export * from "./env/client/requests";
+export * from "./notebook/client/requests";
+export * from "./code/client/requests";
