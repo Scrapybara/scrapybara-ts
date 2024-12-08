@@ -590,7 +590,7 @@ await client.browser.stop("instance_id");
 
 ## File
 
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">readFile</a>(instanceId, { ...params }) -> Scrapybara.FileReadResponse</code></summary>
+<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">read</a>(instanceId, { ...params }) -> Scrapybara.FileReadResponse</code></summary>
 <dl>
 <dd>
 
@@ -603,7 +603,7 @@ await client.browser.stop("instance_id");
 <dd>
 
 ```typescript
-await client.file.readFile("instance_id", {
+await client.file.read("instance_id", {
     path: "path",
 });
 ```
@@ -629,7 +629,7 @@ await client.file.readFile("instance_id", {
 <dl>
 <dd>
 
-**request:** `Scrapybara.FileReadFileRequest`
+**request:** `Scrapybara.FileReadRequest`
 
 </dd>
 </dl>
@@ -648,7 +648,7 @@ await client.file.readFile("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">writeFile</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
+<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">write</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
 <dl>
 <dd>
 
@@ -661,7 +661,7 @@ await client.file.readFile("instance_id", {
 <dd>
 
 ```typescript
-await client.file.writeFile("instance_id", {
+await client.file.write("instance_id", {
     path: "path",
     content: "content",
 });
@@ -707,7 +707,7 @@ await client.file.writeFile("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">uploadFile</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
+<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">upload</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
 <dl>
 <dd>
 
@@ -720,7 +720,7 @@ await client.file.writeFile("instance_id", {
 <dd>
 
 ```typescript
-await client.file.uploadFile("instance_id", {
+await client.file.upload("instance_id", {
     path: "path",
     content: "content",
 });
@@ -766,7 +766,7 @@ await client.file.uploadFile("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">downloadFile</a>(instanceId, { ...params }) -> Scrapybara.FileDownloadResponse</code></summary>
+<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">download</a>(instanceId, { ...params }) -> Scrapybara.FileDownloadResponse</code></summary>
 <dl>
 <dd>
 
@@ -779,7 +779,7 @@ await client.file.uploadFile("instance_id", {
 <dd>
 
 ```typescript
-await client.file.downloadFile("instance_id", {
+await client.file.download("instance_id", {
     path: "path",
 });
 ```
@@ -805,7 +805,7 @@ await client.file.downloadFile("instance_id", {
 <dl>
 <dd>
 
-**request:** `Scrapybara.FileDownloadFileRequest`
+**request:** `Scrapybara.FileDownloadRequest`
 
 </dd>
 </dl>
@@ -826,7 +826,7 @@ await client.file.downloadFile("instance_id", {
 
 ## Env
 
-<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">getEnv</a>(instanceId) -> Scrapybara.EnvGetResponse</code></summary>
+<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">get</a>(instanceId) -> Scrapybara.EnvGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -839,7 +839,7 @@ await client.file.downloadFile("instance_id", {
 <dd>
 
 ```typescript
-await client.env.getEnv("instance_id");
+await client.env.get("instance_id");
 ```
 
 </dd>
@@ -874,7 +874,7 @@ await client.env.getEnv("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">setEnv</a>(instanceId, { ...params }) -> Scrapybara.EnvResponse</code></summary>
+<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">set</a>(instanceId, { ...params }) -> Scrapybara.EnvResponse</code></summary>
 <dl>
 <dd>
 
@@ -887,7 +887,7 @@ await client.env.getEnv("instance_id");
 <dd>
 
 ```typescript
-await client.env.setEnv("instance_id", {
+await client.env.set("instance_id", {
     variables: {
         key: "value",
     },
@@ -934,7 +934,7 @@ await client.env.setEnv("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">deleteEnv</a>(instanceId, { ...params }) -> Scrapybara.EnvResponse</code></summary>
+<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">delete</a>(instanceId, { ...params }) -> Scrapybara.EnvResponse</code></summary>
 <dl>
 <dd>
 
@@ -947,7 +947,7 @@ await client.env.setEnv("instance_id", {
 <dd>
 
 ```typescript
-await client.env.deleteEnv("instance_id", {
+await client.env.delete("instance_id", {
     keys: ["keys"],
 });
 ```
@@ -1042,7 +1042,7 @@ await client.notebook.listKernels("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.notebook.<a href="/src/api/resources/notebook/client/Client.ts">createNotebook</a>(instanceId, { ...params }) -> Scrapybara.Notebook</code></summary>
+<details><summary><code>client.notebook.<a href="/src/api/resources/notebook/client/Client.ts">create</a>(instanceId, { ...params }) -> Scrapybara.Notebook</code></summary>
 <dl>
 <dd>
 
@@ -1055,7 +1055,7 @@ await client.notebook.listKernels("instance_id");
 <dd>
 
 ```typescript
-await client.notebook.createNotebook("instance_id", {
+await client.notebook.create("instance_id", {
     name: "name",
     kernelName: "kernel_name",
 });
@@ -1101,7 +1101,7 @@ await client.notebook.createNotebook("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.notebook.<a href="/src/api/resources/notebook/client/Client.ts">getNotebook</a>(instanceId, notebookId) -> Scrapybara.Notebook</code></summary>
+<details><summary><code>client.notebook.<a href="/src/api/resources/notebook/client/Client.ts">get</a>(instanceId, notebookId) -> Scrapybara.Notebook</code></summary>
 <dl>
 <dd>
 
@@ -1114,7 +1114,7 @@ await client.notebook.createNotebook("instance_id", {
 <dd>
 
 ```typescript
-await client.notebook.getNotebook("instance_id", "notebook_id");
+await client.notebook.get("instance_id", "notebook_id");
 ```
 
 </dd>
@@ -1157,7 +1157,7 @@ await client.notebook.getNotebook("instance_id", "notebook_id");
 </dl>
 </details>
 
-<details><summary><code>client.notebook.<a href="/src/api/resources/notebook/client/Client.ts">deleteNotebook</a>(instanceId, notebookId) -> Record<string, unknown></code></summary>
+<details><summary><code>client.notebook.<a href="/src/api/resources/notebook/client/Client.ts">delete</a>(instanceId, notebookId) -> Record<string, unknown></code></summary>
 <dl>
 <dd>
 
@@ -1170,7 +1170,7 @@ await client.notebook.getNotebook("instance_id", "notebook_id");
 <dd>
 
 ```typescript
-await client.notebook.deleteNotebook("instance_id", "notebook_id");
+await client.notebook.delete("instance_id", "notebook_id");
 ```
 
 </dd>
@@ -1352,7 +1352,7 @@ await client.notebook.executeCell("instance_id", "notebook_id", "cell_id", {});
 </dl>
 </details>
 
-<details><summary><code>client.notebook.<a href="/src/api/resources/notebook/client/Client.ts">executeNotebook</a>(instanceId, notebookId, { ...params }) -> Scrapybara.NotebookCell[]</code></summary>
+<details><summary><code>client.notebook.<a href="/src/api/resources/notebook/client/Client.ts">execute</a>(instanceId, notebookId, { ...params }) -> Scrapybara.NotebookCell[]</code></summary>
 <dl>
 <dd>
 
@@ -1365,7 +1365,7 @@ await client.notebook.executeCell("instance_id", "notebook_id", "cell_id", {});
 <dd>
 
 ```typescript
-await client.notebook.executeNotebook("instance_id", "notebook_id", {});
+await client.notebook.execute("instance_id", "notebook_id", {});
 ```
 
 </dd>
@@ -1418,7 +1418,7 @@ await client.notebook.executeNotebook("instance_id", "notebook_id", {});
 
 ## Code
 
-<details><summary><code>client.code.<a href="/src/api/resources/code/client/Client.ts">executeCode</a>(instanceId, { ...params }) -> unknown</code></summary>
+<details><summary><code>client.code.<a href="/src/api/resources/code/client/Client.ts">execute</a>(instanceId, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1431,7 +1431,7 @@ await client.notebook.executeNotebook("instance_id", "notebook_id", {});
 <dd>
 
 ```typescript
-await client.code.executeCode("instance_id", {
+await client.code.execute("instance_id", {
     code: "code",
 });
 ```

@@ -8,7 +8,7 @@
  *         path: "path"
  *     }
  */
-export interface FileReadFileRequest {
+export interface FileReadRequest {
     path: string;
     encoding?: string;
 }

@@ -7,10 +7,8 @@ import * as Scrapybara from "../../../../api/index";
 import * as core from "../../../../core";
 import { NotebookCell } from "../../../types/NotebookCell";
 
-export const Response: core.serialization.Schema<
-    serializers.notebook.executeNotebook.Response.Raw,
-    Scrapybara.NotebookCell[]
-> = core.serialization.list(NotebookCell);
+export const Response: core.serialization.Schema<serializers.notebook.execute.Response.Raw, Scrapybara.NotebookCell[]> =
+    core.serialization.list(NotebookCell);
 
 export declare namespace Response {
     type Raw = NotebookCell.Raw[];

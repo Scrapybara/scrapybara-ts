@@ -1,4 +1,4 @@
 export * as listKernels from "./listKernels";
-export * as deleteNotebook from "./deleteNotebook";
-export * as executeNotebook from "./executeNotebook";
+export * as delete from "./delete";
+export * as execute from "./execute";
 export * from "./requests";

@@ -52,8 +52,8 @@ export class Notebook {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -118,12 +118,12 @@ export class Notebook {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.notebook.createNotebook("instance_id", {
+     *     await client.notebook.create("instance_id", {
      *         name: "name",
      *         kernelName: "kernel_name"
      *     })
      */
-    public async createNotebook(
+    public async create(
         instanceId: string,
         request: Scrapybara.CreateNotebookRequest,
         requestOptions?: Notebook.RequestOptions
@@ -137,8 +137,8 @@ export class Notebook {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -204,9 +204,9 @@ export class Notebook {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.notebook.getNotebook("instance_id", "notebook_id")
+     *     await client.notebook.get("instance_id", "notebook_id")
      */
-    public async getNotebook(
+    public async get(
         instanceId: string,
         notebookId: string,
         requestOptions?: Notebook.RequestOptions
@@ -220,8 +220,8 @@ export class Notebook {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -286,9 +286,9 @@ export class Notebook {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.notebook.deleteNotebook("instance_id", "notebook_id")
+     *     await client.notebook.delete("instance_id", "notebook_id")
      */
-    public async deleteNotebook(
+    public async delete(
         instanceId: string,
         notebookId: string,
         requestOptions?: Notebook.RequestOptions
@@ -302,8 +302,8 @@ export class Notebook {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -316,7 +316,7 @@ export class Notebook {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.notebook.deleteNotebook.Response.parseOrThrow(_response.body, {
+            return serializers.notebook.delete.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -389,8 +389,8 @@ export class Notebook {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -478,8 +478,8 @@ export class Notebook {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -546,9 +546,9 @@ export class Notebook {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.notebook.executeNotebook("instance_id", "notebook_id", {})
+     *     await client.notebook.execute("instance_id", "notebook_id", {})
      */
-    public async executeNotebook(
+    public async execute(
         instanceId: string,
         notebookId: string,
         request: Scrapybara.ExecuteCellRequest,
@@ -563,8 +563,8 @@ export class Notebook {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -578,7 +578,7 @@ export class Notebook {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.notebook.executeNotebook.Response.parseOrThrow(_response.body, {
+            return serializers.notebook.execute.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

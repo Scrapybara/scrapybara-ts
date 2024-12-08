@@ -6,7 +6,7 @@ import * as serializers from "../../../index";
 import * as core from "../../../../core";
 
 export const Response: core.serialization.Schema<
-    serializers.file.uploadFile.Response.Raw,
+    serializers.file.write.Response.Raw,
     Record<string, unknown>
 > = core.serialization.record(core.serialization.string(), core.serialization.unknown());
 

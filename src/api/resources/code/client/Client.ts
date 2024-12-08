@@ -38,11 +38,11 @@ export class Code {
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.code.executeCode("instance_id", {
+     *     await client.code.execute("instance_id", {
      *         code: "code"
      *     })
      */
-    public async executeCode(
+    public async execute(
         instanceId: string,
         request: Scrapybara.CodeExecuteRequest,
         requestOptions?: Code.RequestOptions
@@ -56,8 +56,8 @@ export class Code {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.1",
-                "User-Agent": "scrapybara/0.2.1",
+                "X-Fern-SDK-Version": "0.2.2",
+                "User-Agent": "scrapybara/0.2.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
