@@ -11,12 +11,12 @@ export const CreateNotebookRequest: core.serialization.Schema<
     Scrapybara.CreateNotebookRequest
 > = core.serialization.object({
     name: core.serialization.string(),
-    kernelName: core.serialization.property("kernel_name", core.serialization.string()),
+    kernelName: core.serialization.property("kernel_name", core.serialization.string().optional()),
 });
 
 export declare namespace CreateNotebookRequest {
     interface Raw {
         name: string;
-        kernel_name: string;
+        kernel_name?: string | null;
     }
 }

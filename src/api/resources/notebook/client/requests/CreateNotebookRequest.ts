@@ -5,11 +5,10 @@
 /**
  * @example
  *     {
- *         name: "name",
- *         kernelName: "kernel_name"
+ *         name: "name"
  *     }
  */
 export interface CreateNotebookRequest {
     name: string;
-    kernelName: string;
+    kernelName?: string;
 }
