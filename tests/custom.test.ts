@@ -3,7 +3,7 @@ import { ScrapybaraClient } from "../src";
 describe("test", () => {
     it("default", async () => {
         const client = new ScrapybaraClient({
-            apiKey: process.env.SCRAPYBARA_API_KEY ?? "scrapy-8bb02c63-1339-4aeb-bae2-b6beea0485cb",
+            apiKey: process.env.SCRAPYBARA_API_KEY ?? "",
         });
         const instance = await client.start();
         await instance.browser.start();
