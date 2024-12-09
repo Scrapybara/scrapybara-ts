@@ -1,6 +1,6 @@
 {
     "name": "scrapybara",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "private": false,
     "repository": "https://github.com/scrapybara/scrapybara-ts",
     "main": "./index.js",
