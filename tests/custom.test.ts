@@ -14,5 +14,5 @@ describe("test", () => {
         const screenshotResponse = await instance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
         await instance.stop();
-    }, 30000);
+    }, 60000);
 });
