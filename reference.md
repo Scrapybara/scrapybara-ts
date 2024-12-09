@@ -1057,7 +1057,6 @@ await client.notebook.listKernels("instance_id");
 ```typescript
 await client.notebook.create("instance_id", {
     name: "name",
-    kernelName: "kernel_name",
 });
 ```
 

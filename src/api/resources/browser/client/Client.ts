@@ -52,8 +52,8 @@ export class Browser {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.3",
-                "User-Agent": "scrapybara/0.2.3",
+                "X-Fern-SDK-Version": "1.0.0",
+                "User-Agent": "scrapybara/1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -132,8 +132,8 @@ export class Browser {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.3",
-                "User-Agent": "scrapybara/0.2.3",
+                "X-Fern-SDK-Version": "1.0.0",
+                "User-Agent": "scrapybara/1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -221,8 +221,8 @@ export class Browser {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.3",
-                "User-Agent": "scrapybara/0.2.3",
+                "X-Fern-SDK-Version": "1.0.0",
+                "User-Agent": "scrapybara/1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -302,8 +302,8 @@ export class Browser {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "0.2.3",
-                "User-Agent": "scrapybara/0.2.3",
+                "X-Fern-SDK-Version": "1.0.0",
+                "User-Agent": "scrapybara/1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
