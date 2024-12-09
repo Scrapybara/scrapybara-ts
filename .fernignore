@@ -3,3 +3,4 @@
 src/wrapper
 src/index.ts
 tests/custom.test.ts
+.github/workflows/ci.yml
