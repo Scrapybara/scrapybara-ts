@@ -369,6 +369,124 @@ await client.instance.stop("instance_id");
 </dl>
 </details>
 
+## Agent
+
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">act</a>(instanceId, { ...params }) -> Scrapybara.ActResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.act("instance_id", {
+    cmd: "cmd",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.ActRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">scrape</a>(instanceId, { ...params }) -> Scrapybara.ScrapeResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.scrape("instance_id", {
+    cmd: "cmd",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.ScrapeRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Browser
 
 <details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">start</a>(instanceId) -> Scrapybara.StartBrowserResponse</code></summary>
@@ -588,9 +706,9 @@ await client.browser.stop("instance_id");
 </dl>
 </details>
 
-## File
+## Code
 
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">read</a>(instanceId, { ...params }) -> Scrapybara.FileReadResponse</code></summary>
+<details><summary><code>client.code.<a href="/src/api/resources/code/client/Client.ts">execute</a>(instanceId, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -603,8 +721,8 @@ await client.browser.stop("instance_id");
 <dd>
 
 ```typescript
-await client.file.read("instance_id", {
-    path: "path",
+await client.code.execute("instance_id", {
+    code: "code",
 });
 ```
 
@@ -629,7 +747,7 @@ await client.file.read("instance_id", {
 <dl>
 <dd>
 
-**request:** `Scrapybara.FileReadRequest`
+**request:** `Scrapybara.CodeExecuteRequest`
 
 </dd>
 </dl>
@@ -637,351 +755,7 @@ await client.file.read("instance_id", {
 <dl>
 <dd>
 
-**requestOptions:** `File_.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">write</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.file.write("instance_id", {
-    path: "path",
-    content: "content",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.FileWriteRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `File_.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">upload</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.file.upload("instance_id", {
-    path: "path",
-    content: "content",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.FileUploadRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `File_.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">download</a>(instanceId, { ...params }) -> Scrapybara.FileDownloadResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.file.download("instance_id", {
-    path: "path",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.FileDownloadRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `File_.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Env
-
-<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">get</a>(instanceId) -> Scrapybara.EnvGetResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.env.get("instance_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Env.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">set</a>(instanceId, { ...params }) -> Scrapybara.EnvResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.env.set("instance_id", {
-    variables: {
-        key: "value",
-    },
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.EnvSetRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Env.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">delete</a>(instanceId, { ...params }) -> Scrapybara.EnvResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.env.delete("instance_id", {
-    keys: ["keys"],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.EnvDeleteRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Env.RequestOptions`
+**requestOptions:** `Code.RequestOptions`
 
 </dd>
 </dl>
@@ -1415,9 +1189,9 @@ await client.notebook.execute("instance_id", "notebook_id", {});
 </dl>
 </details>
 
-## Code
+## File
 
-<details><summary><code>client.code.<a href="/src/api/resources/code/client/Client.ts">execute</a>(instanceId, { ...params }) -> unknown</code></summary>
+<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">read</a>(instanceId, { ...params }) -> Scrapybara.FileReadResponse</code></summary>
 <dl>
 <dd>
 
@@ -1430,8 +1204,8 @@ await client.notebook.execute("instance_id", "notebook_id", {});
 <dd>
 
 ```typescript
-await client.code.execute("instance_id", {
-    code: "code",
+await client.file.read("instance_id", {
+    path: "path",
 });
 ```
 
@@ -1456,7 +1230,7 @@ await client.code.execute("instance_id", {
 <dl>
 <dd>
 
-**request:** `Scrapybara.CodeExecuteRequest`
+**request:** `Scrapybara.FileReadRequest`
 
 </dd>
 </dl>
@@ -1464,7 +1238,351 @@ await client.code.execute("instance_id", {
 <dl>
 <dd>
 
-**requestOptions:** `Code.RequestOptions`
+**requestOptions:** `File_.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">write</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.file.write("instance_id", {
+    path: "path",
+    content: "content",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.FileWriteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `File_.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">upload</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.file.upload("instance_id", {
+    path: "path",
+    content: "content",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.FileUploadRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `File_.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">download</a>(instanceId, { ...params }) -> Scrapybara.FileDownloadResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.file.download("instance_id", {
+    path: "path",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.FileDownloadRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `File_.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Env
+
+<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">get</a>(instanceId) -> Scrapybara.EnvGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.env.get("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Env.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">set</a>(instanceId, { ...params }) -> Scrapybara.EnvResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.env.set("instance_id", {
+    variables: {
+        key: "value",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.EnvSetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Env.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.env.<a href="/src/api/resources/env/client/Client.ts">delete</a>(instanceId, { ...params }) -> Scrapybara.EnvResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.env.delete("instance_id", {
+    keys: ["keys"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.EnvDeleteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Env.RequestOptions`
 
 </dd>
 </dl>
