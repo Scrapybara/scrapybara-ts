@@ -32,17 +32,19 @@ export class Instance {
     public readonly launchTime: Date;
     public readonly instanceType: string;
     public readonly status: string;
+    public readonly agent: Agent;
     public readonly browser: Browser;
+    public readonly code: Code;
+    public readonly notebook: Notebook;
     public readonly file: File;
     public readonly env: Env;
-    public readonly notebook: Notebook;
-    public readonly code: Code;
 
     constructor(id: string, launchTime: Date, instanceType: string, status: string, private readonly fern: FernClient) {
         this.id = id;
         this.launchTime = launchTime;
         this.instanceType = instanceType;
         this.status = status;
+        this.agent = new Agent(this.id, this.fern);
         this.browser = new Browser(this.id, this.fern);
         this.file = new File(this.id, this.fern);
         this.env = new Env(this.id, this.fern);
@@ -85,6 +87,24 @@ export class Instance {
     }
 }
 
+export class Agent {
+    constructor(private readonly instanceId: string, private readonly fern: FernClient) {}
+
+    public async act(
+        request: Scrapybara.ActRequest,
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<Scrapybara.ActResponse> {
+        return await this.fern.agent.act(this.instanceId, request, requestOptions);
+    }
+
+    public async scrape(
+        request: Scrapybara.ScrapeRequest,
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<Scrapybara.ScrapeResponse> {
+        return await this.fern.agent.scrape(this.instanceId, request, requestOptions);
+    }
+}
+
 export class Browser {
     constructor(private readonly instanceId: string, private readonly fern: FernClient) {}
 
@@ -108,39 +128,11 @@ export class Browser {
     }
 }
 
-export class File {
+export class Code {
     constructor(private readonly instanceId: string, private readonly fern: FernClient) {}
 
-    public async read(request: Scrapybara.FileReadRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.file.read(this.instanceId, request, requestOptions);
-    }
-
-    public async write(request: Scrapybara.FileWriteRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.file.write(this.instanceId, request, requestOptions);
-    }
-
-    public async upload(request: Scrapybara.FileUploadRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.file.upload(this.instanceId, request, requestOptions);
-    }
-
-    public async download(request: Scrapybara.FileDownloadRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.file.download(this.instanceId, request, requestOptions);
-    }
-}
-
-export class Env {
-    constructor(private readonly instanceId: string, private readonly fern: FernClient) {}
-
-    public async set(request: Scrapybara.EnvSetRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.env.set(this.instanceId, request, requestOptions);
-    }
-
-    public async get(requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.env.get(this.instanceId, requestOptions);
-    }
-
-    public async delete(request: Scrapybara.EnvDeleteRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.env.delete(this.instanceId, request, requestOptions);
+    public async execute(request: Scrapybara.CodeExecuteRequest, requestOptions?: FernClient.RequestOptions) {
+        return await this.fern.code.execute(this.instanceId, request, requestOptions);
     }
 }
 
@@ -189,10 +181,38 @@ export class Notebook {
     }
 }
 
-export class Code {
+export class File {
     constructor(private readonly instanceId: string, private readonly fern: FernClient) {}
 
-    public async execute(request: Scrapybara.CodeExecuteRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.code.execute(this.instanceId, request, requestOptions);
+    public async read(request: Scrapybara.FileReadRequest, requestOptions?: FernClient.RequestOptions) {
+        return await this.fern.file.read(this.instanceId, request, requestOptions);
+    }
+
+    public async write(request: Scrapybara.FileWriteRequest, requestOptions?: FernClient.RequestOptions) {
+        return await this.fern.file.write(this.instanceId, request, requestOptions);
+    }
+
+    public async upload(request: Scrapybara.FileUploadRequest, requestOptions?: FernClient.RequestOptions) {
+        return await this.fern.file.upload(this.instanceId, request, requestOptions);
+    }
+
+    public async download(request: Scrapybara.FileDownloadRequest, requestOptions?: FernClient.RequestOptions) {
+        return await this.fern.file.download(this.instanceId, request, requestOptions);
+    }
+}
+
+export class Env {
+    constructor(private readonly instanceId: string, private readonly fern: FernClient) {}
+
+    public async set(request: Scrapybara.EnvSetRequest, requestOptions?: FernClient.RequestOptions) {
+        return await this.fern.env.set(this.instanceId, request, requestOptions);
+    }
+
+    public async get(requestOptions?: FernClient.RequestOptions) {
+        return await this.fern.env.get(this.instanceId, requestOptions);
+    }
+
+    public async delete(request: Scrapybara.EnvDeleteRequest, requestOptions?: FernClient.RequestOptions) {
+        return await this.fern.env.delete(this.instanceId, request, requestOptions);
     }
 }
