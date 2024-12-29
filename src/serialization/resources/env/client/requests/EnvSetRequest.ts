@@ -12,7 +12,7 @@ export const EnvSetRequest: core.serialization.Schema<serializers.EnvSetRequest.
     });
 
 export declare namespace EnvSetRequest {
-    interface Raw {
+    export interface Raw {
         variables: Record<string, string>;
     }
 }

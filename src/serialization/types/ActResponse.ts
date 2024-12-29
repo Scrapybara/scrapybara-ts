@@ -13,7 +13,7 @@ export const ActResponse: core.serialization.ObjectSchema<serializers.ActRespons
     });
 
 export declare namespace ActResponse {
-    interface Raw {
+    export interface Raw {
         output: string;
         screenshot?: string | null;
     }

@@ -17,7 +17,7 @@ export const Notebook: core.serialization.ObjectSchema<serializers.Notebook.Raw,
     });
 
 export declare namespace Notebook {
-    interface Raw {
+    export interface Raw {
         id: string;
         name: string;
         kernel_name: string;

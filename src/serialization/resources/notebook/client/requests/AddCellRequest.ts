@@ -15,7 +15,7 @@ export const AddCellRequest: core.serialization.Schema<serializers.AddCellReques
     });
 
 export declare namespace AddCellRequest {
-    interface Raw {
+    export interface Raw {
         type: CellType.Raw;
         content: string;
         metadata?: Record<string, unknown> | null;

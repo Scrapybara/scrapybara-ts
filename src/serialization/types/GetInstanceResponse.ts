@@ -18,7 +18,7 @@ export const GetInstanceResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetInstanceResponse {
-    interface Raw {
+    export interface Raw {
         id: string;
         launch_time: string;
         instance_type: string;

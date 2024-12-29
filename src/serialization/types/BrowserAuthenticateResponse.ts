@@ -13,12 +13,12 @@ export const BrowserAuthenticateResponse: core.serialization.ObjectSchema<
     status: core.serialization.string(),
     authenticatedApps: core.serialization.property(
         "authenticated_apps",
-        core.serialization.list(core.serialization.string())
+        core.serialization.list(core.serialization.string()),
     ),
 });
 
 export declare namespace BrowserAuthenticateResponse {
-    interface Raw {
+    export interface Raw {
         status: string;
         authenticated_apps: string[];
     }

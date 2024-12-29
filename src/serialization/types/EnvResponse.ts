@@ -13,7 +13,7 @@ export const EnvResponse: core.serialization.ObjectSchema<serializers.EnvRespons
     });
 
 export declare namespace EnvResponse {
-    interface Raw {
+    export interface Raw {
         status: string;
         message: string;
     }

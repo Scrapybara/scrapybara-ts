@@ -14,7 +14,7 @@ export const StopBrowserResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace StopBrowserResponse {
-    interface Raw {
+    export interface Raw {
         status: string;
     }
 }

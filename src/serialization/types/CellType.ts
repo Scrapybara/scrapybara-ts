@@ -10,5 +10,5 @@ export const CellType: core.serialization.Schema<serializers.CellType.Raw, Scrap
     core.serialization.enum_(["code", "markdown", "raw"]);
 
 export declare namespace CellType {
-    type Raw = "code" | "markdown" | "raw";
+    export type Raw = "code" | "markdown" | "raw";
 }

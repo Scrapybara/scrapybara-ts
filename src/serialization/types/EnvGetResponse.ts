@@ -14,7 +14,7 @@ export const EnvGetResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace EnvGetResponse {
-    interface Raw {
+    export interface Raw {
         variables: Record<string, string>;
     }
 }

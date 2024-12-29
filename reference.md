@@ -369,6 +369,110 @@ await client.instance.stop("instance_id");
 </dl>
 </details>
 
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">pause</a>(instanceId) -> Scrapybara.StopInstanceResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.instance.pause("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Instance.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">resume</a>(instanceId, { ...params }) -> Scrapybara.GetInstanceResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.instance.resume("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.InstanceResumeRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Instance.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Agent
 
 <details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">act</a>(instanceId, { ...params }) -> Scrapybara.ActResponse</code></summary>

@@ -20,7 +20,7 @@ export const Action: core.serialization.Schema<serializers.Action.Raw, Scrapybar
 ]);
 
 export declare namespace Action {
-    type Raw =
+    export type Raw =
         | "key"
         | "type"
         | "mouse_move"

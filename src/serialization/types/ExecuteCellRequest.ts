@@ -14,7 +14,7 @@ export const ExecuteCellRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace ExecuteCellRequest {
-    interface Raw {
+    export interface Raw {
         timeout?: number | null;
     }
 }

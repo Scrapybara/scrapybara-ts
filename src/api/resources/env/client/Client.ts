@@ -10,12 +10,12 @@ import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Env {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -28,7 +28,7 @@ export declare namespace Env {
 }
 
 export class Env {
-    constructor(protected readonly _options: Env.Options) {}
+    constructor(protected readonly _options: Env.Options = {}) {}
 
     /**
      * @param {string} instanceId
@@ -43,14 +43,14 @@ export class Env {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/env`
+                `v1/instance/${encodeURIComponent(instanceId)}/env`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -58,7 +58,7 @@ export class Env {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -80,7 +80,7 @@ export class Env {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -98,7 +98,7 @@ export class Env {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/env."
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/env.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -124,19 +124,19 @@ export class Env {
     public async set(
         instanceId: string,
         request: Scrapybara.EnvSetRequest,
-        requestOptions?: Env.RequestOptions
+        requestOptions?: Env.RequestOptions,
     ): Promise<Scrapybara.EnvResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/env`
+                `v1/instance/${encodeURIComponent(instanceId)}/env`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -145,7 +145,7 @@ export class Env {
             contentType: "application/json",
             requestType: "json",
             body: serializers.EnvSetRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -167,7 +167,7 @@ export class Env {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -185,7 +185,7 @@ export class Env {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/env."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/env.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -209,19 +209,19 @@ export class Env {
     public async delete(
         instanceId: string,
         request: Scrapybara.EnvDeleteRequest,
-        requestOptions?: Env.RequestOptions
+        requestOptions?: Env.RequestOptions,
     ): Promise<Scrapybara.EnvResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/env/delete`
+                `v1/instance/${encodeURIComponent(instanceId)}/env/delete`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -230,7 +230,7 @@ export class Env {
             contentType: "application/json",
             requestType: "json",
             body: serializers.EnvDeleteRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -252,7 +252,7 @@ export class Env {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -270,7 +270,7 @@ export class Env {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/env/delete."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/env/delete.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({

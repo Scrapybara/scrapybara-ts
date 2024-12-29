@@ -1,6 +1,7 @@
 export * as instance from "./instance";
 export * from "./instance/types";
 export * as agent from "./agent";
+export * from "./agent/types";
 export * as browser from "./browser";
 export * as code from "./code";
 export * as notebook from "./notebook";

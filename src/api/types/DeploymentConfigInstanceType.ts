@@ -3,7 +3,6 @@
  */
 
 export type DeploymentConfigInstanceType = "small" | "medium" | "large";
-
 export const DeploymentConfigInstanceType = {
     Small: "small",
     Medium: "medium",

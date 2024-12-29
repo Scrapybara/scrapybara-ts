@@ -7,9 +7,9 @@ import * as Scrapybara from "../../../../api/index";
 import * as core from "../../../../core";
 
 export const Command: core.serialization.Schema<serializers.Command.Raw, Scrapybara.Command> = core.serialization.enum_(
-    ["view", "create", "str_replace", "insert", "undo_edit"]
+    ["view", "create", "str_replace", "insert", "undo_edit"],
 );
 
 export declare namespace Command {
-    type Raw = "view" | "create" | "str_replace" | "insert" | "undo_edit";
+    export type Raw = "view" | "create" | "str_replace" | "insert" | "undo_edit";
 }

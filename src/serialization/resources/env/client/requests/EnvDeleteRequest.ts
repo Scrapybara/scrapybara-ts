@@ -14,7 +14,7 @@ export const EnvDeleteRequest: core.serialization.Schema<
 });
 
 export declare namespace EnvDeleteRequest {
-    interface Raw {
+    export interface Raw {
         keys: string[];
     }
 }

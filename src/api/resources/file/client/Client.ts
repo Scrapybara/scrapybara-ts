@@ -10,12 +10,12 @@ import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace File_ {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -28,7 +28,7 @@ export declare namespace File_ {
 }
 
 export class File_ {
-    constructor(protected readonly _options: File_.Options) {}
+    constructor(protected readonly _options: File_.Options = {}) {}
 
     /**
      * @param {string} instanceId
@@ -45,7 +45,7 @@ export class File_ {
     public async read(
         instanceId: string,
         request: Scrapybara.FileReadRequest,
-        requestOptions?: File_.RequestOptions
+        requestOptions?: File_.RequestOptions,
     ): Promise<Scrapybara.FileReadResponse> {
         const { path, encoding } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -57,14 +57,14 @@ export class File_ {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/file/read`
+                `v1/instance/${encodeURIComponent(instanceId)}/file/read`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -73,7 +73,7 @@ export class File_ {
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -95,7 +95,7 @@ export class File_ {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -113,7 +113,7 @@ export class File_ {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/file/read."
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/file/read.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -138,19 +138,19 @@ export class File_ {
     public async write(
         instanceId: string,
         request: Scrapybara.FileWriteRequest,
-        requestOptions?: File_.RequestOptions
+        requestOptions?: File_.RequestOptions,
     ): Promise<Record<string, unknown>> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/file/write`
+                `v1/instance/${encodeURIComponent(instanceId)}/file/write`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -159,7 +159,7 @@ export class File_ {
             contentType: "application/json",
             requestType: "json",
             body: serializers.FileWriteRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -181,7 +181,7 @@ export class File_ {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -199,7 +199,7 @@ export class File_ {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/file/write."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/file/write.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -224,19 +224,19 @@ export class File_ {
     public async upload(
         instanceId: string,
         request: Scrapybara.FileUploadRequest,
-        requestOptions?: File_.RequestOptions
+        requestOptions?: File_.RequestOptions,
     ): Promise<Record<string, unknown>> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/file/upload`
+                `v1/instance/${encodeURIComponent(instanceId)}/file/upload`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -245,7 +245,7 @@ export class File_ {
             contentType: "application/json",
             requestType: "json",
             body: serializers.FileUploadRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -267,7 +267,7 @@ export class File_ {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -285,7 +285,7 @@ export class File_ {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/file/upload."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/file/upload.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -309,7 +309,7 @@ export class File_ {
     public async download(
         instanceId: string,
         request: Scrapybara.FileDownloadRequest,
-        requestOptions?: File_.RequestOptions
+        requestOptions?: File_.RequestOptions,
     ): Promise<Scrapybara.FileDownloadResponse> {
         const { path } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -317,14 +317,14 @@ export class File_ {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/file/download`
+                `v1/instance/${encodeURIComponent(instanceId)}/file/download`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -333,7 +333,7 @@ export class File_ {
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -355,7 +355,7 @@ export class File_ {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -373,7 +373,7 @@ export class File_ {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/file/download."
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/file/download.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({

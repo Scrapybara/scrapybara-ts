@@ -15,7 +15,7 @@ export const FileUploadRequest: core.serialization.Schema<
 });
 
 export declare namespace FileUploadRequest {
-    interface Raw {
+    export interface Raw {
         path: string;
         content: string;
     }

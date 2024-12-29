@@ -10,12 +10,12 @@ import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Notebook {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -28,7 +28,7 @@ export declare namespace Notebook {
 }
 
 export class Notebook {
-    constructor(protected readonly _options: Notebook.Options) {}
+    constructor(protected readonly _options: Notebook.Options = {}) {}
 
     /**
      * @param {string} instanceId
@@ -41,19 +41,19 @@ export class Notebook {
      */
     public async listKernels(
         instanceId: string,
-        requestOptions?: Notebook.RequestOptions
+        requestOptions?: Notebook.RequestOptions,
     ): Promise<Scrapybara.KernelInfo[]> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/notebook/kernels`
+                `v1/instance/${encodeURIComponent(instanceId)}/notebook/kernels`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -61,7 +61,7 @@ export class Notebook {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -83,7 +83,7 @@ export class Notebook {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -101,7 +101,7 @@ export class Notebook {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/notebook/kernels."
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/notebook/kernels.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -125,19 +125,19 @@ export class Notebook {
     public async create(
         instanceId: string,
         request: Scrapybara.CreateNotebookRequest,
-        requestOptions?: Notebook.RequestOptions
+        requestOptions?: Notebook.RequestOptions,
     ): Promise<Scrapybara.Notebook> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/notebook/create`
+                `v1/instance/${encodeURIComponent(instanceId)}/notebook/create`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -146,7 +146,7 @@ export class Notebook {
             contentType: "application/json",
             requestType: "json",
             body: serializers.CreateNotebookRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -168,7 +168,7 @@ export class Notebook {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -186,7 +186,7 @@ export class Notebook {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/create."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/create.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -208,19 +208,19 @@ export class Notebook {
     public async get(
         instanceId: string,
         notebookId: string,
-        requestOptions?: Notebook.RequestOptions
+        requestOptions?: Notebook.RequestOptions,
     ): Promise<Scrapybara.Notebook> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(notebookId)}`
+                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(notebookId)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -228,7 +228,7 @@ export class Notebook {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -250,7 +250,7 @@ export class Notebook {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -268,7 +268,7 @@ export class Notebook {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/notebook/{notebook_id}."
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/notebook/{notebook_id}.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -290,19 +290,19 @@ export class Notebook {
     public async delete(
         instanceId: string,
         notebookId: string,
-        requestOptions?: Notebook.RequestOptions
+        requestOptions?: Notebook.RequestOptions,
     ): Promise<Record<string, unknown>> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(notebookId)}/delete`
+                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(notebookId)}/delete`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -310,7 +310,7 @@ export class Notebook {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -332,7 +332,7 @@ export class Notebook {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -350,7 +350,7 @@ export class Notebook {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/{notebook_id}/delete."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/{notebook_id}/delete.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -377,19 +377,19 @@ export class Notebook {
         instanceId: string,
         notebookId: string,
         request: Scrapybara.AddCellRequest,
-        requestOptions?: Notebook.RequestOptions
+        requestOptions?: Notebook.RequestOptions,
     ): Promise<Scrapybara.NotebookCell> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(notebookId)}/cell`
+                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(notebookId)}/cell`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -398,7 +398,7 @@ export class Notebook {
             contentType: "application/json",
             requestType: "json",
             body: serializers.AddCellRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -420,7 +420,7 @@ export class Notebook {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -438,7 +438,7 @@ export class Notebook {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/{notebook_id}/cell."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/{notebook_id}/cell.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -464,21 +464,19 @@ export class Notebook {
         notebookId: string,
         cellId: string,
         request: Scrapybara.ExecuteCellRequest,
-        requestOptions?: Notebook.RequestOptions
+        requestOptions?: Notebook.RequestOptions,
     ): Promise<Scrapybara.NotebookCell> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(
-                    notebookId
-                )}/cell/${encodeURIComponent(cellId)}/execute`
+                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(notebookId)}/cell/${encodeURIComponent(cellId)}/execute`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -487,7 +485,7 @@ export class Notebook {
             contentType: "application/json",
             requestType: "json",
             body: serializers.ExecuteCellRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -509,7 +507,7 @@ export class Notebook {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -527,7 +525,7 @@ export class Notebook {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/{notebook_id}/cell/{cell_id}/execute."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/{notebook_id}/cell/{cell_id}/execute.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -551,19 +549,19 @@ export class Notebook {
         instanceId: string,
         notebookId: string,
         request: Scrapybara.ExecuteCellRequest,
-        requestOptions?: Notebook.RequestOptions
+        requestOptions?: Notebook.RequestOptions,
     ): Promise<Scrapybara.NotebookCell[]> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(notebookId)}/execute`
+                `v1/instance/${encodeURIComponent(instanceId)}/notebook/${encodeURIComponent(notebookId)}/execute`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -572,7 +570,7 @@ export class Notebook {
             contentType: "application/json",
             requestType: "json",
             body: serializers.ExecuteCellRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -594,7 +592,7 @@ export class Notebook {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -612,7 +610,7 @@ export class Notebook {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/{notebook_id}/execute."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/notebook/{notebook_id}/execute.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({

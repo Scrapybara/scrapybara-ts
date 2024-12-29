@@ -5,20 +5,21 @@
 import * as serializers from "../../../../index";
 import * as Scrapybara from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { Model } from "../../types/Model";
 
 export const ScrapeRequest: core.serialization.Schema<serializers.ScrapeRequest.Raw, Scrapybara.ScrapeRequest> =
     core.serialization.object({
         cmd: core.serialization.string(),
         schema: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         includeScreenshot: core.serialization.property("include_screenshot", core.serialization.boolean().optional()),
-        model: core.serialization.stringLiteral("claude").optional(),
+        model: Model.optional(),
     });
 
 export declare namespace ScrapeRequest {
-    interface Raw {
+    export interface Raw {
         cmd: string;
         schema?: Record<string, unknown> | null;
         include_screenshot?: boolean | null;
-        model?: "claude" | null;
+        model?: Model.Raw | null;
     }
 }

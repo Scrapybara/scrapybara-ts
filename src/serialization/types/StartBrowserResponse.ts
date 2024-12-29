@@ -14,7 +14,7 @@ export const StartBrowserResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace StartBrowserResponse {
-    interface Raw {
+    export interface Raw {
         cdp_url: string;
     }
 }

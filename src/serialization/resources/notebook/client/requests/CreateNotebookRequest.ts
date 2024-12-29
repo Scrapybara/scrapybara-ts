@@ -15,7 +15,7 @@ export const CreateNotebookRequest: core.serialization.Schema<
 });
 
 export declare namespace CreateNotebookRequest {
-    interface Raw {
+    export interface Raw {
         name: string;
         kernel_name?: string | null;
     }

@@ -15,7 +15,7 @@ export const ScrapeResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace ScrapeResponse {
-    interface Raw {
+    export interface Raw {
         data: Record<string, unknown>;
         screenshot?: string | null;
     }

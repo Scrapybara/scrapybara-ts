@@ -14,7 +14,7 @@ export const BrowserGetCdpUrlResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace BrowserGetCdpUrlResponse {
-    interface Raw {
+    export interface Raw {
         cdp_url: string;
     }
 }

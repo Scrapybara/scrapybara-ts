@@ -13,7 +13,7 @@ export const BashRequest: core.serialization.Schema<serializers.BashRequest.Raw,
     });
 
 export declare namespace BashRequest {
-    interface Raw {
+    export interface Raw {
         command?: string | null;
         restart?: boolean | null;
     }

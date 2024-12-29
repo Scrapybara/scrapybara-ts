@@ -16,7 +16,7 @@ export const CodeExecuteRequest: core.serialization.Schema<
 });
 
 export declare namespace CodeExecuteRequest {
-    interface Raw {
+    export interface Raw {
         code: string;
         kernel_name?: string | null;
         timeout?: number | null;
