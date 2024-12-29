@@ -85,6 +85,17 @@ export class Instance {
     public async stop(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StopInstanceResponse> {
         return await this.fern.instance.stop(this.id, requestOptions);
     }
+
+    public async pause(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StopInstanceResponse> {
+        return await this.fern.instance.pause(this.id, requestOptions);
+    }
+
+    public async resume(
+        request: Scrapybara.InstanceResumeRequest = {},
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<Scrapybara.GetInstanceResponse> {
+        return await this.fern.instance.resume(this.id, request, requestOptions);
+    }
 }
 
 export class Agent {
