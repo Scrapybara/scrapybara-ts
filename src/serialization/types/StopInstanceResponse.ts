@@ -14,7 +14,7 @@ export const StopInstanceResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace StopInstanceResponse {
-    interface Raw {
+    export interface Raw {
         status: string;
     }
 }

@@ -3,7 +3,6 @@
  */
 
 export type CellType = "code" | "markdown" | "raw";
-
 export const CellType = {
     Code: "code",
     Markdown: "markdown",

@@ -16,7 +16,7 @@ export const FileWriteRequest: core.serialization.Schema<
 });
 
 export declare namespace FileWriteRequest {
-    interface Raw {
+    export interface Raw {
         path: string;
         content: string;
         encoding?: string | null;

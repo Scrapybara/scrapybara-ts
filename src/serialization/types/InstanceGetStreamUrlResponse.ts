@@ -14,7 +14,7 @@ export const InstanceGetStreamUrlResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace InstanceGetStreamUrlResponse {
-    interface Raw {
+    export interface Raw {
         stream_url: string;
     }
 }

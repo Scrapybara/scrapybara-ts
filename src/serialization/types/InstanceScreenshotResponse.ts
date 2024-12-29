@@ -14,7 +14,7 @@ export const InstanceScreenshotResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace InstanceScreenshotResponse {
-    interface Raw {
+    export interface Raw {
         base64_image: string;
     }
 }

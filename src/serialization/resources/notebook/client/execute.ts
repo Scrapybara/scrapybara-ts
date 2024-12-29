@@ -11,5 +11,5 @@ export const Response: core.serialization.Schema<serializers.notebook.execute.Re
     core.serialization.list(NotebookCell);
 
 export declare namespace Response {
-    type Raw = NotebookCell.Raw[];
+    export type Raw = NotebookCell.Raw[];
 }

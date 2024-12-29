@@ -14,7 +14,7 @@ export const FileDownloadResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace FileDownloadResponse {
-    interface Raw {
+    export interface Raw {
         content: string;
     }
 }

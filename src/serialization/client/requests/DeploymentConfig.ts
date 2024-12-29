@@ -16,7 +16,7 @@ export const DeploymentConfig: core.serialization.Schema<
 });
 
 export declare namespace DeploymentConfig {
-    interface Raw {
+    export interface Raw {
         instance_type?: DeploymentConfigInstanceType.Raw | null;
         timeout_hours?: number | null;
     }

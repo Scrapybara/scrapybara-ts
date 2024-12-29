@@ -10,12 +10,12 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Code {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -28,7 +28,7 @@ export declare namespace Code {
 }
 
 export class Code {
-    constructor(protected readonly _options: Code.Options) {}
+    constructor(protected readonly _options: Code.Options = {}) {}
 
     /**
      * @param {string} instanceId
@@ -45,19 +45,19 @@ export class Code {
     public async execute(
         instanceId: string,
         request: Scrapybara.CodeExecuteRequest,
-        requestOptions?: Code.RequestOptions
+        requestOptions?: Code.RequestOptions,
     ): Promise<unknown> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/code/execute`
+                `v1/instance/${encodeURIComponent(instanceId)}/code/execute`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -66,7 +66,7 @@ export class Code {
             contentType: "application/json",
             requestType: "json",
             body: serializers.CodeExecuteRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -83,7 +83,7 @@ export class Code {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -101,7 +101,7 @@ export class Code {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/code/execute."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/code/execute.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({

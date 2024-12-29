@@ -3,7 +3,6 @@
  */
 
 export type Status = "deploying" | "running" | "terminated" | "error";
-
 export const Status = {
     Deploying: "deploying",
     Running: "running",

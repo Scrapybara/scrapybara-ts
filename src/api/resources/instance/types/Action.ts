@@ -13,7 +13,6 @@ export type Action =
     | "double_click"
     | "screenshot"
     | "cursor_position";
-
 export const Action = {
     Key: "key",
     Type: "type",

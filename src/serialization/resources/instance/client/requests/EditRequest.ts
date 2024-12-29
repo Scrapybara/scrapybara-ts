@@ -14,7 +14,7 @@ export const EditRequest: core.serialization.Schema<serializers.EditRequest.Raw,
         fileText: core.serialization.property("file_text", core.serialization.string().optional()),
         viewRange: core.serialization.property(
             "view_range",
-            core.serialization.list(core.serialization.number()).optional()
+            core.serialization.list(core.serialization.number()).optional(),
         ),
         oldStr: core.serialization.property("old_str", core.serialization.string().optional()),
         newStr: core.serialization.property("new_str", core.serialization.string().optional()),
@@ -22,7 +22,7 @@ export const EditRequest: core.serialization.Schema<serializers.EditRequest.Raw,
     });
 
 export declare namespace EditRequest {
-    interface Raw {
+    export interface Raw {
         command: Command.Raw;
         path: string;
         file_text?: string | null;

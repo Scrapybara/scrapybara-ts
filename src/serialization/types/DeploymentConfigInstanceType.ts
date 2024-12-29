@@ -12,5 +12,5 @@ export const DeploymentConfigInstanceType: core.serialization.Schema<
 > = core.serialization.enum_(["small", "medium", "large"]);
 
 export declare namespace DeploymentConfigInstanceType {
-    type Raw = "small" | "medium" | "large";
+    export type Raw = "small" | "medium" | "large";
 }

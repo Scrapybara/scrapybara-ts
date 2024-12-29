@@ -3,7 +3,6 @@
  */
 
 export type Command = "view" | "create" | "str_replace" | "insert" | "undo_edit";
-
 export const Command = {
     View: "view",
     Create: "create",

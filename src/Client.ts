@@ -17,12 +17,12 @@ import { File_ } from "./api/resources/file/client/Client";
 import { Env } from "./api/resources/env/client/Client";
 
 export declare namespace ScrapybaraClient {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -35,7 +35,43 @@ export declare namespace ScrapybaraClient {
 }
 
 export class ScrapybaraClient {
-    constructor(protected readonly _options: ScrapybaraClient.Options) {}
+    protected _instance: Instance | undefined;
+    protected _agent: Agent | undefined;
+    protected _browser: Browser | undefined;
+    protected _code: Code | undefined;
+    protected _notebook: Notebook | undefined;
+    protected _file: File_ | undefined;
+    protected _env: Env | undefined;
+
+    constructor(protected readonly _options: ScrapybaraClient.Options = {}) {}
+
+    public get instance(): Instance {
+        return (this._instance ??= new Instance(this._options));
+    }
+
+    public get agent(): Agent {
+        return (this._agent ??= new Agent(this._options));
+    }
+
+    public get browser(): Browser {
+        return (this._browser ??= new Browser(this._options));
+    }
+
+    public get code(): Code {
+        return (this._code ??= new Code(this._options));
+    }
+
+    public get notebook(): Notebook {
+        return (this._notebook ??= new Notebook(this._options));
+    }
+
+    public get file(): File_ {
+        return (this._file ??= new File_(this._options));
+    }
+
+    public get env(): Env {
+        return (this._env ??= new Env(this._options));
+    }
 
     /**
      * @param {Scrapybara.DeploymentConfig} request
@@ -48,19 +84,19 @@ export class ScrapybaraClient {
      */
     public async start(
         request: Scrapybara.DeploymentConfig = {},
-        requestOptions?: ScrapybaraClient.RequestOptions
+        requestOptions?: ScrapybaraClient.RequestOptions,
     ): Promise<Scrapybara.GetInstanceResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                "v1/start"
+                "v1/start",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -69,7 +105,7 @@ export class ScrapybaraClient {
             contentType: "application/json",
             requestType: "json",
             body: serializers.DeploymentConfig.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -91,7 +127,7 @@ export class ScrapybaraClient {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -127,19 +163,19 @@ export class ScrapybaraClient {
      */
     public async get(
         instanceId: string,
-        requestOptions?: ScrapybaraClient.RequestOptions
+        requestOptions?: ScrapybaraClient.RequestOptions,
     ): Promise<Scrapybara.GetInstanceResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}`
+                `v1/instance/${encodeURIComponent(instanceId)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -147,7 +183,7 @@ export class ScrapybaraClient {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -169,7 +205,7 @@ export class ScrapybaraClient {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -187,55 +223,13 @@ export class ScrapybaraClient {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling GET /v1/instance/{instance_id}."
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
                     message: _response.error.errorMessage,
                 });
         }
-    }
-
-    protected _instance: Instance | undefined;
-
-    public get instance(): Instance {
-        return (this._instance ??= new Instance(this._options));
-    }
-
-    protected _agent: Agent | undefined;
-
-    public get agent(): Agent {
-        return (this._agent ??= new Agent(this._options));
-    }
-
-    protected _browser: Browser | undefined;
-
-    public get browser(): Browser {
-        return (this._browser ??= new Browser(this._options));
-    }
-
-    protected _code: Code | undefined;
-
-    public get code(): Code {
-        return (this._code ??= new Code(this._options));
-    }
-
-    protected _notebook: Notebook | undefined;
-
-    public get notebook(): Notebook {
-        return (this._notebook ??= new Notebook(this._options));
-    }
-
-    protected _file: File_ | undefined;
-
-    public get file(): File_ {
-        return (this._file ??= new File_(this._options));
-    }
-
-    protected _env: Env | undefined;
-
-    public get env(): Env {
-        return (this._env ??= new Env(this._options));
     }
 
     protected async _getCustomAuthorizationHeaders() {

@@ -14,7 +14,7 @@ export const KernelInfo: core.serialization.ObjectSchema<serializers.KernelInfo.
     });
 
 export declare namespace KernelInfo {
-    interface Raw {
+    export interface Raw {
         name: string;
         display_name: string;
         language: string;

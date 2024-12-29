@@ -15,7 +15,7 @@ export const ComputerRequest: core.serialization.Schema<serializers.ComputerRequ
     });
 
 export declare namespace ComputerRequest {
-    interface Raw {
+    export interface Raw {
         action: Action.Raw;
         coordinate?: number[] | null;
         text?: string | null;

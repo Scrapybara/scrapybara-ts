@@ -20,7 +20,7 @@ export const NotebookCell: core.serialization.ObjectSchema<serializers.NotebookC
     });
 
 export declare namespace NotebookCell {
-    interface Raw {
+    export interface Raw {
         id: string;
         type: CellType.Raw;
         content: string;

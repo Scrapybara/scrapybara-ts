@@ -10,12 +10,12 @@ import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Browser {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -28,7 +28,7 @@ export declare namespace Browser {
 }
 
 export class Browser {
-    constructor(protected readonly _options: Browser.Options) {}
+    constructor(protected readonly _options: Browser.Options = {}) {}
 
     /**
      * @param {string} instanceId
@@ -41,19 +41,19 @@ export class Browser {
      */
     public async start(
         instanceId: string,
-        requestOptions?: Browser.RequestOptions
+        requestOptions?: Browser.RequestOptions,
     ): Promise<Scrapybara.StartBrowserResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/browser/start`
+                `v1/instance/${encodeURIComponent(instanceId)}/browser/start`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -61,7 +61,7 @@ export class Browser {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -83,7 +83,7 @@ export class Browser {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -101,7 +101,7 @@ export class Browser {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/start."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/start.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -121,19 +121,19 @@ export class Browser {
      */
     public async getCdpUrl(
         instanceId: string,
-        requestOptions?: Browser.RequestOptions
+        requestOptions?: Browser.RequestOptions,
     ): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/browser/cdp_url`
+                `v1/instance/${encodeURIComponent(instanceId)}/browser/cdp_url`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -141,7 +141,7 @@ export class Browser {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -163,7 +163,7 @@ export class Browser {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -181,7 +181,7 @@ export class Browser {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/browser/cdp_url."
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/browser/cdp_url.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -207,7 +207,7 @@ export class Browser {
     public async authenticate(
         instanceId: string,
         request: Scrapybara.BrowserAuthenticateRequest,
-        requestOptions?: Browser.RequestOptions
+        requestOptions?: Browser.RequestOptions,
     ): Promise<Scrapybara.BrowserAuthenticateResponse> {
         const { contextId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -215,14 +215,14 @@ export class Browser {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/browser/authenticate`
+                `v1/instance/${encodeURIComponent(instanceId)}/browser/authenticate`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -231,7 +231,7 @@ export class Browser {
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -253,7 +253,7 @@ export class Browser {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -271,7 +271,7 @@ export class Browser {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/authenticate."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/authenticate.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -291,19 +291,19 @@ export class Browser {
      */
     public async stop(
         instanceId: string,
-        requestOptions?: Browser.RequestOptions
+        requestOptions?: Browser.RequestOptions,
     ): Promise<Scrapybara.StopBrowserResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/browser/stop`
+                `v1/instance/${encodeURIComponent(instanceId)}/browser/stop`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -311,7 +311,7 @@ export class Browser {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -333,7 +333,7 @@ export class Browser {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -351,7 +351,7 @@ export class Browser {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/stop."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/browser/stop.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({

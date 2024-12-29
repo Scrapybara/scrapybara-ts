@@ -10,12 +10,12 @@ import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Instance {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ScrapybaraEnvironment | string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -28,7 +28,7 @@ export declare namespace Instance {
 }
 
 export class Instance {
-    constructor(protected readonly _options: Instance.Options) {}
+    constructor(protected readonly _options: Instance.Options = {}) {}
 
     /**
      * @param {string} instanceId
@@ -41,19 +41,19 @@ export class Instance {
      */
     public async screenshot(
         instanceId: string,
-        requestOptions?: Instance.RequestOptions
+        requestOptions?: Instance.RequestOptions,
     ): Promise<Scrapybara.InstanceScreenshotResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/screenshot`
+                `v1/instance/${encodeURIComponent(instanceId)}/screenshot`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -61,7 +61,7 @@ export class Instance {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -83,7 +83,7 @@ export class Instance {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -101,7 +101,7 @@ export class Instance {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/screenshot."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/screenshot.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -121,19 +121,19 @@ export class Instance {
      */
     public async getStreamUrl(
         instanceId: string,
-        requestOptions?: Instance.RequestOptions
+        requestOptions?: Instance.RequestOptions,
     ): Promise<Scrapybara.InstanceGetStreamUrlResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/stream_url`
+                `v1/instance/${encodeURIComponent(instanceId)}/stream_url`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -141,7 +141,7 @@ export class Instance {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -163,7 +163,7 @@ export class Instance {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -181,7 +181,7 @@ export class Instance {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/stream_url."
+                    "Timeout exceeded when calling GET /v1/instance/{instance_id}/stream_url.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -205,19 +205,19 @@ export class Instance {
     public async computer(
         instanceId: string,
         request: Scrapybara.ComputerRequest,
-        requestOptions?: Instance.RequestOptions
+        requestOptions?: Instance.RequestOptions,
     ): Promise<unknown> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/computer`
+                `v1/instance/${encodeURIComponent(instanceId)}/computer`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -226,7 +226,7 @@ export class Instance {
             contentType: "application/json",
             requestType: "json",
             body: serializers.ComputerRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -243,7 +243,7 @@ export class Instance {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -261,7 +261,7 @@ export class Instance {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/computer."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/computer.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -283,19 +283,19 @@ export class Instance {
     public async bash(
         instanceId: string,
         request: Scrapybara.BashRequest = {},
-        requestOptions?: Instance.RequestOptions
+        requestOptions?: Instance.RequestOptions,
     ): Promise<unknown> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/bash`
+                `v1/instance/${encodeURIComponent(instanceId)}/bash`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -304,7 +304,7 @@ export class Instance {
             contentType: "application/json",
             requestType: "json",
             body: serializers.BashRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -321,7 +321,7 @@ export class Instance {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -339,7 +339,7 @@ export class Instance {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/bash."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/bash.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -364,19 +364,19 @@ export class Instance {
     public async edit(
         instanceId: string,
         request: Scrapybara.EditRequest,
-        requestOptions?: Instance.RequestOptions
+        requestOptions?: Instance.RequestOptions,
     ): Promise<unknown> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/edit`
+                `v1/instance/${encodeURIComponent(instanceId)}/edit`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -385,7 +385,7 @@ export class Instance {
             contentType: "application/json",
             requestType: "json",
             body: serializers.EditRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -402,7 +402,7 @@ export class Instance {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -420,7 +420,7 @@ export class Instance {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/edit."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/edit.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -440,19 +440,19 @@ export class Instance {
      */
     public async stop(
         instanceId: string,
-        requestOptions?: Instance.RequestOptions
+        requestOptions?: Instance.RequestOptions,
     ): Promise<Scrapybara.StopInstanceResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/stop`
+                `v1/instance/${encodeURIComponent(instanceId)}/stop`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.3",
-                "User-Agent": "scrapybara/2.0.3",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -460,7 +460,7 @@ export class Instance {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -482,7 +482,7 @@ export class Instance {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ScrapybaraError({
@@ -500,7 +500,176 @@ export class Instance {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/stop."
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/stop.",
+                );
+            case "unknown":
+                throw new errors.ScrapybaraError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {string} instanceId
+     * @param {Instance.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Scrapybara.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.instance.pause("instance_id")
+     */
+    public async pause(
+        instanceId: string,
+        requestOptions?: Instance.RequestOptions,
+    ): Promise<Scrapybara.StopInstanceResponse> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
+                `v1/instance/${encodeURIComponent(instanceId)}/pause`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "scrapybara",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.StopInstanceResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Scrapybara.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.ScrapybaraError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ScrapybaraError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ScrapybaraTimeoutError(
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/pause.",
+                );
+            case "unknown":
+                throw new errors.ScrapybaraError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {string} instanceId
+     * @param {Scrapybara.InstanceResumeRequest} request
+     * @param {Instance.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Scrapybara.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.instance.resume("instance_id")
+     */
+    public async resume(
+        instanceId: string,
+        request: Scrapybara.InstanceResumeRequest = {},
+        requestOptions?: Instance.RequestOptions,
+    ): Promise<Scrapybara.GetInstanceResponse> {
+        const { timeoutHours } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (timeoutHours != null) {
+            _queryParams["timeout_hours"] = timeoutHours.toString();
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
+                `v1/instance/${encodeURIComponent(instanceId)}/resume`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "scrapybara",
+                "X-Fern-SDK-Version": "2.0.4",
+                "User-Agent": "scrapybara/2.0.4",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.GetInstanceResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Scrapybara.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.ScrapybaraError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ScrapybaraError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ScrapybaraTimeoutError(
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/resume.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({

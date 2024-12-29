@@ -5,18 +5,19 @@
 import * as serializers from "../../../../index";
 import * as Scrapybara from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { Model } from "../../types/Model";
 
 export const ActRequest: core.serialization.Schema<serializers.ActRequest.Raw, Scrapybara.ActRequest> =
     core.serialization.object({
         cmd: core.serialization.string(),
         includeScreenshot: core.serialization.property("include_screenshot", core.serialization.boolean().optional()),
-        model: core.serialization.stringLiteral("claude").optional(),
+        model: Model.optional(),
     });
 
 export declare namespace ActRequest {
-    interface Raw {
+    export interface Raw {
         cmd: string;
         include_screenshot?: boolean | null;
-        model?: "claude" | null;
+        model?: Model.Raw | null;
     }
 }
