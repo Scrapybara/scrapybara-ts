@@ -1,6 +1,6 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">get</a>(instanceId) -> Scrapybara.GetInstanceResponse</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">getAuthStates</a>() -> Scrapybara.AuthStateResponse[]</code></summary>
 <dl>
 <dd>
 
@@ -13,7 +13,7 @@
 <dd>
 
 ```typescript
-await client.get("instance_id");
+await client.getAuthStates();
 ```
 
 </dd>
@@ -25,14 +25,6 @@ await client.get("instance_id");
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -689,24 +681,65 @@ await client.browser.getCdpUrl("instance_id");
 </dl>
 </details>
 
+<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">saveAuth</a>(instanceId, { ...params }) -> Scrapybara.SaveBrowserAuthResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.browser.saveAuth("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.BrowserSaveAuthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Browser.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">authenticate</a>(instanceId, { ...params }) -> Scrapybara.BrowserAuthenticateResponse</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Authenticate browser with Anon for all available apps
-
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -718,7 +751,7 @@ Authenticate browser with Anon for all available apps
 
 ```typescript
 await client.browser.authenticate("instance_id", {
-    contextId: "context_id",
+    authStateId: "auth_state_id",
 });
 ```
 
