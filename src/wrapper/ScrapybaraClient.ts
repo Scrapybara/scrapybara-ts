@@ -25,6 +25,21 @@ export class ScrapybaraClient {
         const response = await this._fern.get(instanceId, requestOptions);
         return new Instance(response.id, response.launchTime, response.instanceType, response.status, this._fern);
     }
+
+    public async getInstances(requestOptions?: ScrapybaraClient.RequestOptions): Promise<Instance[]> {
+        const response = await this._fern.getInstances(requestOptions);
+        return response.map(
+            (instance) =>
+                new Instance(instance.id, instance.launchTime, instance.instanceType, instance.status, this._fern)
+        );
+    }
+
+    public async getAuthStates(
+        requestOptions?: ScrapybaraClient.RequestOptions
+    ): Promise<Scrapybara.AuthStateResponse[]> {
+        const response = await this._fern.getAuthStates(requestOptions);
+        return response;
+    }
 }
 
 export class Instance {
@@ -125,6 +140,13 @@ export class Browser {
 
     public async getCdpUrl(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
         return await this.fern.browser.getCdpUrl(this.instanceId, requestOptions);
+    }
+
+    public async saveAuth(
+        request: Scrapybara.BrowserSaveAuthRequest,
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<Scrapybara.SaveBrowserAuthResponse> {
+        return await this.fern.browser.saveAuth(this.instanceId, request, requestOptions);
     }
 
     public async authenticate(

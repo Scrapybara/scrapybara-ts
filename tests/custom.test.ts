@@ -11,8 +11,13 @@ describe("test", () => {
         });
         const instance = await client.start();
         assert(instance.id !== undefined);
+        const instances = await client.getInstances();
+        assert(instances.length > 0);
         const screenshotResponse = await instance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
+        await instance.browser.start();
+        const cdpUrl = await instance.browser.getCdpUrl();
+        assert(cdpUrl !== undefined);
         await instance.stop();
     }, 60000);
 });
