@@ -5,9 +5,9 @@
 /**
  * @example
  *     {
- *         contextId: "context_id"
+ *         authStateId: "auth_state_id"
  *     }
  */
 export interface BrowserAuthenticateRequest {
-    contextId: string;
+    authStateId: string;
 }

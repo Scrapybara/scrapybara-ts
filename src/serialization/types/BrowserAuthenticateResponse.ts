@@ -11,15 +11,10 @@ export const BrowserAuthenticateResponse: core.serialization.ObjectSchema<
     Scrapybara.BrowserAuthenticateResponse
 > = core.serialization.object({
     status: core.serialization.string(),
-    authenticatedApps: core.serialization.property(
-        "authenticated_apps",
-        core.serialization.list(core.serialization.string()),
-    ),
 });
 
 export declare namespace BrowserAuthenticateResponse {
     export interface Raw {
         status: string;
-        authenticated_apps: string[];
     }
 }
