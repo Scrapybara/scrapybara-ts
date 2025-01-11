@@ -9,7 +9,6 @@ import * as serializers from "./serialization/index";
 import urlJoin from "url-join";
 import * as errors from "./errors/index";
 import { Instance } from "./api/resources/instance/client/Client";
-import { Agent } from "./api/resources/agent/client/Client";
 import { Browser } from "./api/resources/browser/client/Client";
 import { Code } from "./api/resources/code/client/Client";
 import { Notebook } from "./api/resources/notebook/client/Client";
@@ -36,7 +35,6 @@ export declare namespace ScrapybaraClient {
 
 export class ScrapybaraClient {
     protected _instance: Instance | undefined;
-    protected _agent: Agent | undefined;
     protected _browser: Browser | undefined;
     protected _code: Code | undefined;
     protected _notebook: Notebook | undefined;
@@ -47,10 +45,6 @@ export class ScrapybaraClient {
 
     public get instance(): Instance {
         return (this._instance ??= new Instance(this._options));
-    }
-
-    public get agent(): Agent {
-        return (this._agent ??= new Agent(this._options));
     }
 
     public get browser(): Browser {
@@ -95,8 +89,8 @@ export class ScrapybaraClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.5",
-                "User-Agent": "scrapybara/2.0.5",
+                "X-Fern-SDK-Version": "2.1.0",
+                "User-Agent": "scrapybara/2.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -174,8 +168,8 @@ export class ScrapybaraClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.5",
-                "User-Agent": "scrapybara/2.0.5",
+                "X-Fern-SDK-Version": "2.1.0",
+                "User-Agent": "scrapybara/2.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -250,8 +244,8 @@ export class ScrapybaraClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.5",
-                "User-Agent": "scrapybara/2.0.5",
+                "X-Fern-SDK-Version": "2.1.0",
+                "User-Agent": "scrapybara/2.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -312,8 +306,8 @@ export class ScrapybaraClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.0.5",
-                "User-Agent": "scrapybara/2.0.5",
+                "X-Fern-SDK-Version": "2.1.0",
+                "User-Agent": "scrapybara/2.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
