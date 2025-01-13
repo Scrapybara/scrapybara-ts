@@ -1,5 +1,4 @@
 export * from "./DeploymentConfigInstanceType";
-export * from "./ActResponse";
 export * from "./AuthStateResponse";
 export * from "./BrowserAuthenticateResponse";
 export * from "./BrowserGetCdpUrlResponse";
@@ -18,7 +17,6 @@ export * from "./KernelInfo";
 export * from "./Notebook";
 export * from "./NotebookCell";
 export * from "./SaveBrowserAuthResponse";
-export * from "./ScrapeResponse";
 export * from "./StartBrowserResponse";
 export * from "./StopBrowserResponse";
 export * from "./StopInstanceResponse";
