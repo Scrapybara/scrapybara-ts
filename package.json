@@ -1,6 +1,6 @@
 {
     "name": "scrapybara",
-    "version": "2.0.5",
+    "version": "2.1.0",
     "private": false,
     "repository": "https://github.com/scrapybara/scrapybara-ts",
     "main": "./index.js",
@@ -17,7 +17,10 @@
         "formdata-node": "^6.0.3",
         "node-fetch": "^2.7.0",
         "qs": "^6.13.1",
-        "readable-stream": "^4.5.2"
+        "readable-stream": "^4.5.2",
+        "playwright": "^1.48.0",
+        "zod": "^3.24.0",
+        "zod-to-json-schema": "^3.24.0"
     },
     "devDependencies": {
         "@types/url-join": "4.0.1",

@@ -1,6 +1,8 @@
 # Specify files that shouldn't be modified by Fern
 
-src/wrapper
+src/ScrapybaraClient.ts
 src/index.ts
+types/Act.ts
+types/Tool.ts
 tests/custom.test.ts
 .github/workflows/ci.yml

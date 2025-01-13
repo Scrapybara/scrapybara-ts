@@ -1,11 +1,8 @@
 export * as instance from "./instance";
 export * from "./instance/types";
-export * as agent from "./agent";
-export * from "./agent/types";
 export * as notebook from "./notebook";
 export * as file from "./file";
 export * from "./instance/client/requests";
-export * from "./agent/client/requests";
 export * as code from "./code";
 export * from "./code/client/requests";
 export * from "./notebook/client/requests";
