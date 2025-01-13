@@ -3,6 +3,9 @@ import { Tool } from "../serialization/types/Tool";
 import { Instance } from "../ScrapybaraClient";
 import { chromium } from "playwright";
 
+/**
+ * Create a custom tool that can be used by the act agent.
+ */
 export function tool<T = any, R = any>({ name, description, parameters, execute }: Tool<T, R>): Tool<T, R> {
     return {
         name,
@@ -12,6 +15,21 @@ export function tool<T = any, R = any>({ name, description, parameters, execute 
     };
 }
 
+/**
+ * Return an image result that is interpretable by the model.
+ */
+export function imageResult(base64: string): string {
+    return JSON.stringify({
+        output: "",
+        error: "",
+        base64_image: base64,
+        system: null,
+    });
+}
+
+/**
+ * A computer interaction tool that allows the agent to control mouse and keyboard actions.
+ */
 export function computerTool(instance: Instance) {
     return tool({
         name: "computer",
@@ -38,6 +56,9 @@ export function computerTool(instance: Instance) {
     });
 }
 
+/**
+ * A filesystem editor tool that allows the agent to view, create, and edit files.
+ */
 export function editTool(instance: Instance) {
     return tool({
         name: "str_replace_editor",
@@ -57,6 +78,9 @@ export function editTool(instance: Instance) {
     });
 }
 
+/**
+ * A shell execution tool that allows the agent to run bash commands.
+ */
 export function bashTool(instance: Instance) {
     return tool({
         name: "bash",
@@ -71,6 +95,9 @@ export function bashTool(instance: Instance) {
     });
 }
 
+/**
+ * A browser interaction tool that allows the agent to interact with a browser.
+ */
 export function browserTool(instance: Instance) {
     return tool({
         name: "browser",
@@ -138,7 +165,8 @@ export function browserTool(instance: Instance) {
                             return true;
 
                         case "screenshot":
-                            return await page.screenshot({ type: "png" });
+                            const screenshot = await page.screenshot({ type: "png" });
+                            return imageResult(screenshot.toString("base64"));
 
                         case "get_text":
                             if (!selector) throw new Error("Selector is required for get_text command");

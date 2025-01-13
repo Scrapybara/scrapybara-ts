@@ -2,7 +2,10 @@
 
 src/ScrapybaraClient.ts
 src/index.ts
-types/Act.ts
-types/Tool.ts
+src/anthropic/
+src/prompts/
+src/tools/
+src/serialization/types/Act.ts
+src/serialization/types/Tool.ts
 tests/custom.test.ts
 .github/workflows/ci.yml

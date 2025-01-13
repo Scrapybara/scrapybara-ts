@@ -20,7 +20,6 @@ import * as errors from "./errors";
 import * as serializers from "./serialization";
 import urlJoin from "url-join";
 import { ScrapybaraEnvironment } from "./environments";
-import { zodToJsonSchema } from "zod-to-json-schema";
 
 export declare namespace ScrapybaraClient {
     type Options = FernClient.Options;
@@ -62,6 +61,21 @@ export class ScrapybaraClient {
         return response;
     }
 
+    /**
+     * Run an agent loop with the given tools and model, returning all messages at the end.
+     * Include either prompt or messages, but not both.
+     * 
+     * @param model - The model to use for generating responses
+     * @param system - System prompt for the agent
+     * @param prompt - Initial user prompt
+     * @param messages - List of messages to start with
+     * @param tools - List of tools available to the agent
+     * @param onStep - Callback for each step of the conversation
+     * @param temperature - Optional temperature parameter for the model
+     * @param maxTokens - Optional max tokens parameter for the model
+     * @param requestOptions - Optional request configuration
+     * @returns Promise that resolves to list of all messages from the conversation
+     */
     public async act({
         model,
         system,
@@ -120,6 +134,21 @@ export class ScrapybaraClient {
         return resultMessages;
     }
 
+    /**
+     * Run an interactive agent loop with the given tools and model.
+     * Include either prompt or messages, but not both.
+     * 
+     * @param model - The model to use for generating responses
+     * @param system - System prompt for the agent
+     * @param prompt - Initial user prompt
+     * @param messages - List of messages to start with
+     * @param tools - List of tools available to the agent
+     * @param onStep - Callback for each step of the conversation
+     * @param temperature - Optional temperature parameter for the model
+     * @param maxTokens - Optional max tokens parameter for the model
+     * @param requestOptions - Optional request configuration
+     * @yields Steps from the conversation, including tool results
+     */
     public async *actStream({
         model,
         system,
