@@ -12,7 +12,7 @@ import { Model } from "../serialization/types/Act";
  * @param apiKey - Your Anthropic API key
  * @returns A Model configuration object
  */
-export function anthropic(name: string = "claude-3-5-sonnet-20241022", apiKey?: string): Model {
+export function anthropic({ name = "claude-3-5-sonnet-20241022", apiKey }: { name?: string; apiKey?: string }): Model {
     return {
         provider: "anthropic",
         name,
