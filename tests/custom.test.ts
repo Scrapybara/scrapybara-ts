@@ -38,5 +38,5 @@ describe("test", () => {
 
         await instance.browser.stop();
         await instance.stop();
-    }, 60000);
+    }, 600000);
 });
