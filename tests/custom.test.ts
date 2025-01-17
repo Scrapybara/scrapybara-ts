@@ -2,6 +2,7 @@ import { ScrapybaraClient } from "../src";
 import { anthropic } from "../src/anthropic";
 import { computerTool, bashTool, editTool, browserTool } from "../src/tools";
 import { SYSTEM_PROMPT } from "../src/prompts";
+import { z } from "zod";
 import assert from "assert";
 
 describe("test", () => {
@@ -27,14 +28,21 @@ describe("test", () => {
         const cdpUrl = await instance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
-        const messages = await client.act({
+        const response = await client.act({
             model: anthropic(),
             system: SYSTEM_PROMPT,
-            prompt: "Go to the YC website and fetch the HTML",
+            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
             tools: [computerTool(instance), bashTool(instance), editTool(instance), browserTool(instance)],
-            onStep: (step) => console.log(`${JSON.stringify(step)}\n`),
+            schema: z.object({
+                number_of_startups: z.number(),
+                combined_valuation: z.number(),
+            }),
         });
-        assert(messages.length > 0);
+        console.log(response);
+
+        assert(response.output !== undefined);
+        assert(response.output.number_of_startups !== undefined);
+        assert(response.output.combined_valuation !== undefined);
 
         await instance.browser.stop();
         await instance.stop();

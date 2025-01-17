@@ -35,20 +35,22 @@ export function computerTool(instance: Instance) {
         name: "computer",
         description: "Control mouse and keyboard actions",
         parameters: z.object({
-            action: z.enum([
-                "key",
-                "type",
-                "mouse_move",
-                "left_click",
-                "left_click_drag",
-                "right_click",
-                "middle_click",
-                "double_click",
-                "screenshot",
-                "cursor_position",
-            ]),
-            coordinate: z.tuple([z.number(), z.number()]).optional(),
-            text: z.string().optional(),
+            action: z
+                .enum([
+                    "key",
+                    "type",
+                    "mouse_move",
+                    "left_click",
+                    "left_click_drag",
+                    "right_click",
+                    "middle_click",
+                    "double_click",
+                    "screenshot",
+                    "cursor_position",
+                ])
+                .describe("The computer action to execute"),
+            coordinate: z.tuple([z.number(), z.number()]).optional().describe("Coordinates for mouse actions"),
+            text: z.string().optional().describe("Text for keyboard actions"),
         }),
         execute: async (params) => {
             return instance.computer({ ...params });
@@ -64,13 +66,15 @@ export function editTool(instance: Instance) {
         name: "str_replace_editor",
         description: "View, create, and edit files",
         parameters: z.object({
-            command: z.enum(["view", "create", "str_replace", "insert", "undo_edit"]),
-            path: z.string(),
-            fileText: z.string().optional(),
-            viewRange: z.tuple([z.number(), z.number()]).optional(),
-            oldStr: z.string().optional(),
-            newStr: z.string().optional(),
-            insertLine: z.number().optional(),
+            command: z
+                .enum(["view", "create", "str_replace", "insert", "undo_edit"])
+                .describe("The edit command to execute"),
+            path: z.string().describe("Path to the file to edit"),
+            fileText: z.string().optional().describe("File content for create command"),
+            viewRange: z.tuple([z.number(), z.number()]).optional().describe("Line range for view command"),
+            oldStr: z.string().optional().describe("String to replace for replace command"),
+            newStr: z.string().optional().describe("New string for replace command"),
+            insertLine: z.number().optional().describe("Line number for insert command"),
         }),
         execute: async (params) => {
             return instance.edit({ ...params });
@@ -86,8 +90,8 @@ export function bashTool(instance: Instance) {
         name: "bash",
         description: "Execute shell commands",
         parameters: z.object({
-            command: z.string().optional(),
-            restart: z.boolean().optional(),
+            command: z.string().describe("The bash command to execute"),
+            restart: z.boolean().optional().default(false).describe("Whether to restart the shell"),
         }),
         execute: async (params) => {
             return instance.bash({ ...params });

@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { ScrapybaraClient as FernClient } from "./Client";
 import * as Scrapybara from "./api/index";
 import { Tool } from "./serialization/types/Tool";
@@ -10,10 +11,12 @@ import {
     ToolMessage,
     Step,
     Model,
-    ActRequest,
-    ApiActResponse,
+    SingleActRequest,
+    ApiSingleActResponse,
     convertRequestToApi,
     convertResponseToSdk,
+    TokenUsage,
+    ActResponse,
 } from "./serialization/types/Act";
 import * as core from "./core";
 import * as errors from "./errors";
@@ -24,6 +27,17 @@ import { ScrapybaraEnvironment } from "./environments";
 export declare namespace ScrapybaraClient {
     type Options = FernClient.Options;
     type RequestOptions = FernClient.RequestOptions;
+}
+
+function structuredOutputTool<T extends z.ZodType>(schema: T) {
+    return {
+        name: "structured_output",
+        description: "Output structured data according to the provided schema parameters. Only use this tool at the end of your task. The output data is final and will be passed directly back to the user.",
+        parameters: schema,
+        execute: async (parameters: z.infer<T>): Promise<z.infer<T>> => {
+            return schema.parse(parameters);
+        }
+    };
 }
 
 export class ScrapybaraClient {
@@ -66,38 +80,46 @@ export class ScrapybaraClient {
      * Include either prompt or messages, but not both.
      * 
      * @param model - The model to use for generating responses
+     * @param tools - List of tools available to the agent
      * @param system - System prompt for the agent
      * @param prompt - Initial user prompt
      * @param messages - List of messages to start with
-     * @param tools - List of tools available to the agent
+     * @param schema - Optional schema for structured output
      * @param onStep - Callback for each step of the conversation
      * @param temperature - Optional temperature parameter for the model
      * @param maxTokens - Optional max tokens parameter for the model
      * @param requestOptions - Optional request configuration
      * @returns Promise that resolves to list of all messages from the conversation
      */
-    public async act({
+    public async act<T extends z.ZodType>({
         model,
+        tools,
         system,
         prompt,
         messages,
-        tools,
+        schema,
         onStep,
         temperature,
         maxTokens,
         requestOptions,
     }: {
         model: Model;
+        tools?: Tool[];
         system?: string;
         prompt?: string;
         messages?: Message[];
-        tools?: Tool[];
+        schema?: T;
         onStep?: (step: Step) => void;
         temperature?: number;
         maxTokens?: number;
         requestOptions?: ScrapybaraClient.RequestOptions;
-    }): Promise<Message[]> {
+    }): Promise<ActResponse<z.infer<T>>> {
         const resultMessages: Message[] = [];
+        const steps: Step[] = [];
+        let totalPromptTokens = 0;
+        let totalCompletionTokens = 0;
+        let totalTokens = 0;
+
         if (messages) {
             resultMessages.push(...messages);
         }
@@ -108,11 +130,13 @@ export class ScrapybaraClient {
             prompt,
             messages,
             tools,
+            schema,
             onStep,
             temperature,
             maxTokens,
             requestOptions,
         })) {
+            steps.push(step);
             const assistantMsg: AssistantMessage = {
                 role: "assistant",
                 content: [
@@ -129,9 +153,37 @@ export class ScrapybaraClient {
                 };
                 resultMessages.push(toolMsg);
             }
+
+            if (step.usage) {
+                totalPromptTokens += step.usage.promptTokens;
+                totalCompletionTokens += step.usage.completionTokens;
+                totalTokens += step.usage.totalTokens;
+            }
         }
 
-        return resultMessages;
+        const usage = totalTokens > 0 ? {
+            promptTokens: totalPromptTokens,
+            completionTokens: totalCompletionTokens,
+            totalTokens: totalTokens,
+        } : undefined;
+
+        const text = steps.length > 0 ? steps[steps.length - 1].text : undefined;
+        let output: z.infer<T> | undefined;
+        
+        if (schema && steps.length > 0) {
+            const lastStep = steps[steps.length - 1];
+            if (lastStep.toolResults && lastStep.toolResults.length > 0) {
+                output = lastStep.toolResults[lastStep.toolResults.length - 1].result;
+            }
+        }
+
+        return {
+            messages: resultMessages,
+            steps,
+            text,
+            output,
+            usage,
+        };
     }
 
     /**
@@ -139,32 +191,35 @@ export class ScrapybaraClient {
      * Include either prompt or messages, but not both.
      * 
      * @param model - The model to use for generating responses
+     * @param tools - List of tools available to the agent
      * @param system - System prompt for the agent
      * @param prompt - Initial user prompt
      * @param messages - List of messages to start with
-     * @param tools - List of tools available to the agent
+     * @param schema - Optional schema for structured output
      * @param onStep - Callback for each step of the conversation
      * @param temperature - Optional temperature parameter for the model
      * @param maxTokens - Optional max tokens parameter for the model
      * @param requestOptions - Optional request configuration
      * @yields Steps from the conversation, including tool results
      */
-    public async *actStream({
+    public async *actStream<T extends z.ZodType>({
         model,
+        tools,
         system,
         prompt,
         messages,
-        tools,
+        schema,
         onStep,
         temperature,
         maxTokens,
         requestOptions,
     }: {
         model: Model;
+        tools?: Tool[];
         system?: string;
         prompt?: string;
         messages?: Message[];
-        tools?: Tool[];
+        schema?: T;
         onStep?: (step: Step) => void;
         temperature?: number;
         maxTokens?: number;
@@ -190,10 +245,13 @@ export class ScrapybaraClient {
             currentMessages = [...messages];
         }
 
-        const currentTools = tools || [];
+        const currentTools = [...(tools || [])];
+        if (schema) {
+            currentTools.push(structuredOutputTool(schema));
+        }
 
         while (true) {
-            const request: ActRequest = {
+            const request: SingleActRequest = {
                 model: {
                     provider: "anthropic",
                     name: model.name,
@@ -265,7 +323,7 @@ export class ScrapybaraClient {
                 }
             }
 
-            const apiResponse = response.body as ApiActResponse;
+            const apiResponse = response.body as ApiSingleActResponse;
             const actResponse = convertResponseToSdk(apiResponse);
             const assistantMessage: AssistantMessage = {
                 role: "assistant",
@@ -292,8 +350,9 @@ export class ScrapybaraClient {
                 usage: actResponse.usage,
             };
 
-            // Check if we should continue the loop
+            // Check if there are tool calls
             const hasToolCalls = toolCalls.length > 0;
+            let hasStructuredOutput = false;
 
             if (hasToolCalls) {
                 const toolResults: ToolResultPart[] = [];
@@ -309,6 +368,9 @@ export class ScrapybaraClient {
                             toolName: part.toolName,
                             result,
                         });
+                        if (part.toolName === "structured_output") {
+                            hasStructuredOutput = true;
+                        }
                     } catch (error: any) {
                         toolResults.push({
                             type: "tool-result",
@@ -333,7 +395,7 @@ export class ScrapybaraClient {
             }
             yield step;
 
-            if (!hasToolCalls) {
+            if (!hasToolCalls || hasStructuredOutput) {
                 break;
             }
         }
