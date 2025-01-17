@@ -67,7 +67,7 @@ export type Step = {
     usage?: TokenUsage;
 };
 
-export type ActRequest = {
+export type SingleActRequest = {
     model: Model;
     system?: string;
     messages?: Message[];
@@ -76,7 +76,7 @@ export type ActRequest = {
     maxTokens?: number;
 };
 
-export type ActResponse = {
+export type SingleActResponse = {
     message: AssistantMessage;
     finishReason: FinishReason;
     usage?: TokenUsage;
@@ -141,7 +141,7 @@ type ApiTool = Omit<Tool, "parameters"> & {
     parameters: Record<string, any>;
 };
 
-export type ApiActRequest = {
+export type ApiSingleActRequest = {
     model: ApiModel;
     system?: string;
     messages?: ApiMessage[];
@@ -150,13 +150,21 @@ export type ApiActRequest = {
     max_tokens?: number;
 };
 
-export type ApiActResponse = {
+export type ApiSingleActResponse = {
     message: ApiAssistantMessage;
     finish_reason: FinishReason;
     usage?: ApiTokenUsage;
 };
 
-export function convertRequestToApi(request: ActRequest): ApiActRequest {
+export type ActResponse<T = void> = {
+    messages: Message[];
+    steps: Step[];
+    text?: string;
+    output?: T;
+    usage?: TokenUsage;
+};
+
+export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequest {
     const tools = request.tools?.map((tool) => ({
         ...tool,
         parameters: zodToJsonSchema(tool.parameters),
@@ -225,7 +233,7 @@ export function convertRequestToApi(request: ActRequest): ApiActRequest {
     };
 }
 
-export function convertResponseToSdk(response: ApiActResponse): ActResponse {
+export function convertResponseToSdk(response: ApiSingleActResponse): SingleActResponse {
     const convertToolCallPart = (part: ApiToolCallPart): ToolCallPart => ({
         type: "tool-call",
         toolCallId: part.tool_call_id,
