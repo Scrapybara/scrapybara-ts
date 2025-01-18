@@ -5,7 +5,7 @@ src/index.ts
 src/anthropic/
 src/prompts/
 src/tools/
-src/serialization/types/Act.ts
-src/serialization/types/Tool.ts
+src/api/types/Act.ts
+src/api/types/Tool.ts
 tests/custom.test.ts
 .github/workflows/ci.yml

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { ScrapybaraClient as FernClient } from "./Client";
 import * as Scrapybara from "./api/index";
-import { Tool } from "./serialization/types/Tool";
+import { Tool } from "./api/types/Tool";
 import {
     Message,
     TextPart,
@@ -17,7 +17,7 @@ import {
     convertResponseToSdk,
     TokenUsage,
     ActResponse,
-} from "./serialization/types/Act";
+} from "./api/types/Act";
 import * as core from "./core";
 import * as errors from "./errors";
 import * as serializers from "./serialization";

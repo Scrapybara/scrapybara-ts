@@ -1,4 +1,4 @@
-import { Model } from "../serialization/types/Act";
+import { Model } from "../api/types/Act";
 
 /**
  * Model adapter for Anthropic.

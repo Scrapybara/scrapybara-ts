@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Tool } from "../serialization/types/Tool";
+import { Tool } from "../api/types/Tool";
 import { Instance } from "../ScrapybaraClient";
 import { chromium } from "playwright";
 
