@@ -6,11 +6,11 @@ import * as serializers from "../index";
 import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
 
-export const DeploymentConfigInstanceType: core.serialization.Schema<
-    serializers.DeploymentConfigInstanceType.Raw,
-    Scrapybara.DeploymentConfigInstanceType
+export const GetInstanceResponseInstanceType: core.serialization.Schema<
+    serializers.GetInstanceResponseInstanceType.Raw,
+    Scrapybara.GetInstanceResponseInstanceType
 > = core.serialization.enum_(["ubuntu", "browser", "windows"]);
 
-export declare namespace DeploymentConfigInstanceType {
+export declare namespace GetInstanceResponseInstanceType {
     export type Raw = "ubuntu" | "browser" | "windows";
 }

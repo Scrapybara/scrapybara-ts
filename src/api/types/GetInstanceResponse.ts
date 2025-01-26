@@ -7,6 +7,6 @@ import * as Scrapybara from "../index";
 export interface GetInstanceResponse {
     id: string;
     launchTime: Date;
-    instanceType: string;
+    instanceType: Scrapybara.GetInstanceResponseInstanceType;
     status: Scrapybara.Status;
 }

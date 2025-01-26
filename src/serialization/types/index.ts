@@ -8,6 +8,7 @@ export * from "./EnvResponse";
 export * from "./ExecuteCellRequest";
 export * from "./FileDownloadResponse";
 export * from "./FileReadResponse";
+export * from "./GetInstanceResponseInstanceType";
 export * from "./Status";
 export * from "./GetInstanceResponse";
 export * from "./HttpValidationError";
