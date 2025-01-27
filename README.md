@@ -13,7 +13,7 @@ npm i -s scrapybara
 
 ## Reference
 
-A full reference for this library is available [here](./reference.md).
+Please refer to [docs](https://docs.scrapybara.com) for more information.
 
 ## Usage
 
@@ -23,7 +23,7 @@ Instantiate and use the client with the following:
 import { ScrapybaraClient } from "scrapybara";
 
 const client = new ScrapybaraClient({ apiKey: "YOUR_API_KEY" });
-await client.start();
+await client.startUbuntu();
 ```
 
 ## Request And Response Types
@@ -48,7 +48,7 @@ will be thrown.
 import { ScrapybaraError } from "scrapybara";
 
 try {
-    await client.start(...);
+    await client.startUbuntu(...);
 } catch (err) {
     if (err instanceof ScrapybaraError) {
         console.log(err.statusCode);
@@ -65,7 +65,7 @@ try {
 If you would like to send additional headers as part of the request, use the `headers` request option.
 
 ```typescript
-const response = await client.start(..., {
+const response = await client.startUbuntu(..., {
     headers: {
         'X-Custom-Header': 'custom value'
     }
@@ -87,7 +87,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.start(..., {
+const response = await client.startUbuntu(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -97,7 +97,7 @@ const response = await client.start(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.start(..., {
+const response = await client.startUbuntu(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -108,7 +108,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.start(..., {
+const response = await client.startUbuntu(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request

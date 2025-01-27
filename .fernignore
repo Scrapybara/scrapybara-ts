@@ -10,3 +10,4 @@ src/api/types/Act.ts
 src/api/types/Tool.ts
 tests/custom.test.ts
 .github/workflows/ci.yml
+README.md
