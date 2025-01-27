@@ -48,6 +48,8 @@ export function computerTool(instance: BaseInstance) {
                     "double_click",
                     "screenshot",
                     "cursor_position",
+                    "scroll",
+                    "wait",
                 ])
                 .describe("The computer action to execute"),
             coordinate: z.tuple([z.number(), z.number()]).optional().describe("Coordinates for mouse actions"),

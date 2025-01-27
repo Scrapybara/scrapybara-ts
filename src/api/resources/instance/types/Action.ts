@@ -12,7 +12,9 @@ export type Action =
     | "middle_click"
     | "double_click"
     | "screenshot"
-    | "cursor_position";
+    | "cursor_position"
+    | "scroll"
+    | "wait";
 export const Action = {
     Key: "key",
     Type: "type",
@@ -24,4 +26,6 @@ export const Action = {
     DoubleClick: "double_click",
     Screenshot: "screenshot",
     CursorPosition: "cursor_position",
+    Scroll: "scroll",
+    Wait: "wait",
 } as const;
