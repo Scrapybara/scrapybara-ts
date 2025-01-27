@@ -44,7 +44,7 @@ function structuredOutputTool<T extends z.ZodType>(schema: T) {
 export class ScrapybaraClient {
     private _fern: FernClient;
 
-    constructor(readonly _options: ScrapybaraClient.Options) {
+    constructor(readonly _options?: ScrapybaraClient.Options) {
         this._fern = new FernClient(_options);
     }
 
@@ -305,7 +305,7 @@ export class ScrapybaraClient {
 
             const response = await core.fetcher({
                 url: urlJoin(
-                    (await core.Supplier.get(this._options.environment)) ?? ScrapybaraEnvironment.Production,
+                    (await core.Supplier.get(this._options?.environment)) ?? ScrapybaraEnvironment.Production,
                     "v1/act",
                 ),
                 method: "POST",
@@ -441,7 +441,7 @@ export class ScrapybaraClient {
     }
 
     protected async _getCustomAuthorizationHeaders() {
-        const apiKeyValue = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["SCRAPYBARA_API_KEY"];
+        const apiKeyValue = (await core.Supplier.get(this._options?.apiKey)) ?? process?.env["SCRAPYBARA_API_KEY"];
         return { "x-api-key": apiKeyValue };
     }
 }
@@ -529,6 +529,13 @@ export class BrowserInstance extends BaseInstance {
 
     public async getCdpUrl(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
         return await this.fern.browser.getCdpUrl(this.id, requestOptions);
+    }
+
+    public async saveAuth(
+        request: Scrapybara.BrowserSaveAuthRequest,
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.SaveBrowserAuthResponse> {
+        return await this.fern.browser.saveAuth(this.id, request, requestOptions);
     }
 
     public async authenticate(
