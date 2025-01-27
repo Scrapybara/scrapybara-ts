@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Tool } from "../api/types/Tool";
-import { Instance } from "../ScrapybaraClient";
+import { BaseInstance, UbuntuInstance, BrowserInstance } from "../ScrapybaraClient";
 import { chromium } from "playwright";
 
 /**
@@ -28,12 +28,13 @@ export function imageResult(base64: string): string {
 }
 
 /**
- * A computer interaction tool that allows the agent to control mouse and keyboard actions.
+ * A computer interaction tool that allows the agent to control mouse and keyboard.
+ * Available for Ubuntu, Browser, and Windows instances.
  */
-export function computerTool(instance: Instance) {
+export function computerTool(instance: BaseInstance) {
     return tool({
         name: "computer",
-        description: "Control mouse and keyboard actions",
+        description: "Control mouse and keyboard for computer interaction",
         parameters: z.object({
             action: z
                 .enum([
@@ -47,6 +48,8 @@ export function computerTool(instance: Instance) {
                     "double_click",
                     "screenshot",
                     "cursor_position",
+                    "scroll",
+                    "wait",
                 ])
                 .describe("The computer action to execute"),
             coordinate: z.tuple([z.number(), z.number()]).optional().describe("Coordinates for mouse actions"),
@@ -60,11 +63,12 @@ export function computerTool(instance: Instance) {
 
 /**
  * A filesystem editor tool that allows the agent to view, create, and edit files.
+ * Available for Ubuntu instances only.
  */
-export function editTool(instance: Instance) {
+export function editTool(instance: UbuntuInstance) {
     return tool({
         name: "str_replace_editor",
-        description: "View, create, and edit files",
+        description: "View, create, and edit files in the filesystem",
         parameters: z.object({
             command: z
                 .enum(["view", "create", "str_replace", "insert", "undo_edit"])
@@ -84,11 +88,12 @@ export function editTool(instance: Instance) {
 
 /**
  * A shell execution tool that allows the agent to run bash commands.
+ * Available for Ubuntu instances only.
  */
-export function bashTool(instance: Instance) {
+export function bashTool(instance: UbuntuInstance) {
     return tool({
         name: "bash",
-        description: "Execute shell commands",
+        description: "Execute bash commands in the shell",
         parameters: z.object({
             command: z.string().describe("The bash command to execute"),
             restart: z.boolean().optional().default(false).describe("Whether to restart the shell"),
@@ -101,8 +106,9 @@ export function bashTool(instance: Instance) {
 
 /**
  * A browser interaction tool that allows the agent to interact with a browser.
+ * Available for Ubuntu and Browser instances.
  */
-export function browserTool(instance: Instance) {
+export function browserTool(instance: UbuntuInstance | BrowserInstance) {
     return tool({
         name: "browser",
         description: "Interact with a browser for web scraping and automation",
@@ -110,7 +116,7 @@ export function browserTool(instance: Instance) {
             command: z
                 .enum(["go_to", "get_html", "evaluate", "click", "type", "screenshot", "get_text", "get_attribute"])
                 .describe(
-                    "The browser command to execute. Required parameters per command:\n- go_to: requires 'url'\n- evaluate: requires 'code'\n- click: requires 'selector'\n- type: requires 'selector' and 'text'\n- get_text: requires 'selector'\n- get_attribute: requires 'selector' and 'attribute'\n- get_html: no additional parameters\n- screenshot: no additional parameters"
+                    "The browser command to execute. Required parameters per command:\n- go_to: requires 'url'\n- evaluate: requires 'code'\n- click: requires 'selector'\n- type: requires 'selector' and 'text'\n- get_text: requires 'selector'\n- get_attribute: requires 'selector' and 'attribute'\n- get_html: no additional parameters\n- screenshot: no additional parameters",
                 ),
             url: z.string().optional().describe("URL for go_to command (required for go_to)"),
             selector: z
@@ -128,7 +134,10 @@ export function browserTool(instance: Instance) {
         execute: async (params) => {
             const { command, url, selector, code, text, timeout = 30000, attribute } = params;
 
-            const cdpUrl = await instance.browser.getCdpUrl();
+            // Get CDP URL based on instance type
+            const cdpUrl =
+                instance instanceof UbuntuInstance ? await instance.browser.getCdpUrl() : await instance.getCdpUrl();
+
             if (!cdpUrl.cdpUrl) {
                 throw new Error("CDP URL is not available, start the browser first");
             }

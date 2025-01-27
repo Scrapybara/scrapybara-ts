@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Scrapybara from "../../api/index";
 import * as core from "../../core";
+import { GetInstanceResponseInstanceType } from "./GetInstanceResponseInstanceType";
 import { Status } from "./Status";
 
 export const GetInstanceResponse: core.serialization.ObjectSchema<
@@ -13,7 +14,7 @@ export const GetInstanceResponse: core.serialization.ObjectSchema<
 > = core.serialization.object({
     id: core.serialization.string(),
     launchTime: core.serialization.property("launch_time", core.serialization.date()),
-    instanceType: core.serialization.property("instance_type", core.serialization.string()),
+    instanceType: core.serialization.property("instance_type", GetInstanceResponseInstanceType),
     status: Status,
 });
 
@@ -21,7 +22,7 @@ export declare namespace GetInstanceResponse {
     export interface Raw {
         id: string;
         launch_time: string;
-        instance_type: string;
+        instance_type: GetInstanceResponseInstanceType.Raw;
         status: Status.Raw;
     }
 }

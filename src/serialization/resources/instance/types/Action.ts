@@ -17,6 +17,8 @@ export const Action: core.serialization.Schema<serializers.Action.Raw, Scrapybar
     "double_click",
     "screenshot",
     "cursor_position",
+    "scroll",
+    "wait",
 ]);
 
 export declare namespace Action {
@@ -30,5 +32,7 @@ export declare namespace Action {
         | "middle_click"
         | "double_click"
         | "screenshot"
-        | "cursor_position";
+        | "cursor_position"
+        | "scroll"
+        | "wait";
 }
