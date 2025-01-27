@@ -1,6 +1,6 @@
 import { ScrapybaraClient } from "../src";
 import { anthropic } from "../src/anthropic";
-import { computerTool, bashTool, editTool, browserTool } from "../src/tools";
+import { computerTool, bashTool, editTool } from "../src/tools";
 import { UBUNTU_SYSTEM_PROMPT, BROWSER_SYSTEM_PROMPT, WINDOWS_SYSTEM_PROMPT } from "../src/prompts";
 import { z } from "zod";
 import assert from "assert";
@@ -41,12 +41,7 @@ describe("test", () => {
             model: anthropic(),
             system: UBUNTU_SYSTEM_PROMPT,
             prompt: "Go to the YC website and get the number of funded startups and combined valuation",
-            tools: [
-                computerTool(ubuntuInstance),
-                bashTool(ubuntuInstance),
-                editTool(ubuntuInstance),
-                browserTool(ubuntuInstance),
-            ],
+            tools: [computerTool(ubuntuInstance), bashTool(ubuntuInstance), editTool(ubuntuInstance)],
             schema: YCStats,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
@@ -75,7 +70,7 @@ describe("test", () => {
             model: anthropic(),
             system: BROWSER_SYSTEM_PROMPT,
             prompt: "Go to the YC website and get the number of funded startups and combined valuation",
-            tools: [computerTool(browserInstance), browserTool(browserInstance)],
+            tools: [computerTool(browserInstance)],
             schema: YCStats,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
