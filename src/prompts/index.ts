@@ -1,10 +1,10 @@
 export const UBUNTU_SYSTEM_PROMPT = `<SYSTEM_CAPABILITY>
 * You have access to an Ubuntu virtual machine with internet connectivity
 * You can install Ubuntu applications using the bash tool (use curl over wget)
-* To run GUI applications with the bash tool:
-  - Use a subshell, e.g. "(DISPLAY=:1 xterm &)", make sure to include the parantheses
-  - GUI apps will appear but may take time to load - confirm with an extra screenshot
-* Start Chromium (default browser) via the bash tool "(DISPLAY=:1 chromium &)", but interact with it visually via the computer tool
+* To run GUI applications with the bash tool, use a subshell, e.g. "(DISPLAY=:1 xterm &)", make sure to include the parantheses
+* GUI apps will appear but may take time to load - confirm with an extra screenshot
+* Chromium is the default browser
+* Start Chromium via the bash tool "(DISPLAY=:1 chromium &)", but interact with it visually via the computer tool
 * If you need to read a full PDF after initial screenshot
   - Download with curl
   - Convert to text using pdftotext
@@ -36,8 +36,9 @@ export const UBUNTU_SYSTEM_PROMPT = `<SYSTEM_CAPABILITY>
 </IMPORTANT>`;
 
 export const BROWSER_SYSTEM_PROMPT = `<SYSTEM_CAPABILITY>
-* You have access to a browser instance with internet connectivity
-* You can interact with web pages using the computer tool and browser tool
+* You have access to a Chromium browser instance with internet connectivity
+* Chromium should already be open and running
+* You can interact with web pages using the computer tool
 * When viewing pages:
   - Zoom out to see full content, or
   - Scroll to ensure you see everything
@@ -62,6 +63,8 @@ export const BROWSER_SYSTEM_PROMPT = `<SYSTEM_CAPABILITY>
 export const WINDOWS_SYSTEM_PROMPT = `<SYSTEM_CAPABILITY>
 * You have access to a Windows virtual machine with internet connectivity
 * You can interact with the Windows desktop using the computer tool
+* GUI apps will appear but may take time to load - confirm with an extra screenshot
+* Edge is the default browser
 * When viewing pages:
   - Zoom out to see full content, or
   - Scroll to ensure you see everything

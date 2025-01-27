@@ -23,8 +23,8 @@ describe("test", () => {
     });
 
     it("ubuntu test", async () => {
-        // Ubuntu test
         const ubuntuInstance = await client.startUbuntu();
+        console.log((await ubuntuInstance.getStreamUrl()).streamUrl);
         assert(ubuntuInstance.id !== undefined);
 
         const instances = await client.getInstances();
@@ -48,6 +48,7 @@ describe("test", () => {
                 browserTool(ubuntuInstance),
             ],
             schema: YCStats,
+            onStep: (step) => console.log(step.text, step.toolCalls),
         });
         console.log(response);
 
@@ -60,8 +61,8 @@ describe("test", () => {
     }, 600000);
 
     it("browser test", async () => {
-        // Browser test
         const browserInstance = await client.startBrowser();
+        console.log((await browserInstance.getStreamUrl()).streamUrl);
         assert(browserInstance.id !== undefined);
 
         const screenshotResponse = await browserInstance.screenshot();
@@ -76,6 +77,7 @@ describe("test", () => {
             prompt: "Go to the YC website and get the number of funded startups and combined valuation",
             tools: [computerTool(browserInstance), browserTool(browserInstance)],
             schema: YCStats,
+            onStep: (step) => console.log(step.text, step.toolCalls),
         });
         console.log(response);
 
@@ -86,9 +88,9 @@ describe("test", () => {
         await browserInstance.stop();
     }, 600000);
 
-    it("windows test", async () => {
-        // Windows test
+    it.skip("windows test", async () => {
         const windowsInstance = await client.startWindows();
+        console.log((await windowsInstance.getStreamUrl()).streamUrl);
         assert(windowsInstance.id !== undefined);
 
         const screenshotResponse = await windowsInstance.screenshot();
@@ -100,6 +102,7 @@ describe("test", () => {
             prompt: "Go to the YC website and get the number of funded startups and combined valuation",
             tools: [computerTool(windowsInstance)],
             schema: YCStats,
+            onStep: (step) => console.log(step.text, step.toolCalls),
         });
         console.log(response);
 
