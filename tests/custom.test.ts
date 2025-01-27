@@ -13,7 +13,6 @@ const YCStats = z.object({
 describe("test", () => {
     const client = new ScrapybaraClient({
         apiKey: process.env.SCRAPYBARA_API_KEY,
-        environment: "https://scrapybara-api-alpha-47247185186.us-central1.run.app",
     });
 
     beforeAll(() => {
