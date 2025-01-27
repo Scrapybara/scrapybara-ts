@@ -1,3 +1,4 @@
+export * from "./Act";
 export * from "./DeploymentConfigInstanceType";
 export * from "./AuthStateResponse";
 export * from "./BrowserAuthenticateResponse";
@@ -21,5 +22,6 @@ export * from "./SaveBrowserAuthResponse";
 export * from "./StartBrowserResponse";
 export * from "./StopBrowserResponse";
 export * from "./StopInstanceResponse";
+export * from "./Tool";
 export * from "./ValidationErrorLocItem";
 export * from "./ValidationError";
