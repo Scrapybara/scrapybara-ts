@@ -126,7 +126,7 @@ type ApiToolMessage = {
 type ApiMessage = ApiUserMessage | ApiAssistantMessage | ApiToolMessage;
 
 type ApiModel = {
-    provider: "anthropic";
+    provider: "anthropic" | "herd";
     name: string;
     api_key?: string;
 };
