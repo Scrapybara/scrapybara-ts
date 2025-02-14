@@ -147,7 +147,7 @@ export class ScrapybaraClient {
         prompt?: string;
         messages?: Message[];
         schema?: T;
-        onStep?: (step: Step) => void;
+        onStep?: (step: Step) => Promise<void>;
         temperature?: number;
         maxTokens?: number;
         requestOptions?: ScrapybaraClient.RequestOptions;
@@ -177,7 +177,10 @@ export class ScrapybaraClient {
             steps.push(step);
             const assistantMsg: AssistantMessage = {
                 role: "assistant",
-                content: [{ type: "text", text: step.text } as TextPart, ...(step.toolCalls || [])],
+                content: [
+                    ...(step.text ? [{ type: "text", text: step.text } as TextPart] : []),
+                    ...(step.toolCalls || []),
+                ],
             };
             resultMessages.push(assistantMsg);
 
@@ -258,7 +261,7 @@ export class ScrapybaraClient {
         prompt?: string;
         messages?: Message[];
         schema?: T;
-        onStep?: (step: Step) => void;
+        onStep?: (step: Step) => Promise<void>;
         temperature?: number;
         maxTokens?: number;
         requestOptions?: ScrapybaraClient.RequestOptions;
@@ -266,7 +269,7 @@ export class ScrapybaraClient {
         let currentMessages: Message[] = [];
         if (!messages) {
             if (!prompt) {
-                throw new Error("prompt or messages must be provided");
+                throw new Error("prompt or messages must be provided.");
             }
             currentMessages = [
                 {
@@ -451,7 +454,7 @@ export class ScrapybaraClient {
             }
 
             if (onStep) {
-                onStep(step);
+                await onStep(step);
             }
             yield step;
 
