@@ -46,7 +46,7 @@ export type ToolMessage = {
 export type Message = UserMessage | AssistantMessage | ToolMessage;
 
 export type Model = {
-    provider: "anthropic";
+    provider: "anthropic" | "herd";
     name: string;
     apiKey?: string;
 };
@@ -202,14 +202,14 @@ export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequ
                 return {
                     role: "user",
                     content: message.content.map((part) =>
-                        part.type === "text" ? convertTextPart(part) : convertImagePart(part)
+                        part.type === "text" ? convertTextPart(part) : convertImagePart(part),
                     ),
                 };
             case "assistant":
                 return {
                     role: "assistant",
                     content: message.content.map((part) =>
-                        part.type === "text" ? convertTextPart(part) : convertToolCallPart(part)
+                        part.type === "text" ? convertTextPart(part) : convertToolCallPart(part),
                     ),
                 };
             case "tool":

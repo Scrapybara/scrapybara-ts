@@ -15,7 +15,6 @@ import {
     ApiSingleActResponse,
     convertRequestToApi,
     convertResponseToSdk,
-    TokenUsage,
     ActResponse,
 } from "./api/types/Act";
 import * as core from "./core";
@@ -284,9 +283,31 @@ export class ScrapybaraClient {
             currentMessages = [...messages];
         }
 
-        const currentTools = [...(tools || [])];
+        let currentTools: Tool[] = [];
+        if (tools) {
+            if (model.name === "ui-tars-72b") {
+                const computerTools = tools.filter((tool) => tool.name === "computer");
+                if (computerTools.length === 0) {
+                    console.warn("No compatible tools found for ui-tars-72b model. Only ComputerTool is supported.");
+                } else {
+                    currentTools = computerTools;
+                    if (tools.length > computerTools.length) {
+                        console.warn(
+                            "Only ComputerTool is compatible with ui-tars-72b model. Other tools will be ignored.",
+                        );
+                    }
+                }
+            } else {
+                currentTools = [...tools];
+            }
+        }
+
         if (schema) {
-            currentTools.push(structuredOutputTool(schema));
+            if (model.name === "ui-tars-72b") {
+                throw new Error("Schema is not supported with ui-tars-72b model.");
+            } else {
+                currentTools.push(structuredOutputTool(schema));
+            }
         }
 
         while (true) {
