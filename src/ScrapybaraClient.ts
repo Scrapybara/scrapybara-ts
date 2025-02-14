@@ -147,7 +147,7 @@ export class ScrapybaraClient {
         prompt?: string;
         messages?: Message[];
         schema?: T;
-        onStep?: (step: Step) => Promise<void>;
+        onStep?: (step: Step) => void | Promise<void>;
         temperature?: number;
         maxTokens?: number;
         requestOptions?: ScrapybaraClient.RequestOptions;
@@ -261,7 +261,7 @@ export class ScrapybaraClient {
         prompt?: string;
         messages?: Message[];
         schema?: T;
-        onStep?: (step: Step) => Promise<void>;
+        onStep?: (step: Step) => void | Promise<void>;
         temperature?: number;
         maxTokens?: number;
         requestOptions?: ScrapybaraClient.RequestOptions;
