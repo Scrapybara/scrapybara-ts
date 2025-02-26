@@ -180,6 +180,7 @@ export class ScrapybaraClient {
                 role: "assistant",
                 content: [
                     ...(step.text ? [{ type: "text", text: step.text } as TextPart] : []),
+                    ...(step.reasoning ? [{ type: "reasoning", reasoning: step.reasoning } as ReasoningPart] : []),
                     ...(step.toolCalls || []),
                 ],
             };
