@@ -15,6 +15,7 @@ export * from "./HttpValidationError";
 export * from "./InstanceGetStreamUrlResponse";
 export * from "./InstanceScreenshotResponse";
 export * from "./KernelInfo";
+export * from "./ModifyBrowserAuthResponse";
 export * from "./Notebook";
 export * from "./NotebookCell";
 export * from "./SaveBrowserAuthResponse";

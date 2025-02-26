@@ -9,10 +9,11 @@ import * as core from "../../core";
 export const Status: core.serialization.Schema<serializers.Status.Raw, Scrapybara.Status> = core.serialization.enum_([
     "deploying",
     "running",
+    "paused",
     "terminated",
     "error",
 ]);
 
 export declare namespace Status {
-    export type Raw = "deploying" | "running" | "terminated" | "error";
+    export type Raw = "deploying" | "running" | "paused" | "terminated" | "error";
 }
