@@ -3,6 +3,7 @@
 src/ScrapybaraClient.ts
 src/index.ts
 src/anthropic/
+src/herd/
 src/prompts/
 src/tools/
 src/api/types/index.ts

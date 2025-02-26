@@ -562,6 +562,13 @@ export class BrowserInstance extends BaseInstance {
         return await this.fern.browser.saveAuth(this.id, request, requestOptions);
     }
 
+    public async modifyAuth(
+        request: Scrapybara.BrowserModifyAuthRequest,
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.ModifyBrowserAuthResponse> {
+        return await this.fern.browser.modifyAuth(this.id, request, requestOptions);
+    }
+
     public async authenticate(
         request: Scrapybara.BrowserAuthenticateRequest,
         requestOptions?: FernClient.RequestOptions,
@@ -595,6 +602,13 @@ export class Browser {
         requestOptions?: FernClient.RequestOptions,
     ): Promise<Scrapybara.SaveBrowserAuthResponse> {
         return await this.fern.browser.saveAuth(this.instanceId, request, requestOptions);
+    }
+
+    public async modifyAuth(
+        request: Scrapybara.BrowserModifyAuthRequest,
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.ModifyBrowserAuthResponse> {
+        return await this.fern.browser.modifyAuth(this.instanceId, request, requestOptions);
     }
 
     public async authenticate(
