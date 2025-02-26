@@ -619,6 +619,64 @@ await client.browser.saveAuth("instance_id");
 </dl>
 </details>
 
+<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">modifyAuth</a>(instanceId, { ...params }) -> Scrapybara.ModifyBrowserAuthResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.browser.modifyAuth("instance_id", {
+    authStateId: "auth_state_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.BrowserModifyAuthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Browser.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">authenticate</a>(instanceId, { ...params }) -> Scrapybara.BrowserAuthenticateResponse</code></summary>
 <dl>
 <dd>
