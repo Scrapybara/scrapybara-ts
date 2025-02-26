@@ -44,7 +44,7 @@ describe("test", () => {
             schema: YCStats,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
-        console.log(response);
+        console.log(response.output);
 
         assert(response.output !== undefined);
         assert(response.output.number_of_startups !== undefined);
@@ -73,7 +73,7 @@ describe("test", () => {
             schema: YCStats,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
-        console.log(response);
+        console.log(response.output);
 
         assert(response.output !== undefined);
         assert(response.output.number_of_startups !== undefined);
@@ -98,7 +98,7 @@ describe("test", () => {
             schema: YCStats,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
-        console.log(response);
+        console.log(response.output);
 
         assert(response.output !== undefined);
         assert(response.output.number_of_startups !== undefined);
