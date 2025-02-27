@@ -68,7 +68,7 @@ export type FinishReason = "stop" | "length" | "content-filter" | "tool-calls" |
 
 export type Step = {
     text: string;
-    reasoning?: ReasoningPart[];
+    reasoningParts?: ReasoningPart[];
     toolCalls?: ToolCallPart[];
     toolResults?: ToolResultPart[];
     finishReason?: FinishReason;
