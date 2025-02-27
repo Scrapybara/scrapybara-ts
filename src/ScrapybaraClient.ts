@@ -16,6 +16,7 @@ import {
     convertRequestToApi,
     convertResponseToSdk,
     ActResponse,
+    ReasoningPart,
 } from "./api/types/Act";
 import * as core from "./core";
 import * as errors from "./errors";
@@ -179,6 +180,7 @@ export class ScrapybaraClient {
                 role: "assistant",
                 content: [
                     ...(step.text ? [{ type: "text", text: step.text } as TextPart] : []),
+                    ...(step.reasoningParts || []),
                     ...(step.toolCalls || []),
                 ],
             };
@@ -405,9 +407,15 @@ export class ScrapybaraClient {
                 (part): part is ToolCallPart => part.type === "tool-call",
             );
 
+            // Extract reasoning
+            const reasoningParts = actResponse.message.content.filter(
+                (part): part is ReasoningPart => part.type === "reasoning",
+            );
+
             // Create initial step
             const step: Step = {
                 text,
+                reasoningParts: reasoningParts.length > 0 ? reasoningParts : undefined,
                 toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
                 finishReason: actResponse.finishReason,
                 usage: actResponse.usage,

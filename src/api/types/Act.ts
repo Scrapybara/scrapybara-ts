@@ -28,6 +28,13 @@ export type ToolResultPart = {
     isError?: boolean;
 };
 
+export type ReasoningPart = {
+    type: "reasoning";
+    reasoning: string;
+    signature?: string;
+    instructions?: string;
+};
+
 export type UserMessage = {
     role: "user";
     content: (TextPart | ImagePart)[];
@@ -35,7 +42,7 @@ export type UserMessage = {
 
 export type AssistantMessage = {
     role: "assistant";
-    content: (TextPart | ToolCallPart)[];
+    content: (TextPart | ToolCallPart | ReasoningPart)[];
 };
 
 export type ToolMessage = {
@@ -61,6 +68,7 @@ export type FinishReason = "stop" | "length" | "content-filter" | "tool-calls" |
 
 export type Step = {
     text: string;
+    reasoningParts?: ReasoningPart[];
     toolCalls?: ToolCallPart[];
     toolResults?: ToolResultPart[];
     finishReason?: FinishReason;
@@ -109,6 +117,13 @@ type ApiToolResultPart = {
     is_error?: boolean;
 };
 
+type ApiReasoningPart = {
+    type: "reasoning";
+    reasoning: string;
+    signature?: string;
+    instructions?: string;
+};
+
 type ApiUserMessage = {
     role: "user";
     content: (ApiTextPart | ApiImagePart)[];
@@ -116,8 +131,9 @@ type ApiUserMessage = {
 
 type ApiAssistantMessage = {
     role: "assistant";
-    content: (ApiTextPart | ApiToolCallPart)[];
+    content: (ApiTextPart | ApiToolCallPart | ApiReasoningPart)[];
 };
+
 type ApiToolMessage = {
     role: "tool";
     content: ApiToolResultPart[];
@@ -196,6 +212,13 @@ export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequ
         mime_type: part.mimeType,
     });
 
+    const convertReasoningPart = (part: ReasoningPart): ApiReasoningPart => ({
+        type: "reasoning",
+        reasoning: part.reasoning,
+        signature: part.signature,
+        instructions: part.instructions,
+    });
+
     const convertMessage = (message: Message): ApiMessage => {
         switch (message.role) {
             case "user":
@@ -208,9 +231,11 @@ export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequ
             case "assistant":
                 return {
                     role: "assistant",
-                    content: message.content.map((part) =>
-                        part.type === "text" ? convertTextPart(part) : convertToolCallPart(part),
-                    ),
+                    content: message.content.map((part) => {
+                        if (part.type === "text") return convertTextPart(part);
+                        if (part.type === "tool-call") return convertToolCallPart(part);
+                        return convertReasoningPart(part);
+                    }),
                 };
             case "tool":
                 return {
@@ -246,12 +271,21 @@ export function convertResponseToSdk(response: ApiSingleActResponse): SingleActR
         text: part.text,
     });
 
-    const convertContent = (content: (ApiTextPart | ApiToolCallPart)[]): (TextPart | ToolCallPart)[] => {
+    const convertReasoningPart = (part: ApiReasoningPart): ReasoningPart => ({
+        type: "reasoning",
+        reasoning: part.reasoning,
+        signature: part.signature,
+        instructions: part.instructions,
+    });
+
+    const convertContent = (content: (ApiTextPart | ApiToolCallPart | ApiReasoningPart)[]): (TextPart | ToolCallPart | ReasoningPart)[] => {
         return content.map((part) => {
             if (part.type === "text") {
                 return convertTextPart(part);
-            } else {
+            } else if (part.type === "tool-call") {
                 return convertToolCallPart(part);
+            } else {
+                return convertReasoningPart(part);
             }
         });
     };

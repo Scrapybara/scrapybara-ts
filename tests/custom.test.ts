@@ -44,7 +44,40 @@ describe("test", () => {
             schema: YCStats,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
-        console.log(response);
+        console.log(response.output);
+
+        assert(response.output !== undefined);
+        assert(response.output.number_of_startups !== undefined);
+        assert(response.output.combined_valuation !== undefined);
+
+        await ubuntuInstance.browser.stop();
+        await ubuntuInstance.stop();
+    }, 600000);
+
+    it("ubuntu test with thinking", async () => {
+        const ubuntuInstance = await client.startUbuntu();
+        console.log((await ubuntuInstance.getStreamUrl()).streamUrl);
+        assert(ubuntuInstance.id !== undefined);
+
+        const instances = await client.getInstances();
+        assert(instances.length > 0);
+
+        const screenshotResponse = await ubuntuInstance.screenshot();
+        assert(screenshotResponse.base64Image !== undefined);
+
+        await ubuntuInstance.browser.start();
+        const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
+        assert(cdpUrl.cdpUrl !== undefined);
+
+        const response = await client.act({
+            model: anthropic({ name: "claude-3-7-sonnet-20250219-thinking" }),
+            system: UBUNTU_SYSTEM_PROMPT,
+            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            tools: [computerTool(ubuntuInstance), bashTool(ubuntuInstance), editTool(ubuntuInstance)],
+            schema: YCStats,
+            onStep: (step) => console.log(step.text, step.toolCalls, step.reasoningParts),
+        });
+        console.log(response.output);
 
         assert(response.output !== undefined);
         assert(response.output.number_of_startups !== undefined);
@@ -73,7 +106,35 @@ describe("test", () => {
             schema: YCStats,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
-        console.log(response);
+        console.log(response.output);
+
+        assert(response.output !== undefined);
+        assert(response.output.number_of_startups !== undefined);
+        assert(response.output.combined_valuation !== undefined);
+
+        await browserInstance.stop();
+    }, 600000);
+
+    it("browser test with thinking", async () => {
+        const browserInstance = await client.startBrowser();
+        console.log((await browserInstance.getStreamUrl()).streamUrl);
+        assert(browserInstance.id !== undefined);
+
+        const screenshotResponse = await browserInstance.screenshot();
+        assert(screenshotResponse.base64Image !== undefined);
+
+        const cdpUrl = await browserInstance.getCdpUrl();
+        assert(cdpUrl.cdpUrl !== undefined);
+
+        const response = await client.act({
+            model: anthropic({ name: "claude-3-7-sonnet-20250219-thinking" }),
+            system: BROWSER_SYSTEM_PROMPT,
+            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            tools: [computerTool(browserInstance)],
+            schema: YCStats,
+            onStep: (step) => console.log(step.text, step.toolCalls, step.reasoningParts),
+        });
+        console.log(response.output);
 
         assert(response.output !== undefined);
         assert(response.output.number_of_startups !== undefined);
@@ -98,7 +159,7 @@ describe("test", () => {
             schema: YCStats,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
-        console.log(response);
+        console.log(response.output);
 
         assert(response.output !== undefined);
         assert(response.output.number_of_startups !== undefined);
