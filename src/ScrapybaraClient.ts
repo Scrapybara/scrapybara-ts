@@ -180,7 +180,7 @@ export class ScrapybaraClient {
                 role: "assistant",
                 content: [
                     ...(step.text ? [{ type: "text", text: step.text } as TextPart] : []),
-                    ...(step.reasoning ? [{ type: "reasoning", reasoning: step.reasoning } as ReasoningPart] : []),
+                    ...(step.reasoning || []),
                     ...(step.toolCalls || []),
                 ],
             };
@@ -408,15 +408,14 @@ export class ScrapybaraClient {
             );
 
             // Extract reasoning
-            const reasoning = actResponse.message.content
-                .filter((part): part is ReasoningPart => part.type === "reasoning")
-                .map((part) => part.reasoning)
-                .join("\n");
+            const reasoning = actResponse.message.content.filter(
+                (part): part is ReasoningPart => part.type === "reasoning",
+            );
 
             // Create initial step
             const step: Step = {
                 text,
-                reasoning: reasoning.trim() !== "" ? reasoning : undefined,
+                reasoning: reasoning.length > 0 ? reasoning : undefined,
                 toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
                 finishReason: actResponse.finishReason,
                 usage: actResponse.usage,
