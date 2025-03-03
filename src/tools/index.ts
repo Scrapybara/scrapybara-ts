@@ -54,6 +54,10 @@ export function computerTool(instance: BaseInstance) {
                 .describe("The computer action to execute"),
             coordinate: z.tuple([z.number(), z.number()]).optional().describe("Coordinates for mouse actions"),
             text: z.string().optional().describe("Text for keyboard actions"),
+            duration: z.number().optional().describe("Duration for actions like wait or hold_key"),
+            scrollAmount: z.number().optional().describe("Number of clicks to scroll"),
+            scrollDirection: z.enum(["up", "down", "left", "right"]).optional().describe("Direction to scroll"),
+            startCoordinate: z.tuple([z.number(), z.number()]).optional().describe("Start coordinates for drag actions"),
         }),
         execute: async (params) => {
             return instance.computer({ ...params });
