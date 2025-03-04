@@ -92,6 +92,9 @@ describe("test", () => {
         console.log((await browserInstance.getStreamUrl()).streamUrl);
         assert(browserInstance.id !== undefined);
 
+        const instances = await client.getInstances();
+        assert(instances.length > 0);
+
         const screenshotResponse = await browserInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
@@ -120,6 +123,9 @@ describe("test", () => {
         console.log((await browserInstance.getStreamUrl()).streamUrl);
         assert(browserInstance.id !== undefined);
 
+        const instances = await client.getInstances();
+        assert(instances.length > 0);
+
         const screenshotResponse = await browserInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
@@ -147,6 +153,9 @@ describe("test", () => {
         const windowsInstance = await client.startWindows();
         console.log((await windowsInstance.getStreamUrl()).streamUrl);
         assert(windowsInstance.id !== undefined);
+
+        const instances = await client.getInstances();
+        assert(instances.length > 0);
 
         const screenshotResponse = await windowsInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
