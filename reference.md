@@ -140,7 +140,7 @@ await client.instance.getStreamUrl("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">computer</a>(instanceId, { ...params }) -> unknown</code></summary>
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">computer</a>(instanceId, { ...params }) -> Scrapybara.ComputerResponse</code></summary>
 <dl>
 <dd>
 
@@ -154,7 +154,8 @@ await client.instance.getStreamUrl("instance_id");
 
 ```typescript
 await client.instance.computer("instance_id", {
-    action: "key",
+    action: "move_mouse",
+    coordinates: [1],
 });
 ```
 
@@ -179,7 +180,7 @@ await client.instance.computer("instance_id", {
 <dl>
 <dd>
 
-**request:** `Scrapybara.ComputerRequest`
+**request:** `Scrapybara.Request`
 
 </dd>
 </dl>
@@ -198,7 +199,7 @@ await client.instance.computer("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">bash</a>(instanceId, { ...params }) -> unknown</code></summary>
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">bash</a>(instanceId, { ...params }) -> Scrapybara.BashResponse</code></summary>
 <dl>
 <dd>
 
@@ -254,7 +255,7 @@ await client.instance.bash("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">edit</a>(instanceId, { ...params }) -> unknown</code></summary>
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">edit</a>(instanceId, { ...params }) -> Scrapybara.EditResponse</code></summary>
 <dl>
 <dd>
 
