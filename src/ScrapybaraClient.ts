@@ -503,10 +503,7 @@ export class BaseInstance {
         return await this.fern.instance.getStreamUrl(this.id, requestOptions);
     }
 
-    public async computer(
-        request: Scrapybara.ComputerRequest,
-        requestOptions?: FernClient.RequestOptions,
-    ): Promise<unknown> {
+    public async computer(request: Scrapybara.Request, requestOptions?: FernClient.RequestOptions): Promise<unknown> {
         return await this.fern.instance.computer(this.id, request, requestOptions);
     }
 

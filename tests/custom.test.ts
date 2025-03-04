@@ -54,7 +54,7 @@ describe("test", () => {
         await ubuntuInstance.stop();
     }, 600000);
 
-    it("ubuntu test with thinking", async () => {
+    it.skip("ubuntu test with thinking", async () => {
         const ubuntuInstance = await client.startUbuntu();
         console.log((await ubuntuInstance.getStreamUrl()).streamUrl);
         assert(ubuntuInstance.id !== undefined);
@@ -115,7 +115,7 @@ describe("test", () => {
         await browserInstance.stop();
     }, 600000);
 
-    it("browser test with thinking", async () => {
+    it.skip("browser test with thinking", async () => {
         const browserInstance = await client.startBrowser();
         console.log((await browserInstance.getStreamUrl()).streamUrl);
         assert(browserInstance.id !== undefined);

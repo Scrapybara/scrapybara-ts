@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { Tool } from "../api/types/Tool";
-import { BaseInstance, UbuntuInstance, BrowserInstance } from "../ScrapybaraClient";
-import { chromium } from "playwright";
+import { BaseInstance, UbuntuInstance } from "../ScrapybaraClient";
 
 /**
  * Create a custom tool that can be used by the act agent.
@@ -38,25 +37,104 @@ export function computerTool(instance: BaseInstance) {
         parameters: z.object({
             action: z
                 .enum([
-                    "key",
-                    "type",
-                    "mouse_move",
-                    "left_click",
-                    "left_click_drag",
-                    "right_click",
-                    "middle_click",
-                    "double_click",
-                    "screenshot",
-                    "cursor_position",
+                    "move_mouse",
+                    "click_mouse",
+                    "drag_mouse",
                     "scroll",
+                    "press_key",
+                    "type_text",
                     "wait",
+                    "take_screenshot",
+                    "get_cursor_position",
                 ])
                 .describe("The computer action to execute"),
-            coordinate: z.tuple([z.number(), z.number()]).optional().describe("Coordinates for mouse actions"),
-            text: z.string().optional().describe("Text for keyboard actions"),
+            button: z.enum(["left", "right", "middle", "back", "forward"]).optional().describe("The button to click"),
+            click_type: z.enum(["down", "up", "click"]).optional().describe("The type of click to perform"),
+            coordinates: z.array(z.number()).optional().describe("The coordinates to move to"),
+            delta_x: z.number().optional().describe("The x delta to move"),
+            delta_y: z.number().optional().describe("The y delta to move"),
+            num_clicks: z.number().optional().describe("The number of clicks to perform"),
+            hold_keys: z.array(z.string()).optional().describe("The keys to hold"),
+            path: z.array(z.array(z.number())).optional().describe("The path to move to"),
+            keys: z.array(z.string()).optional().describe("The keys to press"),
+            text: z.string().optional().describe("The text to type"),
+            duration: z.number().optional().describe("The duration to wait"),
         }),
         execute: async (params) => {
-            return instance.computer({ ...params });
+            if (params.action === "move_mouse") {
+                if (!params.coordinates) {
+                    throw new Error("coordinates is required for move_mouse action");
+                }
+                return instance.computer({
+                    action: params.action,
+                    coordinates: params.coordinates,
+                    holdKeys: params.hold_keys,
+                });
+            } else if (params.action === "click_mouse") {
+                if (!params.button) {
+                    throw new Error("button is required for click_mouse action");
+                }
+                return instance.computer({
+                    action: params.action,
+                    button: params.button,
+                    clickType: params.click_type,
+                    coordinates: params.coordinates,
+                    numClicks: params.num_clicks,
+                    holdKeys: params.hold_keys,
+                });
+            } else if (params.action === "drag_mouse") {
+                if (!params.path) {
+                    throw new Error("path is required for drag_mouse action");
+                }
+                return instance.computer({
+                    action: params.action,
+                    path: params.path,
+                    holdKeys: params.hold_keys,
+                });
+            } else if (params.action === "scroll") {
+                if (!params.coordinates) {
+                    throw new Error("coordinates is required for scroll action");
+                }
+                return instance.computer({
+                    action: params.action,
+                    coordinates: params.coordinates,
+                    deltaX: params.delta_x,
+                    deltaY: params.delta_y,
+                    holdKeys: params.hold_keys,
+                });
+            } else if (params.action === "press_key") {
+                if (!params.keys) {
+                    throw new Error("keys is required for press_key action");
+                }
+                return instance.computer({
+                    action: params.action,
+                    keys: params.keys,
+                    duration: params.duration,
+                });
+            } else if (params.action === "type_text") {
+                if (!params.text) {
+                    throw new Error("text is required for type_text action");
+                }
+                return instance.computer({
+                    action: params.action,
+                    text: params.text,
+                    holdKeys: params.hold_keys,
+                });
+            } else if (params.action === "wait") {
+                if (params.duration === undefined) {
+                    throw new Error("duration is required for wait action");
+                }
+                return instance.computer({
+                    action: params.action,
+                    duration: params.duration,
+                });
+            } else if (params.action === "take_screenshot") {
+                return instance.computer({ action: params.action });
+            } else if (params.action === "get_cursor_position") {
+                return instance.computer({ action: params.action });
+            } else {
+                throw new Error(`Unknown action: ${params.action}`);
+            }
         },
     });
 }
@@ -100,109 +178,6 @@ export function bashTool(instance: UbuntuInstance) {
         }),
         execute: async (params) => {
             return instance.bash({ ...params });
-        },
-    });
-}
-
-/**
- * A browser interaction tool that allows the agent to interact with a browser.
- * Available for Ubuntu and Browser instances.
- */
-export function browserTool(instance: UbuntuInstance | BrowserInstance) {
-    return tool({
-        name: "browser",
-        description: "Interact with a browser for web scraping and automation",
-        parameters: z.object({
-            command: z
-                .enum(["go_to", "get_html", "evaluate", "click", "type", "screenshot", "get_text", "get_attribute"])
-                .describe(
-                    "The browser command to execute. Required parameters per command:\n- go_to: requires 'url'\n- evaluate: requires 'code'\n- click: requires 'selector'\n- type: requires 'selector' and 'text'\n- get_text: requires 'selector'\n- get_attribute: requires 'selector' and 'attribute'\n- get_html: no additional parameters\n- screenshot: no additional parameters",
-                ),
-            url: z.string().optional().describe("URL for go_to command (required for go_to)"),
-            selector: z
-                .string()
-                .optional()
-                .describe("CSS selector for element operations (required for click, type, get_text, get_attribute)"),
-            code: z.string().optional().describe("JavaScript code for evaluate command (required for evaluate)"),
-            text: z.string().optional().describe("Text to type for type command (required for type)"),
-            timeout: z.number().optional().default(30000).describe("Timeout in milliseconds for operations"),
-            attribute: z
-                .string()
-                .optional()
-                .describe("Attribute name for get_attribute command (required for get_attribute)"),
-        }),
-        execute: async (params) => {
-            const { command, url, selector, code, text, timeout = 30000, attribute } = params;
-
-            // Get CDP URL based on instance type
-            const cdpUrl =
-                instance instanceof UbuntuInstance ? await instance.browser.getCdpUrl() : await instance.getCdpUrl();
-
-            if (!cdpUrl.cdpUrl) {
-                throw new Error("CDP URL is not available, start the browser first");
-            }
-
-            const browser = await chromium.connectOverCDP(cdpUrl.cdpUrl);
-            try {
-                const context = browser.contexts()[0];
-                const page = context.pages().length ? context.pages()[0] : await context.newPage();
-
-                try {
-                    switch (command) {
-                        case "go_to":
-                            if (!url) throw new Error("URL is required for go_to command");
-                            await page.goto(url, { timeout });
-                            return true;
-
-                        case "get_html":
-                            try {
-                                return await page.evaluate("document.documentElement.outerHTML");
-                            } catch {
-                                // If page is navigating, just return what we can get
-                                return await page.evaluate("document.documentElement.innerHTML");
-                            }
-
-                        case "evaluate":
-                            if (!code) throw new Error("Code is required for evaluate command");
-                            return await page.evaluate(code);
-
-                        case "click":
-                            if (!selector) throw new Error("Selector is required for click command");
-                            await page.click(selector, { timeout });
-                            return true;
-
-                        case "type":
-                            if (!selector) throw new Error("Selector is required for type command");
-                            if (!text) throw new Error("Text is required for type command");
-                            await page.type(selector, text, { timeout });
-                            return true;
-
-                        case "screenshot":
-                            const screenshot = await page.screenshot({ type: "png" });
-                            return imageResult(screenshot.toString("base64"));
-
-                        case "get_text":
-                            if (!selector) throw new Error("Selector is required for get_text command");
-                            const textElement = await page.waitForSelector(selector, { timeout });
-                            if (!textElement) throw new Error(`Element not found: ${selector}`);
-                            return await textElement.textContent();
-
-                        case "get_attribute":
-                            if (!selector) throw new Error("Selector is required for get_attribute command");
-                            if (!attribute) throw new Error("Attribute is required for get_attribute command");
-                            const element = await page.waitForSelector(selector, { timeout });
-                            if (!element) throw new Error(`Element not found: ${selector}`);
-                            return await element.getAttribute(attribute);
-
-                        default:
-                            throw new Error(`Unknown command: ${command}`);
-                    }
-                } catch (error: any) {
-                    throw new Error(`Browser command failed: ${error?.message || String(error)}`);
-                }
-            } finally {
-                await browser.close();
-            }
         },
     });
 }
