@@ -18,7 +18,7 @@
         "node-fetch": "^2.7.0",
         "qs": "^6.13.1",
         "readable-stream": "^4.5.2",
-        "playwright": "^1.48.0",
+        "playwright": "^1.47.2",
         "zod": "^3.24.0",
         "zod-to-json-schema": "^3.24.0"
     },
