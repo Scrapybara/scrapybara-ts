@@ -338,8 +338,8 @@ export class ScrapybaraClient {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "scrapybara",
-                    "X-Fern-SDK-Version": "2.1.0",
-                    "User-Agent": "scrapybara/2.1.0",
+                    "X-Fern-SDK-Version": "2.3.0",
+                    "User-Agent": "scrapybara/2.3.0",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -504,9 +504,9 @@ export class BaseInstance {
     }
 
     public async computer(
-        request: Scrapybara.ComputerRequest,
+        request: Scrapybara.Request,
         requestOptions?: FernClient.RequestOptions,
-    ): Promise<unknown> {
+    ): Promise<Scrapybara.ComputerResponse> {
         return await this.fern.instance.computer(this.id, request, requestOptions);
     }
 
@@ -545,11 +545,14 @@ export class UbuntuInstance extends BaseInstance {
     public async bash(
         request: Scrapybara.BashRequest = {},
         requestOptions?: FernClient.RequestOptions,
-    ): Promise<unknown> {
+    ): Promise<Scrapybara.BashResponse> {
         return await this.fern.instance.bash(this.id, request, requestOptions);
     }
 
-    public async edit(request: Scrapybara.EditRequest, requestOptions?: FernClient.RequestOptions): Promise<unknown> {
+    public async edit(
+        request: Scrapybara.EditRequest,
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.EditResponse> {
         return await this.fern.instance.edit(this.id, request, requestOptions);
     }
 }
