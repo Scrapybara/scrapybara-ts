@@ -152,11 +152,11 @@ export function editTool(instance: UbuntuInstance) {
                 .enum(["view", "create", "str_replace", "insert", "undo_edit"])
                 .describe("The edit command to execute"),
             path: z.string().describe("Path to the file to edit"),
-            fileText: z.string().optional().describe("File content for create command"),
-            viewRange: z.tuple([z.number(), z.number()]).optional().describe("Line range for view command"),
-            oldStr: z.string().optional().describe("String to replace for replace command"),
-            newStr: z.string().optional().describe("New string for replace command"),
-            insertLine: z.number().optional().describe("Line number for insert command"),
+            file_text: z.string().optional().describe("File content for create command"),
+            view_range: z.tuple([z.number(), z.number()]).optional().describe("Line range for view command"),
+            old_str: z.string().optional().describe("String to replace for replace command"),
+            new_str: z.string().optional().describe("New string for replace command"),
+            insert_line: z.number().optional().describe("Line number for insert command"),
         }),
         execute: async (params) => {
             return instance.edit({ ...params });
