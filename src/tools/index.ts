@@ -159,7 +159,15 @@ export function editTool(instance: UbuntuInstance) {
             insert_line: z.number().optional().describe("Line number for insert command"),
         }),
         execute: async (params) => {
-            return instance.edit({ ...params });
+            return instance.edit({
+                command: params.command,
+                path: params.path,
+                fileText: params.file_text,
+                viewRange: params.view_range,
+                oldStr: params.old_str,
+                newStr: params.new_str,
+                insertLine: params.insert_line,
+            });
         },
     });
 }
@@ -177,7 +185,10 @@ export function bashTool(instance: UbuntuInstance) {
             restart: z.boolean().optional().default(false).describe("Whether to restart the shell"),
         }),
         execute: async (params) => {
-            return instance.bash({ ...params });
+            return instance.bash({
+                command: params.command,
+                restart: params.restart,
+            });
         },
     });
 }

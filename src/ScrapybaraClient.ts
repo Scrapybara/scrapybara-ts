@@ -338,8 +338,8 @@ export class ScrapybaraClient {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "scrapybara",
-                    "X-Fern-SDK-Version": "2.3.0",
-                    "User-Agent": "scrapybara/2.3.0",
+                    "X-Fern-SDK-Version": "2.3.2",
+                    "User-Agent": "scrapybara/2.3.2",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
