@@ -1,7 +1,6 @@
 import { ScrapybaraClient } from "../src";
-import { anthropic } from "../src/anthropic";
+import { anthropic, UBUNTU_SYSTEM_PROMPT, BROWSER_SYSTEM_PROMPT, WINDOWS_SYSTEM_PROMPT } from "../src/anthropic";
 import { computerTool, bashTool, editTool } from "../src/tools";
-import { UBUNTU_SYSTEM_PROMPT, BROWSER_SYSTEM_PROMPT, WINDOWS_SYSTEM_PROMPT } from "../src/prompts";
 import { z } from "zod";
 import assert from "assert";
 
