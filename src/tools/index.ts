@@ -92,9 +92,6 @@ export function computerTool(instance: BaseInstance) {
                     holdKeys: params.hold_keys,
                 });
             } else if (params.action === "scroll") {
-                if (!params.coordinates) {
-                    throw new Error("coordinates is required for scroll action");
-                }
                 return instance.computer({
                     action: params.action,
                     coordinates: params.coordinates,

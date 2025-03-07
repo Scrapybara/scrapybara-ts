@@ -29,18 +29,6 @@ export declare namespace ScrapybaraClient {
     type RequestOptions = FernClient.RequestOptions;
 }
 
-function structuredOutputTool<T extends z.ZodType>(schema: T) {
-    return {
-        name: "structured_output",
-        description:
-            "Output structured data according to the provided schema parameters. Only use this tool at the end of your task. The output data is final and will be passed directly back to the user.",
-        parameters: schema,
-        execute: async (parameters: z.infer<T>): Promise<z.infer<T>> => {
-            return schema.parse(parameters);
-        },
-    };
-}
-
 export class ScrapybaraClient {
     private _fern: FernClient;
 
@@ -127,6 +115,7 @@ export class ScrapybaraClient {
      * @param onStep - Callback for each step of the conversation
      * @param temperature - Optional temperature parameter for the model
      * @param maxTokens - Optional max tokens parameter for the model
+     * @param imagesToKeep - Optional maximum number of most recent images to retain in messages and model call, defaults to 4
      * @param requestOptions - Optional request configuration
      * @returns Promise that resolves to list of all messages from the conversation
      */
@@ -140,6 +129,7 @@ export class ScrapybaraClient {
         onStep,
         temperature,
         maxTokens,
+        imagesToKeep = 4,
         requestOptions,
     }: {
         model: Model;
@@ -151,6 +141,7 @@ export class ScrapybaraClient {
         onStep?: (step: Step) => void | Promise<void>;
         temperature?: number;
         maxTokens?: number;
+        imagesToKeep?: number;
         requestOptions?: ScrapybaraClient.RequestOptions;
     }): Promise<ActResponse<z.infer<T>>> {
         const resultMessages: Message[] = [];
@@ -220,6 +211,8 @@ export class ScrapybaraClient {
             }
         }
 
+        filterImages(resultMessages, imagesToKeep);
+
         return {
             messages: resultMessages,
             steps,
@@ -242,6 +235,7 @@ export class ScrapybaraClient {
      * @param onStep - Callback for each step of the conversation
      * @param temperature - Optional temperature parameter for the model
      * @param maxTokens - Optional max tokens parameter for the model
+     * @param imagesToKeep - Optional maximum number of most recent images to retain in messages and model call, defaults to 4
      * @param requestOptions - Optional request configuration
      * @yields Steps from the conversation, including tool results
      */
@@ -255,6 +249,7 @@ export class ScrapybaraClient {
         onStep,
         temperature,
         maxTokens,
+        imagesToKeep = 4,
         requestOptions,
     }: {
         model: Model;
@@ -266,6 +261,7 @@ export class ScrapybaraClient {
         onStep?: (step: Step) => void | Promise<void>;
         temperature?: number;
         maxTokens?: number;
+        imagesToKeep?: number;
         requestOptions?: ScrapybaraClient.RequestOptions;
     }): AsyncGenerator<Step, void, unknown> {
         let currentMessages: Message[] = [];
@@ -316,6 +312,8 @@ export class ScrapybaraClient {
         }
 
         while (true) {
+            filterImages(currentMessages, imagesToKeep);
+
             const request: SingleActRequest = {
                 model: {
                     provider: "anthropic",
@@ -338,8 +336,8 @@ export class ScrapybaraClient {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "scrapybara",
-                    "X-Fern-SDK-Version": "2.3.2",
-                    "User-Agent": "scrapybara/2.3.2",
+                    "X-Fern-SDK-Version": "2.3.3",
+                    "User-Agent": "scrapybara/2.3.3",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
@@ -732,5 +730,37 @@ export class Env {
 
     public async delete(request: Scrapybara.EnvDeleteRequest, requestOptions?: FernClient.RequestOptions) {
         return await this.fern.env.delete(this.instanceId, request, requestOptions);
+    }
+}
+
+function structuredOutputTool<T extends z.ZodType>(schema: T) {
+    return {
+        name: "structured_output",
+        description:
+            "Output structured data according to the provided schema parameters. Only use this tool at the end of your task. The output data is final and will be passed directly back to the user.",
+        parameters: schema,
+        execute: async (parameters: z.infer<T>): Promise<z.infer<T>> => {
+            return schema.parse(parameters);
+        },
+    };
+}
+
+function filterImages(messages: Message[], imagesToKeep: number) {
+    let imagesKept = 0;
+    for (let i = messages.length - 1; i >= 0; i--) {
+        const msg = messages[i];
+        if (msg.role === "tool" && Array.isArray(msg.content)) {
+            for (let j = msg.content.length - 1; j >= 0; j--) {
+                const toolResult = msg.content[j];
+                if (toolResult && toolResult.result && toolResult.result.base64Image) {
+                    if (imagesKept < imagesToKeep) {
+                        console.log("Keeping image: ", toolResult.result.base64Image.length);
+                        imagesKept++;
+                    } else {
+                        delete toolResult.result.base64Image;
+                    }
+                }
+            }
+        }
     }
 }
