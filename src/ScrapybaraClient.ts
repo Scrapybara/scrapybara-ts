@@ -176,6 +176,7 @@ export class ScrapybaraClient {
             onStep,
             temperature,
             maxTokens,
+            imagesToKeep,
             requestOptions,
         })) {
             steps.push(step);
