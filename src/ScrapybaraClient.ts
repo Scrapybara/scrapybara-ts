@@ -24,6 +24,18 @@ import * as serializers from "./serialization";
 import urlJoin from "url-join";
 import { ScrapybaraEnvironment } from "./environments";
 
+function structuredOutputTool<T extends z.ZodType>(schema: T) {
+    return {
+        name: "structured_output",
+        description:
+            "Output structured data according to the provided schema parameters. Only use this tool at the end of your task. The output data is final and will be passed directly back to the user.",
+        parameters: schema,
+        execute: async (parameters: z.infer<T>): Promise<z.infer<T>> => {
+            return schema.parse(parameters);
+        },
+    };
+}
+
 export declare namespace ScrapybaraClient {
     type Options = FernClient.Options;
     type RequestOptions = FernClient.RequestOptions;
@@ -211,7 +223,7 @@ export class ScrapybaraClient {
             }
         }
 
-        filterImages(resultMessages, imagesToKeep);
+        _filterImages(resultMessages, imagesToKeep);
 
         return {
             messages: resultMessages,
@@ -312,7 +324,7 @@ export class ScrapybaraClient {
         }
 
         while (true) {
-            filterImages(currentMessages, imagesToKeep);
+            _filterImages(currentMessages, imagesToKeep);
 
             const request: SingleActRequest = {
                 model: {
@@ -733,19 +745,12 @@ export class Env {
     }
 }
 
-function structuredOutputTool<T extends z.ZodType>(schema: T) {
-    return {
-        name: "structured_output",
-        description:
-            "Output structured data according to the provided schema parameters. Only use this tool at the end of your task. The output data is final and will be passed directly back to the user.",
-        parameters: schema,
-        execute: async (parameters: z.infer<T>): Promise<z.infer<T>> => {
-            return schema.parse(parameters);
-        },
-    };
-}
-
-function filterImages(messages: Message[], imagesToKeep: number) {
+/**
+ * Helper function to filter base64 images in messages, keeping only the latest ones up to specified limit.
+ * @param messages - List of messages to filter
+ * @param imagesToKeep - Maximum number of images to keep
+ */
+function _filterImages(messages: Message[], imagesToKeep: number) {
     let imagesKept = 0;
     for (let i = messages.length - 1; i >= 0; i--) {
         const msg = messages[i];
