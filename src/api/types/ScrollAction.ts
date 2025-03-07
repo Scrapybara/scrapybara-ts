@@ -3,7 +3,7 @@
  */
 
 export interface ScrollAction {
-    coordinates: number[];
+    coordinates?: number[];
     deltaX?: number;
     deltaY?: number;
     holdKeys?: string[];

@@ -8,7 +8,7 @@ import * as core from "../../core";
 
 export const ScrollAction: core.serialization.ObjectSchema<serializers.ScrollAction.Raw, Scrapybara.ScrollAction> =
     core.serialization.object({
-        coordinates: core.serialization.list(core.serialization.number()),
+        coordinates: core.serialization.list(core.serialization.number()).optional(),
         deltaX: core.serialization.property("delta_x", core.serialization.number().optional()),
         deltaY: core.serialization.property("delta_y", core.serialization.number().optional()),
         holdKeys: core.serialization.property(
@@ -19,7 +19,7 @@ export const ScrollAction: core.serialization.ObjectSchema<serializers.ScrollAct
 
 export declare namespace ScrollAction {
     export interface Raw {
-        coordinates: number[];
+        coordinates?: number[] | null;
         delta_x?: number | null;
         delta_y?: number | null;
         hold_keys?: string[] | null;
