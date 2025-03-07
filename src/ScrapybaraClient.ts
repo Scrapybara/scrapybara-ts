@@ -760,7 +760,6 @@ function _filterImages(messages: Message[], imagesToKeep: number) {
                 const toolResult = msg.content[j];
                 if (toolResult && toolResult.result && toolResult.result.base64Image) {
                     if (imagesKept < imagesToKeep) {
-                        console.log("Keeping image: ", toolResult.result.base64Image.length);
                         imagesKept++;
                     } else {
                         delete toolResult.result.base64Image;
