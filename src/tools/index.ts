@@ -150,7 +150,7 @@ export function editTool(instance: UbuntuInstance) {
                 .describe("The edit command to execute"),
             path: z.string().describe("Path to the file to edit"),
             file_text: z.string().optional().describe("File content for create command"),
-            view_range: z.tuple([z.number(), z.number()]).optional().describe("Line range for view command"),
+            view_range: z.array(z.number()).optional().describe("Line range for view command"),
             old_str: z.string().optional().describe("String to replace for replace command"),
             new_str: z.string().optional().describe("New string for replace command"),
             insert_line: z.number().optional().describe("Line number for insert command"),
