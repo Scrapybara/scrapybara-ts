@@ -30,6 +30,7 @@ export type ToolResultPart = {
 
 export type ReasoningPart = {
     type: "reasoning";
+    id?: string;
     reasoning: string;
     signature?: string;
     instructions?: string;
@@ -42,6 +43,7 @@ export type UserMessage = {
 
 export type AssistantMessage = {
     role: "assistant";
+    responseId?: string;
     content: (TextPart | ToolCallPart | ReasoningPart)[];
 };
 
@@ -68,6 +70,7 @@ export type FinishReason = "stop" | "length" | "content-filter" | "tool-calls" |
 
 export type Step = {
     text: string;
+    responseId?: string;
     reasoningParts?: ReasoningPart[];
     toolCalls?: ToolCallPart[];
     toolResults?: ToolResultPart[];
@@ -119,6 +122,7 @@ type ApiToolResultPart = {
 
 type ApiReasoningPart = {
     type: "reasoning";
+    id?: string;
     reasoning: string;
     signature?: string;
     instructions?: string;
@@ -131,6 +135,7 @@ type ApiUserMessage = {
 
 type ApiAssistantMessage = {
     role: "assistant";
+    responseId?: string;
     content: (ApiTextPart | ApiToolCallPart | ApiReasoningPart)[];
 };
 
@@ -214,6 +219,7 @@ export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequ
 
     const convertReasoningPart = (part: ReasoningPart): ApiReasoningPart => ({
         type: "reasoning",
+        id: part.id,
         reasoning: part.reasoning,
         signature: part.signature,
         instructions: part.instructions,
@@ -231,6 +237,7 @@ export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequ
             case "assistant":
                 return {
                     role: "assistant",
+                    responseId: message.responseId,
                     content: message.content.map((part) => {
                         if (part.type === "text") return convertTextPart(part);
                         if (part.type === "tool-call") return convertToolCallPart(part);
@@ -273,6 +280,7 @@ export function convertResponseToSdk(response: ApiSingleActResponse): SingleActR
 
     const convertReasoningPart = (part: ApiReasoningPart): ReasoningPart => ({
         type: "reasoning",
+        id: part.id,
         reasoning: part.reasoning,
         signature: part.signature,
         instructions: part.instructions,
@@ -293,6 +301,7 @@ export function convertResponseToSdk(response: ApiSingleActResponse): SingleActR
     return {
         message: {
             role: "assistant",
+            responseId: response.message.responseId,
             content: convertContent(response.message.content),
         },
         finishReason: response.finish_reason,

@@ -182,6 +182,7 @@ export class ScrapybaraClient {
             steps.push(step);
             const assistantMsg: AssistantMessage = {
                 role: "assistant",
+                responseId: step.responseId,
                 content: [
                     ...(step.text ? [{ type: "text", text: step.text } as TextPart] : []),
                     ...(step.reasoningParts || []),
@@ -399,6 +400,7 @@ export class ScrapybaraClient {
             const actResponse = convertResponseToSdk(apiResponse);
             const assistantMessage: AssistantMessage = {
                 role: "assistant",
+                responseId: actResponse.message.responseId,
                 content: actResponse.message.content,
             };
             currentMessages.push(assistantMessage);
@@ -422,6 +424,7 @@ export class ScrapybaraClient {
             // Create initial step
             const step: Step = {
                 text,
+                responseId: actResponse.message.responseId,
                 reasoningParts: reasoningParts.length > 0 ? reasoningParts : undefined,
                 toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
                 finishReason: actResponse.finishReason,
