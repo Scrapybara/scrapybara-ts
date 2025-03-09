@@ -135,7 +135,7 @@ type ApiUserMessage = {
 
 type ApiAssistantMessage = {
     role: "assistant";
-    responseId?: string;
+    response_id?: string;
     content: (ApiTextPart | ApiToolCallPart | ApiReasoningPart)[];
 };
 
@@ -237,7 +237,7 @@ export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequ
             case "assistant":
                 return {
                     role: "assistant",
-                    responseId: message.responseId,
+                    response_id: message.responseId,
                     content: message.content.map((part) => {
                         if (part.type === "text") return convertTextPart(part);
                         if (part.type === "tool-call") return convertToolCallPart(part);
@@ -301,7 +301,7 @@ export function convertResponseToSdk(response: ApiSingleActResponse): SingleActR
     return {
         message: {
             role: "assistant",
-            responseId: response.message.responseId,
+            responseId: response.message.response_id,
             content: convertContent(response.message.content),
         },
         finishReason: response.finish_reason,
