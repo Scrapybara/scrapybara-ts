@@ -564,6 +564,54 @@ await client.browser.getCdpUrl("instance_id");
 </dl>
 </details>
 
+<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">getCurrentUrl</a>(instanceId) -> Scrapybara.BrowserGetCurrentUrlResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.browser.getCurrentUrl("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Browser.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">saveAuth</a>(instanceId, { ...params }) -> Scrapybara.SaveBrowserAuthResponse</code></summary>
 <dl>
 <dd>
