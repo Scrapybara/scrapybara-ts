@@ -15,6 +15,7 @@ export type ImagePart = {
 
 export type ToolCallPart = {
     type: "tool-call";
+    id?: string;
     toolCallId: string;
     toolName: string;
     args: Record<string, any>;
@@ -107,6 +108,7 @@ type ApiImagePart = {
 
 type ApiToolCallPart = {
     type: "tool-call";
+    id?: string;
     tool_call_id: string;
     tool_name: string;
     args: Record<string, any>;
@@ -193,6 +195,7 @@ export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequ
 
     const convertToolCallPart = (part: ToolCallPart): ApiToolCallPart => ({
         type: "tool-call",
+        id: part.id,
         tool_call_id: part.toolCallId,
         tool_name: part.toolName,
         args: part.args,
@@ -268,6 +271,7 @@ export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequ
 export function convertResponseToSdk(response: ApiSingleActResponse): SingleActResponse {
     const convertToolCallPart = (part: ApiToolCallPart): ToolCallPart => ({
         type: "tool-call",
+        id: part.id,
         toolCallId: part.tool_call_id,
         toolName: part.tool_name,
         args: part.args,
