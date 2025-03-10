@@ -576,6 +576,12 @@ export class BrowserInstance extends BaseInstance {
         return await this.fern.browser.getCdpUrl(this.id, requestOptions);
     }
 
+    public async getCurrentUrl(
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.BrowserGetCurrentUrlResponse> {
+        return await this.fern.browser.getCurrentUrl(this.id, requestOptions);
+    }
+
     public async saveAuth(
         request: Scrapybara.BrowserSaveAuthRequest,
         requestOptions?: FernClient.RequestOptions,
@@ -616,6 +622,12 @@ export class Browser {
 
     public async getCdpUrl(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
         return await this.fern.browser.getCdpUrl(this.instanceId, requestOptions);
+    }
+
+    public async getCurrentUrl(
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.BrowserGetCurrentUrlResponse> {
+        return await this.fern.browser.getCurrentUrl(this.instanceId, requestOptions);
     }
 
     public async saveAuth(
