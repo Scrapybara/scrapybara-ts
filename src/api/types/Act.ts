@@ -57,7 +57,7 @@ export type ToolMessage = {
 export type Message = UserMessage | AssistantMessage | ToolMessage;
 
 export type Model = {
-    provider: "anthropic" | "herd";
+    provider: "anthropic" | "openai" | "herd";
     name: string;
     apiKey?: string;
 };
@@ -151,7 +151,7 @@ type ApiToolMessage = {
 type ApiMessage = ApiUserMessage | ApiAssistantMessage | ApiToolMessage;
 
 type ApiModel = {
-    provider: "anthropic" | "herd";
+    provider: "anthropic" | "openai" | "herd";
     name: string;
     api_key?: string;
 };
