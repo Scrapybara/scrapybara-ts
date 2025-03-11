@@ -18,6 +18,7 @@ export type ToolCallPart = {
     id?: string;
     toolCallId: string;
     toolName: string;
+    safetyChecks?: any[];
     args: Record<string, any>;
 };
 
@@ -111,6 +112,7 @@ type ApiToolCallPart = {
     id?: string;
     tool_call_id: string;
     tool_name: string;
+    safety_checks?: any[];
     args: Record<string, any>;
 };
 
@@ -198,6 +200,7 @@ export function convertRequestToApi(request: SingleActRequest): ApiSingleActRequ
         id: part.id,
         tool_call_id: part.toolCallId,
         tool_name: part.toolName,
+        safety_checks: part.safetyChecks,
         args: part.args,
     });
 
@@ -274,6 +277,7 @@ export function convertResponseToSdk(response: ApiSingleActResponse): SingleActR
         id: part.id,
         toolCallId: part.tool_call_id,
         toolName: part.tool_name,
+        safetyChecks: part.safety_checks,
         args: part.args,
     });
 
