@@ -151,7 +151,7 @@ type ApiToolMessage = {
 type ApiMessage = ApiUserMessage | ApiAssistantMessage | ApiToolMessage;
 
 type ApiModel = {
-    provider: "anthropic" | "herd";
+    provider: "anthropic" | "openai" | "herd";
     name: string;
     api_key?: string;
 };
