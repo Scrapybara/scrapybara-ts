@@ -4,16 +4,16 @@ import { Model } from "../api/types/Act";
  * Model adapter for OpenAI.
  *
  * Supported models:
- * - computer-use-preview-2025-02-04 (1x agent credit if no apiKey)
+ * - computer-use-preview (1x agent credit if no apiKey)
  *
- * @param name - OpenAI model name @default "computer-use-preview-2025-02-04"
+ * @param name - OpenAI model name @default "computer-use-preview"
  * @param apiKey - Your OpenAI API key
  * @returns A Model configuration object
  */
 export function openai(options?: { name?: string; apiKey?: string }): Model {
     return {
         provider: "openai",
-        name: options?.name ?? "computer-use-preview-2025-02-04",
+        name: options?.name ?? "computer-use-preview",
         apiKey: options?.apiKey,
     };
 }
