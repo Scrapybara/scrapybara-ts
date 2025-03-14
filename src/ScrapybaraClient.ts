@@ -23,6 +23,18 @@ import * as errors from "./errors";
 import * as serializers from "./serialization";
 import urlJoin from "url-join";
 import { ScrapybaraEnvironment } from "./environments";
+import {
+    UBUNTU_SYSTEM_PROMPT as OPENAI_UBUNTU_SYSTEM_PROMPT,
+    BROWSER_SYSTEM_PROMPT as OPENAI_BROWSER_SYSTEM_PROMPT,
+    WINDOWS_SYSTEM_PROMPT as OPENAI_WINDOWS_SYSTEM_PROMPT,
+    STRUCTURED_OUTPUT_SECTION as OPENAI_STRUCTURED_OUTPUT_SECTION
+} from "./openai";
+import {
+    UBUNTU_SYSTEM_PROMPT as ANTHROPIC_UBUNTU_SYSTEM_PROMPT,
+    BROWSER_SYSTEM_PROMPT as ANTHROPIC_BROWSER_SYSTEM_PROMPT,
+    WINDOWS_SYSTEM_PROMPT as ANTHROPIC_WINDOWS_SYSTEM_PROMPT,
+    STRUCTURED_OUTPUT_SECTION as ANTHROPIC_STRUCTURED_OUTPUT_SECTION
+} from "./anthropic";
 
 function structuredOutputTool<T extends z.ZodType>(schema: T) {
     return {
@@ -322,6 +334,25 @@ export class ScrapybaraClient {
                 throw new Error("Schema is not supported with ui-tars-72b model.");
             } else {
                 currentTools.push(structuredOutputTool(schema));
+                
+                // Add structured output section to system prompt if it matches a default prompt
+                if (system) {
+                    if (model.provider === "anthropic") {
+                        if (system === ANTHROPIC_UBUNTU_SYSTEM_PROMPT || 
+                            system === ANTHROPIC_BROWSER_SYSTEM_PROMPT || 
+                            system === ANTHROPIC_WINDOWS_SYSTEM_PROMPT) {
+                            // For Anthropic prompts, add inside the system capability section
+                            system = system.replace("</SYSTEM_CAPABILITY>", `${ANTHROPIC_STRUCTURED_OUTPUT_SECTION}\n</SYSTEM_CAPABILITY>`);
+                        }
+                    } else if (model.provider === "openai") {
+                        if (system === OPENAI_UBUNTU_SYSTEM_PROMPT || 
+                            system === OPENAI_BROWSER_SYSTEM_PROMPT || 
+                            system === OPENAI_WINDOWS_SYSTEM_PROMPT) {
+                            // For OpenAI prompts, simply append the structured output section
+                            system = system + OPENAI_STRUCTURED_OUTPUT_SECTION;
+                        }
+                    }
+                }
             }
         }
 
@@ -346,8 +377,8 @@ export class ScrapybaraClient {
                 headers: {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "scrapybara",
-                    "X-Fern-SDK-Version": "2.4.1",
-                    "User-Agent": "scrapybara/2.4.1",
+                    "X-Fern-SDK-Version": "2.4.2",
+                    "User-Agent": "scrapybara/2.4.2",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                     ...(await this._getCustomAuthorizationHeaders()),
