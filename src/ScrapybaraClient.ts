@@ -136,6 +136,8 @@ export class ScrapybaraClient {
      * @param prompt - Initial user prompt
      * @param messages - List of messages to start with
      * @param schema - Optional schema for structured output
+     * @param onAssistantMessage - Callback for each assistant message
+     * @param onToolMessage - Callback for each tool message
      * @param onStep - Callback for each step of the conversation
      * @param temperature - Optional temperature parameter for the model
      * @param maxTokens - Optional max tokens parameter for the model
@@ -150,6 +152,8 @@ export class ScrapybaraClient {
         prompt,
         messages,
         schema,
+        onAssistantMessage,
+        onToolMessage,
         onStep,
         temperature,
         maxTokens,
@@ -162,6 +166,8 @@ export class ScrapybaraClient {
         prompt?: string;
         messages?: Message[];
         schema?: T;
+        onAssistantMessage?: (message: AssistantMessage) => void | Promise<void>;
+        onToolMessage?: (message: ToolMessage) => void | Promise<void>;
         onStep?: (step: Step) => void | Promise<void>;
         temperature?: number;
         maxTokens?: number;
@@ -185,6 +191,8 @@ export class ScrapybaraClient {
             messages,
             tools,
             schema,
+            onAssistantMessage,
+            onToolMessage,
             onStep,
             temperature,
             maxTokens,
@@ -258,6 +266,8 @@ export class ScrapybaraClient {
      * @param prompt - Initial user prompt
      * @param messages - List of messages to start with
      * @param schema - Optional schema for structured output
+     * @param onAssistantMessage - Callback for each assistant message
+     * @param onToolMessage - Callback for each tool message
      * @param onStep - Callback for each step of the conversation
      * @param temperature - Optional temperature parameter for the model
      * @param maxTokens - Optional max tokens parameter for the model
@@ -272,6 +282,8 @@ export class ScrapybaraClient {
         prompt,
         messages,
         schema,
+        onAssistantMessage,
+        onToolMessage,
         onStep,
         temperature,
         maxTokens,
@@ -284,6 +296,8 @@ export class ScrapybaraClient {
         prompt?: string;
         messages?: Message[];
         schema?: T;
+        onAssistantMessage?: (message: AssistantMessage) => void | Promise<void>;
+        onToolMessage?: (message: ToolMessage) => void | Promise<void>;
         onStep?: (step: Step) => void | Promise<void>;
         temperature?: number;
         maxTokens?: number;
@@ -435,6 +449,9 @@ export class ScrapybaraClient {
                 content: actResponse.message.content,
             };
             currentMessages.push(assistantMessage);
+            if (onAssistantMessage) {
+                await onAssistantMessage(assistantMessage);
+            }
 
             // Extract text from assistant message
             const text = actResponse.message.content
@@ -500,6 +517,9 @@ export class ScrapybaraClient {
                     content: toolResults,
                 };
                 currentMessages.push(toolMessage);
+                if (onToolMessage) {
+                    await onToolMessage(toolMessage);
+                }
             }
 
             if (onStep) {
