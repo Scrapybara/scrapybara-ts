@@ -11,4 +11,5 @@ import * as Scrapybara from "../../index";
 export interface DeploymentConfig {
     instanceType?: Scrapybara.DeploymentConfigInstanceType;
     timeoutHours?: number;
+    blockedDomains?: string[];
 }
