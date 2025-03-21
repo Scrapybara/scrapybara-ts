@@ -3,6 +3,7 @@ export * from "./AuthStateResponse";
 export * from "./BashResponse";
 export * from "./BrowserAuthenticateResponse";
 export * from "./BrowserGetCdpUrlResponse";
+export * from "./BrowserGetCurrentUrlResponse";
 export * from "./Button";
 export * from "./CellType";
 export * from "./ClickMouseAction";
