@@ -13,11 +13,16 @@ export const DeploymentConfig: core.serialization.Schema<
 > = core.serialization.object({
     instanceType: core.serialization.property("instance_type", DeploymentConfigInstanceType.optional()),
     timeoutHours: core.serialization.property("timeout_hours", core.serialization.number().optional()),
+    blockedDomains: core.serialization.property(
+        "blocked_domains",
+        core.serialization.list(core.serialization.string()).optional(),
+    ),
 });
 
 export declare namespace DeploymentConfig {
     export interface Raw {
         instance_type?: DeploymentConfigInstanceType.Raw | null;
         timeout_hours?: number | null;
+        blocked_domains?: string[] | null;
     }
 }

@@ -27,13 +27,13 @@ import {
     UBUNTU_SYSTEM_PROMPT as OPENAI_UBUNTU_SYSTEM_PROMPT,
     BROWSER_SYSTEM_PROMPT as OPENAI_BROWSER_SYSTEM_PROMPT,
     WINDOWS_SYSTEM_PROMPT as OPENAI_WINDOWS_SYSTEM_PROMPT,
-    STRUCTURED_OUTPUT_SECTION as OPENAI_STRUCTURED_OUTPUT_SECTION
+    STRUCTURED_OUTPUT_SECTION as OPENAI_STRUCTURED_OUTPUT_SECTION,
 } from "./openai";
 import {
     UBUNTU_SYSTEM_PROMPT as ANTHROPIC_UBUNTU_SYSTEM_PROMPT,
     BROWSER_SYSTEM_PROMPT as ANTHROPIC_BROWSER_SYSTEM_PROMPT,
     WINDOWS_SYSTEM_PROMPT as ANTHROPIC_WINDOWS_SYSTEM_PROMPT,
-    STRUCTURED_OUTPUT_SECTION as ANTHROPIC_STRUCTURED_OUTPUT_SECTION
+    STRUCTURED_OUTPUT_SECTION as ANTHROPIC_STRUCTURED_OUTPUT_SECTION,
 } from "./anthropic";
 
 function structuredOutputTool<T extends z.ZodType>(schema: T) {
@@ -61,7 +61,7 @@ export class ScrapybaraClient {
     }
 
     public async startUbuntu(
-        request: Scrapybara.DeploymentConfig = {},
+        request: Omit<Scrapybara.DeploymentConfig, "instanceType"> = {},
         requestOptions?: ScrapybaraClient.RequestOptions,
     ): Promise<UbuntuInstance> {
         const response = await this._fern.start({ ...request, instanceType: "ubuntu" }, requestOptions);
@@ -69,7 +69,7 @@ export class ScrapybaraClient {
     }
 
     public async startBrowser(
-        request: Scrapybara.DeploymentConfig = {},
+        request: Omit<Scrapybara.DeploymentConfig, "instanceType"> = {},
         requestOptions?: ScrapybaraClient.RequestOptions,
     ): Promise<BrowserInstance> {
         const response = await this._fern.start({ ...request, instanceType: "browser" }, requestOptions);
@@ -77,7 +77,7 @@ export class ScrapybaraClient {
     }
 
     public async startWindows(
-        request: Scrapybara.DeploymentConfig = {},
+        request: Omit<Scrapybara.DeploymentConfig, "instanceType"> = {},
         requestOptions?: ScrapybaraClient.RequestOptions,
     ): Promise<WindowsInstance> {
         const response = await this._fern.start({ ...request, instanceType: "windows" }, requestOptions);
@@ -348,20 +348,27 @@ export class ScrapybaraClient {
                 throw new Error("Schema is not supported with ui-tars-72b model.");
             } else {
                 currentTools.push(structuredOutputTool(schema));
-                
+
                 // Add structured output section to system prompt if it matches a default prompt
                 if (system) {
                     if (model.provider === "anthropic") {
-                        if (system === ANTHROPIC_UBUNTU_SYSTEM_PROMPT || 
-                            system === ANTHROPIC_BROWSER_SYSTEM_PROMPT || 
-                            system === ANTHROPIC_WINDOWS_SYSTEM_PROMPT) {
+                        if (
+                            system === ANTHROPIC_UBUNTU_SYSTEM_PROMPT ||
+                            system === ANTHROPIC_BROWSER_SYSTEM_PROMPT ||
+                            system === ANTHROPIC_WINDOWS_SYSTEM_PROMPT
+                        ) {
                             // For Anthropic prompts, add inside the system capability section
-                            system = system.replace("</SYSTEM_CAPABILITY>", `${ANTHROPIC_STRUCTURED_OUTPUT_SECTION}\n</SYSTEM_CAPABILITY>`);
+                            system = system.replace(
+                                "</SYSTEM_CAPABILITY>",
+                                `${ANTHROPIC_STRUCTURED_OUTPUT_SECTION}\n</SYSTEM_CAPABILITY>`,
+                            );
                         }
                     } else if (model.provider === "openai") {
-                        if (system === OPENAI_UBUNTU_SYSTEM_PROMPT || 
-                            system === OPENAI_BROWSER_SYSTEM_PROMPT || 
-                            system === OPENAI_WINDOWS_SYSTEM_PROMPT) {
+                        if (
+                            system === OPENAI_UBUNTU_SYSTEM_PROMPT ||
+                            system === OPENAI_BROWSER_SYSTEM_PROMPT ||
+                            system === OPENAI_WINDOWS_SYSTEM_PROMPT
+                        ) {
                             // For OpenAI prompts, simply append the structured output section
                             system = system + OPENAI_STRUCTURED_OUTPUT_SECTION;
                         }
@@ -627,6 +634,12 @@ export class BrowserInstance extends BaseInstance {
         return await this.fern.browser.getCdpUrl(this.id, requestOptions);
     }
 
+    public async getCurrentUrl(
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.BrowserGetCurrentUrlResponse> {
+        return await this.fern.browser.getCurrentUrl(this.id, requestOptions);
+    }
+
     public async saveAuth(
         request: Scrapybara.BrowserSaveAuthRequest,
         requestOptions?: FernClient.RequestOptions,
@@ -667,6 +680,12 @@ export class Browser {
 
     public async getCdpUrl(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
         return await this.fern.browser.getCdpUrl(this.instanceId, requestOptions);
+    }
+
+    public async getCurrentUrl(
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.BrowserGetCurrentUrlResponse> {
+        return await this.fern.browser.getCurrentUrl(this.instanceId, requestOptions);
     }
 
     public async saveAuth(
