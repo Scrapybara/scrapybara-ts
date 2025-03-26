@@ -10,11 +10,18 @@ export const BashRequest: core.serialization.Schema<serializers.BashRequest.Raw,
     core.serialization.object({
         command: core.serialization.string().optional(),
         restart: core.serialization.boolean().optional(),
+        getBackgroundProcesses: core.serialization.property(
+            "get_background_processes",
+            core.serialization.boolean().optional(),
+        ),
+        killPid: core.serialization.property("kill_pid", core.serialization.number().optional()),
     });
 
 export declare namespace BashRequest {
     export interface Raw {
         command?: string | null;
         restart?: boolean | null;
+        get_background_processes?: boolean | null;
+        kill_pid?: number | null;
     }
 }

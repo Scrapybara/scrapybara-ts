@@ -9,4 +9,6 @@
 export interface BashRequest {
     command?: string;
     restart?: boolean;
+    getBackgroundProcesses?: boolean;
+    killPid?: number;
 }
