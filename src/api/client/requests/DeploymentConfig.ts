@@ -12,4 +12,5 @@ export interface DeploymentConfig {
     instanceType?: Scrapybara.DeploymentConfigInstanceType;
     timeoutHours?: number;
     blockedDomains?: string[];
+    resolution?: number[];
 }

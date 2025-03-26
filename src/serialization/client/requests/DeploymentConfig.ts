@@ -17,6 +17,7 @@ export const DeploymentConfig: core.serialization.Schema<
         "blocked_domains",
         core.serialization.list(core.serialization.string()).optional(),
     ),
+    resolution: core.serialization.list(core.serialization.number()).optional(),
 });
 
 export declare namespace DeploymentConfig {
@@ -24,5 +25,6 @@ export declare namespace DeploymentConfig {
         instance_type?: DeploymentConfigInstanceType.Raw | null;
         timeout_hours?: number | null;
         blocked_domains?: string[] | null;
+        resolution?: number[] | null;
     }
 }
