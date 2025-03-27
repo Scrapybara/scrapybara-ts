@@ -314,7 +314,7 @@ await client.instance.edit("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">filesystem</a>(instanceId, { ...params }) -> Scrapybara.FilesystemResponse</code></summary>
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">file</a>(instanceId, { ...params }) -> Scrapybara.FileResponse</code></summary>
 <dl>
 <dd>
 
@@ -327,7 +327,7 @@ await client.instance.edit("instance_id", {
 <dd>
 
 ```typescript
-await client.instance.filesystem("instance_id", {
+await client.instance.file("instance_id", {
     command: "command",
 });
 ```
@@ -353,7 +353,7 @@ await client.instance.filesystem("instance_id", {
 <dl>
 <dd>
 
-**request:** `Scrapybara.FilesystemRequest`
+**request:** `Scrapybara.FileRequest`
 
 </dd>
 </dl>
@@ -1363,242 +1363,6 @@ await client.notebook.execute("instance_id", "notebook_id", {});
 <dd>
 
 **requestOptions:** `Notebook.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## File
-
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">read</a>(instanceId, { ...params }) -> Scrapybara.FileReadResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.file.read("instance_id", {
-    path: "path",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.FileReadRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `File_.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">write</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.file.write("instance_id", {
-    path: "path",
-    content: "content",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.FileWriteRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `File_.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">upload</a>(instanceId, { ...params }) -> Record<string, unknown></code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.file.upload("instance_id", {
-    path: "path",
-    content: "content",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.FileUploadRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `File_.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.file.<a href="/src/api/resources/file/client/Client.ts">download</a>(instanceId, { ...params }) -> Scrapybara.FileDownloadResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.file.download("instance_id", {
-    path: "path",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Scrapybara.FileDownloadRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `File_.RequestOptions`
 
 </dd>
 </dl>

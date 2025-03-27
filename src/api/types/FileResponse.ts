@@ -3,9 +3,9 @@
  */
 
 /**
- * Response model for filesystem actions.
+ * Response model for file actions.
  */
-export interface FilesystemResponse {
+export interface FileResponse {
     output?: string;
     error?: string;
     base64Image?: string;
