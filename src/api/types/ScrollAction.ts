@@ -7,4 +7,5 @@ export interface ScrollAction {
     deltaX?: number;
     deltaY?: number;
     holdKeys?: string[];
+    screenshot?: boolean;
 }

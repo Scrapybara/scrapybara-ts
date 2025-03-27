@@ -5,4 +5,5 @@
 export interface MoveMouseAction {
     coordinates: number[];
     holdKeys?: string[];
+    screenshot?: boolean;
 }

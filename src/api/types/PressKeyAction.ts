@@ -5,4 +5,5 @@
 export interface PressKeyAction {
     keys: string[];
     duration?: number;
+    screenshot?: boolean;
 }

@@ -314,6 +314,64 @@ await client.instance.edit("instance_id", {
 </dl>
 </details>
 
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">filesystem</a>(instanceId, { ...params }) -> Scrapybara.FilesystemResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.instance.filesystem("instance_id", {
+    command: "command",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.FilesystemRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Instance.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">stop</a>(instanceId) -> Scrapybara.StopInstanceResponse</code></summary>
 <dl>
 <dd>

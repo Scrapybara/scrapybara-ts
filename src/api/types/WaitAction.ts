@@ -4,4 +4,5 @@
 
 export interface WaitAction {
     duration: number;
+    screenshot?: boolean;
 }

@@ -9,4 +9,5 @@ export interface GetInstanceResponse {
     launchTime: Date;
     instanceType: Scrapybara.GetInstanceResponseInstanceType;
     status: Scrapybara.Status;
+    resolution?: number[];
 }

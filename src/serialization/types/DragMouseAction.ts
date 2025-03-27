@@ -12,11 +12,13 @@ export const DragMouseAction: core.serialization.ObjectSchema<
 > = core.serialization.object({
     path: core.serialization.list(core.serialization.list(core.serialization.number())),
     holdKeys: core.serialization.property("hold_keys", core.serialization.list(core.serialization.string()).optional()),
+    screenshot: core.serialization.boolean().optional(),
 });
 
 export declare namespace DragMouseAction {
     export interface Raw {
         path: number[][];
         hold_keys?: string[] | null;
+        screenshot?: boolean | null;
     }
 }
