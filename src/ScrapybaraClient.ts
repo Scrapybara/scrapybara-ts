@@ -598,13 +598,11 @@ export class UbuntuInstance extends BaseInstance {
     public readonly browser: Browser;
     public readonly code: Code;
     public readonly notebook: Notebook;
-    public readonly file: File;
     public readonly env: Env;
 
     constructor(id: string, launchTime: Date, status: string, fern: FernClient) {
         super(id, launchTime, status, fern);
         this.browser = new Browser(this.id, this.fern);
-        this.file = new File(this.id, this.fern);
         this.env = new Env(this.id, this.fern);
         this.notebook = new Notebook(this.id, this.fern);
         this.code = new Code(this.id, this.fern);
@@ -624,11 +622,11 @@ export class UbuntuInstance extends BaseInstance {
         return await this.fern.instance.edit(this.id, request, requestOptions);
     }
 
-    public async filesystem(
-        request: Scrapybara.FilesystemRequest,
+    public async file(
+        request: Scrapybara.FileRequest,
         requestOptions?: FernClient.RequestOptions,
-    ): Promise<Scrapybara.FilesystemResponse> {
-        return await this.fern.instance.filesystem(this.id, request, requestOptions);
+    ): Promise<Scrapybara.FileResponse> {
+        return await this.fern.instance.file(this.id, request, requestOptions);
     }
 }
 
@@ -777,29 +775,6 @@ export class Notebook {
         requestOptions?: FernClient.RequestOptions,
     ) {
         return await this.fern.notebook.execute(this.instanceId, notebookId, request, requestOptions);
-    }
-}
-
-export class File {
-    constructor(
-        private readonly instanceId: string,
-        private readonly fern: FernClient,
-    ) {}
-
-    public async read(request: Scrapybara.FileReadRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.file.read(this.instanceId, request, requestOptions);
-    }
-
-    public async write(request: Scrapybara.FileWriteRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.file.write(this.instanceId, request, requestOptions);
-    }
-
-    public async upload(request: Scrapybara.FileUploadRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.file.upload(this.instanceId, request, requestOptions);
-    }
-
-    public async download(request: Scrapybara.FileDownloadRequest, requestOptions?: FernClient.RequestOptions) {
-        return await this.fern.file.download(this.instanceId, request, requestOptions);
     }
 }
 
