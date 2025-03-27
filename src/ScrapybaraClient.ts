@@ -623,6 +623,13 @@ export class UbuntuInstance extends BaseInstance {
     ): Promise<Scrapybara.EditResponse> {
         return await this.fern.instance.edit(this.id, request, requestOptions);
     }
+
+    public async filesystem(
+        request: Scrapybara.FilesystemRequest,
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.FilesystemResponse> {
+        return await this.fern.instance.filesystem(this.id, request, requestOptions);
+    }
 }
 
 export class BrowserInstance extends BaseInstance {
