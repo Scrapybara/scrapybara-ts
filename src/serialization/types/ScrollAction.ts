@@ -15,6 +15,7 @@ export const ScrollAction: core.serialization.ObjectSchema<serializers.ScrollAct
             "hold_keys",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        screenshot: core.serialization.boolean().optional(),
     });
 
 export declare namespace ScrollAction {
@@ -23,5 +24,6 @@ export declare namespace ScrollAction {
         delta_x?: number | null;
         delta_y?: number | null;
         hold_keys?: string[] | null;
+        screenshot?: boolean | null;
     }
 }

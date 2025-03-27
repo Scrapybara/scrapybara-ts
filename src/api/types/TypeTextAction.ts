@@ -5,4 +5,5 @@
 export interface TypeTextAction {
     text: string;
     holdKeys?: string[];
+    screenshot?: boolean;
 }

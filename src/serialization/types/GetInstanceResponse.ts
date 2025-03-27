@@ -16,6 +16,7 @@ export const GetInstanceResponse: core.serialization.ObjectSchema<
     launchTime: core.serialization.property("launch_time", core.serialization.date()),
     instanceType: core.serialization.property("instance_type", GetInstanceResponseInstanceType),
     status: Status,
+    resolution: core.serialization.list(core.serialization.number()).optional(),
 });
 
 export declare namespace GetInstanceResponse {
@@ -24,5 +25,6 @@ export declare namespace GetInstanceResponse {
         launch_time: string;
         instance_type: GetInstanceResponseInstanceType.Raw;
         status: Status.Raw;
+        resolution?: number[] | null;
     }
 }

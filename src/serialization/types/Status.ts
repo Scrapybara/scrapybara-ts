@@ -12,8 +12,9 @@ export const Status: core.serialization.Schema<serializers.Status.Raw, Scrapybar
     "paused",
     "terminated",
     "error",
+    "warm_pool",
 ]);
 
 export declare namespace Status {
-    export type Raw = "deploying" | "running" | "paused" | "terminated" | "error";
+    export type Raw = "deploying" | "running" | "paused" | "terminated" | "error" | "warm_pool";
 }

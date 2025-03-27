@@ -9,10 +9,12 @@ import * as core from "../../core";
 export const WaitAction: core.serialization.ObjectSchema<serializers.WaitAction.Raw, Scrapybara.WaitAction> =
     core.serialization.object({
         duration: core.serialization.number(),
+        screenshot: core.serialization.boolean().optional(),
     });
 
 export declare namespace WaitAction {
     export interface Raw {
         duration: number;
+        screenshot?: boolean | null;
     }
 }

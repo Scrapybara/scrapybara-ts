@@ -10,4 +10,5 @@ export interface ClickMouseAction {
     coordinates?: number[];
     numClicks?: number;
     holdKeys?: string[];
+    screenshot?: boolean;
 }

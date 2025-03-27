@@ -5,4 +5,5 @@
 export interface DragMouseAction {
     path: number[][];
     holdKeys?: string[];
+    screenshot?: boolean;
 }

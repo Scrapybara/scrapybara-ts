@@ -12,11 +12,13 @@ export const PressKeyAction: core.serialization.ObjectSchema<
 > = core.serialization.object({
     keys: core.serialization.list(core.serialization.string()),
     duration: core.serialization.number().optional(),
+    screenshot: core.serialization.boolean().optional(),
 });
 
 export declare namespace PressKeyAction {
     export interface Raw {
         keys: string[];
         duration?: number | null;
+        screenshot?: boolean | null;
     }
 }

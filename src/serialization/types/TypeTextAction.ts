@@ -12,11 +12,13 @@ export const TypeTextAction: core.serialization.ObjectSchema<
 > = core.serialization.object({
     text: core.serialization.string(),
     holdKeys: core.serialization.property("hold_keys", core.serialization.list(core.serialization.string()).optional()),
+    screenshot: core.serialization.boolean().optional(),
 });
 
 export declare namespace TypeTextAction {
     export interface Raw {
         text: string;
         hold_keys?: string[] | null;
+        screenshot?: boolean | null;
     }
 }

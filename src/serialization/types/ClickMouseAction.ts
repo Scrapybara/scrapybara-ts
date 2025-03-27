@@ -17,6 +17,7 @@ export const ClickMouseAction: core.serialization.ObjectSchema<
     coordinates: core.serialization.list(core.serialization.number()).optional(),
     numClicks: core.serialization.property("num_clicks", core.serialization.number().optional()),
     holdKeys: core.serialization.property("hold_keys", core.serialization.list(core.serialization.string()).optional()),
+    screenshot: core.serialization.boolean().optional(),
 });
 
 export declare namespace ClickMouseAction {
@@ -26,5 +27,6 @@ export declare namespace ClickMouseAction {
         coordinates?: number[] | null;
         num_clicks?: number | null;
         hold_keys?: string[] | null;
+        screenshot?: boolean | null;
     }
 }
