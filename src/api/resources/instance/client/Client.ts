@@ -52,8 +52,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.4.6",
-                "User-Agent": "scrapybara/2.4.6",
+                "X-Fern-SDK-Version": "2.4.7",
+                "User-Agent": "scrapybara/2.4.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -132,8 +132,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.4.6",
-                "User-Agent": "scrapybara/2.4.6",
+                "X-Fern-SDK-Version": "2.4.7",
+                "User-Agent": "scrapybara/2.4.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -217,8 +217,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.4.6",
-                "User-Agent": "scrapybara/2.4.6",
+                "X-Fern-SDK-Version": "2.4.7",
+                "User-Agent": "scrapybara/2.4.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -300,8 +300,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.4.6",
-                "User-Agent": "scrapybara/2.4.6",
+                "X-Fern-SDK-Version": "2.4.7",
+                "User-Agent": "scrapybara/2.4.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -386,8 +386,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.4.6",
-                "User-Agent": "scrapybara/2.4.6",
+                "X-Fern-SDK-Version": "2.4.7",
+                "User-Agent": "scrapybara/2.4.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -447,32 +447,32 @@ export class Instance {
 
     /**
      * @param {string} instanceId
-     * @param {Scrapybara.FilesystemRequest} request
+     * @param {Scrapybara.FileRequest} request
      * @param {Instance.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Scrapybara.UnprocessableEntityError}
      *
      * @example
-     *     await client.instance.filesystem("instance_id", {
+     *     await client.instance.file("instance_id", {
      *         command: "command"
      *     })
      */
-    public async filesystem(
+    public async file(
         instanceId: string,
-        request: Scrapybara.FilesystemRequest,
+        request: Scrapybara.FileRequest,
         requestOptions?: Instance.RequestOptions,
-    ): Promise<Scrapybara.FilesystemResponse> {
+    ): Promise<Scrapybara.FileResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
-                `v1/instance/${encodeURIComponent(instanceId)}/filesystem`,
+                `v1/instance/${encodeURIComponent(instanceId)}/file`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.4.6",
-                "User-Agent": "scrapybara/2.4.6",
+                "X-Fern-SDK-Version": "2.4.7",
+                "User-Agent": "scrapybara/2.4.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -480,13 +480,13 @@ export class Instance {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.FilesystemRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.FileRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.FilesystemResponse.parseOrThrow(_response.body, {
+            return serializers.FileResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -521,7 +521,7 @@ export class Instance {
                 });
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
-                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/filesystem.",
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/file.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({
@@ -552,8 +552,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.4.6",
-                "User-Agent": "scrapybara/2.4.6",
+                "X-Fern-SDK-Version": "2.4.7",
+                "User-Agent": "scrapybara/2.4.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -632,8 +632,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.4.6",
-                "User-Agent": "scrapybara/2.4.6",
+                "X-Fern-SDK-Version": "2.4.7",
+                "User-Agent": "scrapybara/2.4.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -720,8 +720,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.4.6",
-                "User-Agent": "scrapybara/2.4.6",
+                "X-Fern-SDK-Version": "2.4.7",
+                "User-Agent": "scrapybara/2.4.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

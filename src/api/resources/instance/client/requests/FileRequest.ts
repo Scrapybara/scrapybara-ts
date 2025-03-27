@@ -8,7 +8,7 @@
  *         command: "command"
  *     }
  */
-export interface FilesystemRequest {
+export interface FileRequest {
     command: string;
     path?: string;
     content?: string;
