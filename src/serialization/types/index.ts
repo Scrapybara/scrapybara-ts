@@ -15,7 +15,6 @@ export * from "./EnvGetResponse";
 export * from "./EnvResponse";
 export * from "./ExecuteCellRequest";
 export * from "./FileResponse";
-export * from "./UploadResponse";
 export * from "./GetCursorPositionAction";
 export * from "./GetInstanceResponseInstanceType";
 export * from "./Status";

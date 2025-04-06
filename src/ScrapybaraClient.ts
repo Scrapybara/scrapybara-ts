@@ -592,6 +592,27 @@ export class BaseInstance {
     ): Promise<Scrapybara.GetInstanceResponse> {
         return await this.fern.instance.resume(this.id, request, requestOptions);
     }
+
+    /**
+     * Download a file from the instance
+     */
+    public async download(
+        request: Scrapybara.InstanceDownloadRequest,
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<void> {
+        return await this.fern.instance.download(this.id, request, requestOptions);
+    }
+
+    /**
+     * Upload a file to the instance
+     */
+    public async upload(
+        file: File | Blob | any,
+        request: Scrapybara.BodyUploadV1InstanceInstanceIdUploadPost,
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<Scrapybara.UploadResponse> {
+        return await this.fern.instance.upload(file, this.id, request, requestOptions);
+    }
 }
 
 export class UbuntuInstance extends BaseInstance {
