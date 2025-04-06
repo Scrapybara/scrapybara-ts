@@ -290,7 +290,7 @@ describe("test", () => {
         fs.writeFileSync(testFilePath, 'Test content for upload');
         
         // Upload the file to the instance
-        const uploadPath = '/tmp/uploaded-file.txt';
+        const uploadPath = 'uploaded-file.txt';
         const uploadStream = fs.createReadStream(testFilePath);
         await instance.upload(uploadStream, { path: uploadPath });
         
