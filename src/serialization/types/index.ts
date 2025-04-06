@@ -35,6 +35,7 @@ export * from "./StopBrowserResponse";
 export * from "./StopInstanceResponse";
 export * from "./TakeScreenshotAction";
 export * from "./TypeTextAction";
+export * from "./UploadResponse";
 export * from "./ValidationErrorLocItem";
 export * from "./ValidationError";
 export * from "./WaitAction";

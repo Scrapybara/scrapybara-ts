@@ -278,4 +278,31 @@ describe("test", () => {
 
         await windowsInstance.stop();
     }, 600000);
+
+    it("test file upload and download", async () => {
+        // Start an Ubuntu instance
+        const instance = await client.startUbuntu();
+        
+        // Create a temporary file with test content
+        const fs = require('fs');
+        const path = require('path');
+        const testFilePath = path.join(__dirname, 'test-upload.txt');
+        fs.writeFileSync(testFilePath, 'Test content for upload');
+        
+        // Upload the file to the instance
+        const uploadPath = 'uploaded-file.txt';
+        const uploadStream = fs.createReadStream(testFilePath);
+        await instance.upload(uploadStream, { path: uploadPath });
+        
+        // Verify file was uploaded by checking contents with bash
+        const bashResult = await instance.bash({ command: `cat ${uploadPath}` });
+        assert(bashResult.output?.includes('Test content for upload'));
+        
+        // Test download endpoint
+        await instance.download({ path: uploadPath });
+        
+        // Clean up
+        fs.unlinkSync(testFilePath);
+        await instance.stop();
+    }, 60000);
 });
