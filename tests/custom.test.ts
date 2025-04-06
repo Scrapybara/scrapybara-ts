@@ -296,7 +296,7 @@ describe("test", () => {
         
         // Verify file was uploaded by checking contents with bash
         const bashResult = await instance.bash({ command: `cat ${uploadPath}` });
-        assert(bashResult.output.includes('Test content for upload'));
+        assert(bashResult.output?.includes('Test content for upload'));
         
         // Test download endpoint
         await instance.download({ path: uploadPath });
