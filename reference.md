@@ -372,7 +372,7 @@ await client.instance.file("instance_id", {
 </dl>
 </details>
 
-<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">download</a>(instanceId, { ...params }) -> void</code></summary>
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">download</a>(instanceId, { ...params }) -> Scrapybara.FileResponse</code></summary>
 <dl>
 <dd>
 
@@ -384,7 +384,11 @@ await client.instance.file("instance_id", {
 <dl>
 <dd>
 
-Download a file from the instance.
+Download a file from the instance and save it to a local path.
+
+Args:
+path: Path of the file on the instance
+local_path: Path where to save the file locally
 
 </dd>
 </dl>
@@ -402,6 +406,7 @@ Download a file from the instance.
 ```typescript
 await client.instance.download("instance_id", {
     path: "path",
+    localPath: "local_path",
 });
 ```
 

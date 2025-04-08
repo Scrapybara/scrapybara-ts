@@ -5,9 +5,11 @@
 /**
  * @example
  *     {
- *         path: "path"
+ *         path: "path",
+ *         localPath: "local_path"
  *     }
  */
 export interface InstanceDownloadRequest {
     path: string;
+    localPath: string;
 }
