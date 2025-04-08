@@ -594,16 +594,6 @@ export class BaseInstance {
     }
 
     /**
-     * Download a file from the instance
-     */
-    public async download(
-        request: Scrapybara.InstanceDownloadRequest,
-        requestOptions?: FernClient.RequestOptions
-    ): Promise<Scrapybara.FileResponse> {
-        return await this.fern.instance.download(this.id, request, requestOptions);
-    }
-
-    /**
      * Upload a file to the instance
      */
     public async upload(
