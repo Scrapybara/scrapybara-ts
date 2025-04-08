@@ -599,7 +599,7 @@ export class BaseInstance {
     public async download(
         request: Scrapybara.InstanceDownloadRequest,
         requestOptions?: FernClient.RequestOptions
-    ): Promise<void> {
+    ): Promise<Scrapybara.FileResponse> {
         return await this.fern.instance.download(this.id, request, requestOptions);
     }
 

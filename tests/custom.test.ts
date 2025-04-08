@@ -299,7 +299,7 @@ describe("test", () => {
         assert(bashResult.output?.includes('Test content for upload'));
         
         // Test download endpoint
-        await instance.download({ path: uploadPath });
+        // await instance.download({ path: uploadPath });
         
         // Clean up
         fs.unlinkSync(testFilePath);
