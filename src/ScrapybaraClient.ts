@@ -714,10 +714,6 @@ export class BrowserInstance extends BaseInstance {
     ): Promise<Scrapybara.BrowserGetStreamUrlResponse> {
         return await this.fern.browser.getStreamUrl(this.id, requestOptions);
     }
-
-    public async stop(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StopBrowserResponse> {
-        return await this.fern.browser.stop(this.id, requestOptions);
-    }
 }
 
 export class WindowsInstance extends BaseInstance {
