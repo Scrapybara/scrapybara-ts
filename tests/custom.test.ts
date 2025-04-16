@@ -42,7 +42,7 @@ describe("test", () => {
         const screenshotResponse = await ubuntuInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
-        await ubuntuInstance.browser.start();
+        await ubuntuInstance.browser.start({ separateStream: true });
         const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
@@ -75,7 +75,7 @@ describe("test", () => {
         const screenshotResponse = await ubuntuInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
-        await ubuntuInstance.browser.start();
+        await ubuntuInstance.browser.start({ separateStream: true });
         const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
@@ -198,7 +198,7 @@ describe("test", () => {
         const screenshotResponse = await ubuntuInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
-        await ubuntuInstance.browser.start();
+        await ubuntuInstance.browser.start({ separateStream: true });
         const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
