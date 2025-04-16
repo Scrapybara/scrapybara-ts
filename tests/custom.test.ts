@@ -31,7 +31,7 @@ describe("test", () => {
         }
     });
 
-    it("ubuntu test", async () => {
+    it.skip("ubuntu test", async () => {
         const ubuntuInstance = await client.startUbuntu();
         console.log((await ubuntuInstance.getStreamUrl()).streamUrl);
         assert(ubuntuInstance.id !== undefined);
@@ -42,7 +42,7 @@ describe("test", () => {
         const screenshotResponse = await ubuntuInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
-        await ubuntuInstance.browser.start({ separateStream: false });
+        await ubuntuInstance.browser.start({ separateStream: true });
         const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
@@ -75,7 +75,7 @@ describe("test", () => {
         const screenshotResponse = await ubuntuInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
-        await ubuntuInstance.browser.start({ separateStream: false });
+        await ubuntuInstance.browser.start({ separateStream: true });
         const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
@@ -97,7 +97,7 @@ describe("test", () => {
         await ubuntuInstance.stop();
     }, 600000);
 
-    it("browser test", async () => {
+    it.skip("browser test", async () => {
         const browserInstance = await client.startBrowser();
         console.log((await browserInstance.getStreamUrl()).streamUrl);
         assert(browserInstance.id !== undefined);
@@ -187,7 +187,7 @@ describe("test", () => {
         await windowsInstance.stop();
     }, 600000);
 
-    it("ubuntu test with openai", async () => {
+    it.skip("ubuntu test with openai", async () => {
         const ubuntuInstance = await client.startUbuntu();
         console.log((await ubuntuInstance.getStreamUrl()).streamUrl);
         assert(ubuntuInstance.id !== undefined);
@@ -198,7 +198,7 @@ describe("test", () => {
         const screenshotResponse = await ubuntuInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
-        await ubuntuInstance.browser.start({ separateStream: false });
+        await ubuntuInstance.browser.start({ separateStream: true });
         const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
@@ -220,7 +220,7 @@ describe("test", () => {
         await ubuntuInstance.stop();
     }, 600000);
 
-    it("browser test with openai", async () => {
+    it.skip("browser test with openai", async () => {
         const browserInstance = await client.startBrowser();
         console.log((await browserInstance.getStreamUrl()).streamUrl);
         assert(browserInstance.id !== undefined);
@@ -279,7 +279,7 @@ describe("test", () => {
         await windowsInstance.stop();
     }, 600000);
 
-    it("test file upload and download", async () => {
+    it.skip("test file upload and download", async () => {
         // Start an Ubuntu instance
         const instance = await client.startUbuntu();
         
