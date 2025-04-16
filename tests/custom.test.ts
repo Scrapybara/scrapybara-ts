@@ -306,7 +306,7 @@ describe("test", () => {
         await instance.stop();
     }, 60000);
 
-    it.skip("test beta vm management", async () => {
+    it("test beta vm management", async () => {
         // Start a rodent instance
         const instance = await client.startUbuntu({ backend: "rodent" });
         assert(instance.id !== undefined);
@@ -333,7 +333,7 @@ describe("test", () => {
         }
     }, 120000);
 
-    it.skip("test restore from snapshot", async () => {
+    it("test restore from snapshot", async () => {
         // Start original instance
         const originalInstance = await client.startUbuntu({ backend: "rodent" });
         assert(originalInstance.id !== undefined);
