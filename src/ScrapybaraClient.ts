@@ -53,11 +53,43 @@ export declare namespace ScrapybaraClient {
     type RequestOptions = FernClient.RequestOptions;
 }
 
+export class Beta {
+    constructor(
+        private readonly fern: FernClient,
+    ) {}
+
+    public async takeSnapshot(
+        instanceId: string,
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.SnapshotResponse> {
+        return await this.fern.betaVmManagement.takeSnapshot(instanceId, requestOptions);
+    }
+
+    public async warmupSnapshot(
+        snapshotId: string, 
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.SuccessResponse> {
+        return await this.fern.betaVmManagement.warmupSnapshot(snapshotId, requestOptions);
+    }
+
+    public async deleteSnapshot(
+        snapshotId: string,
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.SuccessResponse> {
+        return await this.fern.betaVmManagement.deleteSnapshot(snapshotId, requestOptions);
+    }
+}
+
 export class ScrapybaraClient {
     private _fern: FernClient;
+    private _beta: Beta | undefined;
 
     constructor(readonly _options?: ScrapybaraClient.Options) {
         this._fern = new FernClient(_options);
+    }
+
+    public get beta(): Beta {
+        return (this._beta ??= new Beta(this._fern));
     }
 
     public async startUbuntu(

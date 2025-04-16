@@ -1,4 +1,4 @@
-import { ScrapybaraClient } from "../src";
+import { ScrapybaraClient, UbuntuInstance } from "../src";
 import {
     anthropic,
     UBUNTU_SYSTEM_PROMPT as ANTHROPIC_UBUNTU_SYSTEM_PROMPT,
@@ -42,7 +42,7 @@ describe("test", () => {
         const screenshotResponse = await ubuntuInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
-        await ubuntuInstance.browser.start({ separateStream: true });
+        await ubuntuInstance.browser.start({ separateStream: false });
         const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
@@ -75,7 +75,7 @@ describe("test", () => {
         const screenshotResponse = await ubuntuInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
-        await ubuntuInstance.browser.start({ separateStream: true });
+        await ubuntuInstance.browser.start({ separateStream: false });
         const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
@@ -198,7 +198,7 @@ describe("test", () => {
         const screenshotResponse = await ubuntuInstance.screenshot();
         assert(screenshotResponse.base64Image !== undefined);
 
-        await ubuntuInstance.browser.start({ separateStream: true });
+        await ubuntuInstance.browser.start({ separateStream: false });
         const cdpUrl = await ubuntuInstance.browser.getCdpUrl();
         assert(cdpUrl.cdpUrl !== undefined);
 
@@ -305,4 +305,96 @@ describe("test", () => {
         fs.unlinkSync(testFilePath);
         await instance.stop();
     }, 60000);
+
+    it("test beta vm management", async () => {
+        // Start a rodent instance
+        const instance = await client.startUbuntu({ backend: "rodent" });
+        assert(instance.id !== undefined);
+        
+        try {
+            // Take a snapshot
+            const snapshotResponse = await client.beta.takeSnapshot(instance.id);
+            assert(snapshotResponse !== undefined);
+            assert(snapshotResponse.snapshotId !== undefined);
+            const snapshotId = snapshotResponse.snapshotId;
+            console.log(`Created snapshot with ID: ${snapshotId}`);
+            
+            // Warmup the snapshot
+            const warmupResponse = await client.beta.warmupSnapshot(snapshotId);
+            assert(warmupResponse !== undefined);
+            assert(warmupResponse.success === true);
+            
+            // Delete the snapshot
+            const deleteResponse = await client.beta.deleteSnapshot(snapshotId);
+            assert(deleteResponse !== undefined);
+            assert(deleteResponse.success === true);
+        } finally {
+            await instance.stop();
+        }
+    }, 120000);
+
+    it("test restore from snapshot", async () => {
+        // Start original instance
+        const originalInstance = await client.startUbuntu({ backend: "rodent" });
+        assert(originalInstance.id !== undefined);
+        console.log(`Started original instance: ${originalInstance.id}`);
+        
+        let snapshotId: string | null = null;
+        let restoredInstance: UbuntuInstance | null = null;
+        
+        try {
+            // Create a file to verify restoration later
+            const testMarker = `test-marker-${Date.now()}`;
+            await originalInstance.bash({ command: `echo '${testMarker}' > /tmp/snapshot-test-file` });
+            
+            // Take a snapshot
+            const snapshotResponse = await client.beta.takeSnapshot(originalInstance.id);
+            assert(snapshotResponse !== undefined);
+            assert(snapshotResponse.snapshotId !== undefined);
+            
+            snapshotId = snapshotResponse.snapshotId;
+            console.log(`Created snapshot with ID: ${snapshotId}`);
+            
+            // Warmup the snapshot (optional but recommended)
+            await client.beta.warmupSnapshot(snapshotId);
+            
+            // Stop the original instance
+            await originalInstance.stop();
+            
+            // Start a new instance from the snapshot
+            restoredInstance = await client.startUbuntu({ snapshotId: snapshotId, backend: "rodent" });
+            assert(restoredInstance.id !== undefined);
+            console.log(`Started restored instance: ${restoredInstance.id}`);
+            
+            // Verify the test file exists with our marker
+            const fileContent = await restoredInstance.bash({ command: "cat /tmp/snapshot-test-file" });
+            assert(fileContent.output?.includes(testMarker));
+            console.log("Successfully verified snapshot restoration!");
+        } finally {
+            // Clean up resources
+            if (originalInstance) {
+                try {
+                    await originalInstance.stop();
+                } catch (error) {
+                    console.error("Error stopping original instance:", error);
+                }
+            }
+            
+            if (restoredInstance) {
+                try {
+                    await restoredInstance.stop();
+                } catch (error) {
+                    console.error("Error stopping restored instance:", error);
+                }
+            }
+            
+            if (snapshotId) {
+                try {
+                    await client.beta.deleteSnapshot(snapshotId);
+                } catch (error) {
+                    console.error("Error deleting snapshot:", error);
+                }
+            }
+        }
+    }, 240000);
 });
