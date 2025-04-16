@@ -676,6 +676,16 @@ export class BrowserInstance extends BaseInstance {
     ): Promise<Scrapybara.BrowserAuthenticateResponse> {
         return await this.fern.browser.authenticate(this.id, request, requestOptions);
     }
+
+    public async getStreamUrl(
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.BrowserGetStreamUrlResponse> {
+        return await this.fern.browser.getStreamUrl(this.id, requestOptions);
+    }
+
+    public async stop(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StopBrowserResponse> {
+        return await this.fern.browser.stop(this.id, requestOptions);
+    }
 }
 
 export class WindowsInstance extends BaseInstance {
@@ -723,6 +733,12 @@ export class Browser {
         requestOptions?: FernClient.RequestOptions,
     ): Promise<Scrapybara.BrowserAuthenticateResponse> {
         return await this.fern.browser.authenticate(this.instanceId, request, requestOptions);
+    }
+
+    public async getStreamUrl(
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.BrowserGetStreamUrlResponse> {
+        return await this.fern.browser.getStreamUrl(this.instanceId, requestOptions);
     }
 
     public async stop(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StopBrowserResponse> {
