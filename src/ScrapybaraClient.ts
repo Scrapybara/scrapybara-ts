@@ -690,8 +690,8 @@ export class Browser {
         private readonly fern: FernClient,
     ) {}
 
-    public async start(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StartBrowserResponse> {
-        return await this.fern.browser.start(this.instanceId, requestOptions);
+    public async start(request: Scrapybara.BrowserStartRequest, requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StartBrowserResponse> {
+        return await this.fern.browser.start(this.instanceId, request, requestOptions);
     }
 
     public async getCdpUrl(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
