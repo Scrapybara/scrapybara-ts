@@ -15,9 +15,9 @@ import { computerTool, bashTool, editTool } from "../src/tools";
 import { z } from "zod";
 import assert from "assert";
 
-const YCStats = z.object({
-    number_of_startups: z.number(),
-    combined_valuation: z.number(),
+const ExampleSite = z.object({
+    title: z.string(),
+    has_links: z.boolean(),
 });
 
 describe("test", () => {
@@ -49,16 +49,16 @@ describe("test", () => {
         const response = await client.act({
             model: anthropic(),
             system: ANTHROPIC_UBUNTU_SYSTEM_PROMPT,
-            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            prompt: "Go to example.com and get the page title and whether it has any links",
             tools: [computerTool(ubuntuInstance), bashTool(ubuntuInstance), editTool(ubuntuInstance)],
-            schema: YCStats,
+            schema: ExampleSite,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
         console.log(response.output);
 
         assert(response.output !== undefined);
-        assert(response.output.number_of_startups !== undefined);
-        assert(response.output.combined_valuation !== undefined);
+        assert(response.output.title !== undefined);
+        assert(typeof response.output.has_links === 'boolean');
 
         await ubuntuInstance.browser.stop();
         await ubuntuInstance.stop();
@@ -82,16 +82,16 @@ describe("test", () => {
         const response = await client.act({
             model: anthropic({ name: "claude-3-7-sonnet-20250219-thinking" }),
             system: ANTHROPIC_UBUNTU_SYSTEM_PROMPT,
-            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            prompt: "Go to example.com and get the page title and whether it has any links",
             tools: [computerTool(ubuntuInstance), bashTool(ubuntuInstance), editTool(ubuntuInstance)],
-            schema: YCStats,
+            schema: ExampleSite,
             onStep: (step) => console.log(step.text, step.toolCalls, step.reasoningParts),
         });
         console.log(response.output);
 
         assert(response.output !== undefined);
-        assert(response.output.number_of_startups !== undefined);
-        assert(response.output.combined_valuation !== undefined);
+        assert(response.output.title !== undefined);
+        assert(typeof response.output.has_links === 'boolean');
 
         await ubuntuInstance.browser.stop();
         await ubuntuInstance.stop();
@@ -114,16 +114,16 @@ describe("test", () => {
         const response = await client.act({
             model: anthropic(),
             system: ANTHROPIC_BROWSER_SYSTEM_PROMPT,
-            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            prompt: "Go to example.com and get the page title and whether it has any links",
             tools: [computerTool(browserInstance)],
-            schema: YCStats,
+            schema: ExampleSite,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
         console.log(response.output);
 
         assert(response.output !== undefined);
-        assert(response.output.number_of_startups !== undefined);
-        assert(response.output.combined_valuation !== undefined);
+        assert(response.output.title !== undefined);
+        assert(typeof response.output.has_links === 'boolean');
 
         await browserInstance.stop();
     }, 600000);
@@ -145,16 +145,16 @@ describe("test", () => {
         const response = await client.act({
             model: anthropic({ name: "claude-3-7-sonnet-20250219-thinking" }),
             system: ANTHROPIC_BROWSER_SYSTEM_PROMPT,
-            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            prompt: "Go to example.com and get the page title and whether it has any links",
             tools: [computerTool(browserInstance)],
-            schema: YCStats,
+            schema: ExampleSite,
             onStep: (step) => console.log(step.text, step.toolCalls, step.reasoningParts),
         });
         console.log(response.output);
 
         assert(response.output !== undefined);
-        assert(response.output.number_of_startups !== undefined);
-        assert(response.output.combined_valuation !== undefined);
+        assert(response.output.title !== undefined);
+        assert(typeof response.output.has_links === 'boolean');
 
         await browserInstance.stop();
     }, 600000);
@@ -173,16 +173,16 @@ describe("test", () => {
         const response = await client.act({
             model: anthropic(),
             system: ANTHROPIC_WINDOWS_SYSTEM_PROMPT,
-            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            prompt: "Go to example.com and get the page title and whether it has any links",
             tools: [computerTool(windowsInstance)],
-            schema: YCStats,
+            schema: ExampleSite,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
         console.log(response.output);
 
         assert(response.output !== undefined);
-        assert(response.output.number_of_startups !== undefined);
-        assert(response.output.combined_valuation !== undefined);
+        assert(response.output.title !== undefined);
+        assert(typeof response.output.has_links === 'boolean');
 
         await windowsInstance.stop();
     }, 600000);
@@ -205,16 +205,16 @@ describe("test", () => {
         const response = await client.act({
             model: openai(),
             system: OPENAI_UBUNTU_SYSTEM_PROMPT,
-            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            prompt: "Go to example.com and get the page title and whether it has any links",
             tools: [computerTool(ubuntuInstance), bashTool(ubuntuInstance), editTool(ubuntuInstance)],
-            schema: YCStats,
+            schema: ExampleSite,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
         console.log(response.output);
 
         assert(response.output !== undefined);
-        assert(response.output.number_of_startups !== undefined);
-        assert(response.output.combined_valuation !== undefined);
+        assert(response.output.title !== undefined);
+        assert(typeof response.output.has_links === 'boolean');
 
         await ubuntuInstance.browser.stop();
         await ubuntuInstance.stop();
@@ -237,16 +237,16 @@ describe("test", () => {
         const response = await client.act({
             model: openai(),
             system: OPENAI_BROWSER_SYSTEM_PROMPT,
-            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            prompt: "Go to example.com and get the page title and whether it has any links",
             tools: [computerTool(browserInstance)],
-            schema: YCStats,
+            schema: ExampleSite,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
         console.log(response.output);
 
         assert(response.output !== undefined);
-        assert(response.output.number_of_startups !== undefined);
-        assert(response.output.combined_valuation !== undefined);
+        assert(response.output.title !== undefined);
+        assert(typeof response.output.has_links === 'boolean');
 
         await browserInstance.stop();
     }, 600000);
@@ -265,16 +265,16 @@ describe("test", () => {
         const response = await client.act({
             model: openai(),
             system: OPENAI_WINDOWS_SYSTEM_PROMPT,
-            prompt: "Go to the YC website and get the number of funded startups and combined valuation",
+            prompt: "Go to example.com and get the page title and whether it has any links",
             tools: [computerTool(windowsInstance)],
-            schema: YCStats,
+            schema: ExampleSite,
             onStep: (step) => console.log(step.text, step.toolCalls),
         });
         console.log(response.output);
 
         assert(response.output !== undefined);
-        assert(response.output.number_of_startups !== undefined);
-        assert(response.output.combined_valuation !== undefined);
+        assert(response.output.title !== undefined);
+        assert(typeof response.output.has_links === 'boolean');
 
         await windowsInstance.stop();
     }, 600000);
