@@ -635,6 +635,26 @@ export class BaseInstance {
     ): Promise<Scrapybara.UploadResponse> {
         return await this.fern.instance.upload(file, this.id, request, requestOptions);
     }
+
+    /**
+     * Expose a port on the instance with a public-facing URL.
+     */
+    public async exposePort(
+        request: Scrapybara.ExposePortRequest,
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<Scrapybara.ExposePortResponse> {
+        return await this.fern.instance.exposePort(this.id, request, requestOptions);
+    }
+
+    /**
+     * Deploy a directory from the instance to Netlify.
+     */
+    public async deployToNetlify(
+        request: Scrapybara.NetlifyDeployRequest,
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<Scrapybara.NetlifyDeployResponse> {
+        return await this.fern.instance.deployToNetlify(this.id, request, requestOptions);
+    }
 }
 
 export class UbuntuInstance extends BaseInstance {
