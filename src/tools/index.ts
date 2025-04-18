@@ -178,17 +178,19 @@ export function bashTool(instance: UbuntuInstance) {
         name: "bash",
         description: "Execute bash commands in the shell",
         parameters: z.object({
-            command: z.string().describe("The bash command to execute"),
+            command: z.string().optional().describe("The bash command to execute"),
+            session: z.number().optional().describe("Session ID to use for command execution"),
             restart: z.boolean().optional().default(false).describe("Whether to restart the shell"),
-            getBackgroundProcesses: z.boolean().optional().describe("Retrieve information (pid, status, command) about background processes"),
-            killPid: z.number().optional().describe("Process ID to kill"),
+            listSessions: z.boolean().optional().default(false).describe("Whether to list available sessions"),
+            checkSession: z.number().optional().describe("Session ID to check if it exists"),
         }),
         execute: async (params) => {
             return instance.bash({
                 command: params.command,
+                session: params.session,
                 restart: params.restart,
-                getBackgroundProcesses: params.getBackgroundProcesses,
-                killPid: params.killPid,
+                listSessions: params.listSessions,
+                checkSession: params.checkSession,
             });
         },
     });
