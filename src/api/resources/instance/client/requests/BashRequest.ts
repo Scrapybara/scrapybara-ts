@@ -8,7 +8,8 @@
  */
 export interface BashRequest {
     command?: string;
+    session?: number;
     restart?: boolean;
-    getBackgroundProcesses?: boolean;
-    killPid?: number;
+    listSessions?: boolean;
+    checkSession?: number;
 }

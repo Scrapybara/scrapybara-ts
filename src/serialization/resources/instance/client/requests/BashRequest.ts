@@ -9,19 +9,18 @@ import * as core from "../../../../../core";
 export const BashRequest: core.serialization.Schema<serializers.BashRequest.Raw, Scrapybara.BashRequest> =
     core.serialization.object({
         command: core.serialization.string().optional(),
+        session: core.serialization.number().optional(),
         restart: core.serialization.boolean().optional(),
-        getBackgroundProcesses: core.serialization.property(
-            "get_background_processes",
-            core.serialization.boolean().optional(),
-        ),
-        killPid: core.serialization.property("kill_pid", core.serialization.number().optional()),
+        listSessions: core.serialization.property("list_sessions", core.serialization.boolean().optional()),
+        checkSession: core.serialization.property("check_session", core.serialization.number().optional()),
     });
 
 export declare namespace BashRequest {
     export interface Raw {
         command?: string | null;
+        session?: number | null;
         restart?: boolean | null;
-        get_background_processes?: boolean | null;
-        kill_pid?: number | null;
+        list_sessions?: boolean | null;
+        check_session?: number | null;
     }
 }
