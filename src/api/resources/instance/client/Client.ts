@@ -54,8 +54,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -134,8 +134,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -219,8 +219,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -302,8 +302,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -388,8 +388,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -473,8 +473,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -566,8 +566,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -648,8 +648,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -728,8 +728,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -816,8 +816,8 @@ export class Instance {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.1",
-                "User-Agent": "scrapybara/2.5.1",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -867,6 +867,274 @@ export class Instance {
             case "timeout":
                 throw new errors.ScrapybaraTimeoutError(
                     "Timeout exceeded when calling POST /v1/instance/{instance_id}/resume.",
+                );
+            case "unknown":
+                throw new errors.ScrapybaraError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Expose a port on the instance with a public-facing URL.
+     *
+     * This endpoint creates a temporary public URL that routes traffic to the specified port on the instance.
+     *
+     * @param {string} instanceId
+     * @param {Scrapybara.ExposePortRequest} request
+     * @param {Instance.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Scrapybara.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.instance.exposePort("instance_id", {
+     *         port: 1
+     *     })
+     */
+    public async exposePort(
+        instanceId: string,
+        request: Scrapybara.ExposePortRequest,
+        requestOptions?: Instance.RequestOptions,
+    ): Promise<Scrapybara.ExposePortResponse> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
+                `v1/instance/${encodeURIComponent(instanceId)}/expose_port`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "scrapybara",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.ExposePortRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.ExposePortResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Scrapybara.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.ScrapybaraError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ScrapybaraError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ScrapybaraTimeoutError(
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/expose_port.",
+                );
+            case "unknown":
+                throw new errors.ScrapybaraError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Deploy a directory from the instance to Netlify.
+     *
+     * Args:
+     *     directory_path: Path to the directory on the instance to deploy
+     *
+     * @param {string} instanceId
+     * @param {Scrapybara.NetlifyDeployRequest} request
+     * @param {Instance.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Scrapybara.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.instance.deployToNetlify("instance_id", {
+     *         directoryPath: "directory_path"
+     *     })
+     */
+    public async deployToNetlify(
+        instanceId: string,
+        request: Scrapybara.NetlifyDeployRequest,
+        requestOptions?: Instance.RequestOptions,
+    ): Promise<Scrapybara.NetlifyDeployResponse> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
+                `v1/instance/${encodeURIComponent(instanceId)}/deploy_to_netlify`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "scrapybara",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.NetlifyDeployRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.NetlifyDeployResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Scrapybara.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.ScrapybaraError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ScrapybaraError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ScrapybaraTimeoutError(
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/deploy_to_netlify.",
+                );
+            case "unknown":
+                throw new errors.ScrapybaraError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {string} instanceId
+     * @param {Scrapybara.InstanceRescheduleTerminationRequest} request
+     * @param {Instance.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Scrapybara.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.instance.rescheduleTermination("instance_id")
+     */
+    public async rescheduleTermination(
+        instanceId: string,
+        request: Scrapybara.InstanceRescheduleTerminationRequest = {},
+        requestOptions?: Instance.RequestOptions,
+    ): Promise<Scrapybara.StopInstanceResponse> {
+        const { newTimeoutHours } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (newTimeoutHours != null) {
+            _queryParams["new_timeout_hours"] = newTimeoutHours.toString();
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ScrapybaraEnvironment.Production,
+                `v1/instance/${encodeURIComponent(instanceId)}/reschedule_termination`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "scrapybara",
+                "X-Fern-SDK-Version": "2.6.0-beta.4",
+                "User-Agent": "scrapybara/2.6.0-beta.4",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 600000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.StopInstanceResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Scrapybara.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.ScrapybaraError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ScrapybaraError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ScrapybaraTimeoutError(
+                    "Timeout exceeded when calling POST /v1/instance/{instance_id}/reschedule_termination.",
                 );
             case "unknown":
                 throw new errors.ScrapybaraError({

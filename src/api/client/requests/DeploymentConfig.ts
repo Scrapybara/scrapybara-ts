@@ -13,4 +13,6 @@ export interface DeploymentConfig {
     timeoutHours?: number;
     blockedDomains?: string[];
     resolution?: number[];
+    backend?: string;
+    snapshotId?: string;
 }
