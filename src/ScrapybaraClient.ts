@@ -626,6 +626,16 @@ export class BaseInstance {
     }
 
     /**
+     * Reschedule the termination time for the instance.
+     */
+    public async rescheduleTermination(
+        request: Scrapybara.InstanceRescheduleTerminationRequest = {},
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.StopInstanceResponse> {
+        return await this.fern.instance.rescheduleTermination(this.id, request, requestOptions);
+    }
+
+    /**
      * Upload a file to the instance
      */
     public async upload(
