@@ -5,3 +5,4 @@ export { type BodyUploadV1InstanceInstanceIdUploadPost } from "./BodyUploadV1Ins
 export { type InstanceResumeRequest } from "./InstanceResumeRequest";
 export { type ExposePortRequest } from "./ExposePortRequest";
 export { type NetlifyDeployRequest } from "./NetlifyDeployRequest";
+export { type InstanceRescheduleTerminationRequest } from "./InstanceRescheduleTerminationRequest";
