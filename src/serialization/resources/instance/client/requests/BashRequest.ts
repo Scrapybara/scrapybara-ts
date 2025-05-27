@@ -13,6 +13,7 @@ export const BashRequest: core.serialization.Schema<serializers.BashRequest.Raw,
         restart: core.serialization.boolean().optional(),
         listSessions: core.serialization.property("list_sessions", core.serialization.boolean().optional()),
         checkSession: core.serialization.property("check_session", core.serialization.number().optional()),
+        timeout: core.serialization.number().optional(),
     });
 
 export declare namespace BashRequest {
@@ -22,5 +23,6 @@ export declare namespace BashRequest {
         restart?: boolean | null;
         list_sessions?: boolean | null;
         check_session?: number | null;
+        timeout?: number | null;
     }
 }
