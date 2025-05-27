@@ -12,4 +12,5 @@ export interface BashRequest {
     restart?: boolean;
     listSessions?: boolean;
     checkSession?: number;
+    timeout?: number;
 }
