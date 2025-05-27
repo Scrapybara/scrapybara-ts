@@ -183,6 +183,7 @@ export function bashTool(instance: UbuntuInstance) {
             restart: z.boolean().optional().default(false).describe("Whether to restart the shell"),
             listSessions: z.boolean().optional().default(false).describe("Whether to list available sessions"),
             checkSession: z.number().optional().describe("Session ID to check if it exists"),
+            timeout: z.number().optional().describe("Timeout for command execution"),
         }),
         execute: async (params) => {
             return instance.bash({
@@ -191,6 +192,7 @@ export function bashTool(instance: UbuntuInstance) {
                 restart: params.restart,
                 listSessions: params.listSessions,
                 checkSession: params.checkSession,
+                timeout: params.timeout,
             });
         },
     });
