@@ -53,11 +53,43 @@ export declare namespace ScrapybaraClient {
     type RequestOptions = FernClient.RequestOptions;
 }
 
+export class Beta {
+    constructor(
+        private readonly fern: FernClient,
+    ) {}
+
+    public async takeSnapshot(
+        instanceId: string,
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.SnapshotResponse> {
+        return await this.fern.betaVmManagement.takeSnapshot(instanceId, requestOptions);
+    }
+
+    public async warmupSnapshot(
+        snapshotId: string, 
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.SuccessResponse> {
+        return await this.fern.betaVmManagement.warmupSnapshot(snapshotId, requestOptions);
+    }
+
+    public async deleteSnapshot(
+        snapshotId: string,
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.SuccessResponse> {
+        return await this.fern.betaVmManagement.deleteSnapshot(snapshotId, requestOptions);
+    }
+}
+
 export class ScrapybaraClient {
     private _fern: FernClient;
+    private _beta: Beta | undefined;
 
     constructor(readonly _options?: ScrapybaraClient.Options) {
         this._fern = new FernClient(_options);
+    }
+
+    public get beta(): Beta {
+        return (this._beta ??= new Beta(this._fern));
     }
 
     public async startUbuntu(
@@ -594,6 +626,16 @@ export class BaseInstance {
     }
 
     /**
+     * Reschedule the termination time for the instance.
+     */
+    public async rescheduleTermination(
+        request: Scrapybara.InstanceRescheduleTerminationRequest = {},
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.StopInstanceResponse> {
+        return await this.fern.instance.rescheduleTermination(this.id, request, requestOptions);
+    }
+
+    /**
      * Upload a file to the instance
      */
     public async upload(
@@ -602,6 +644,26 @@ export class BaseInstance {
         requestOptions?: FernClient.RequestOptions
     ): Promise<Scrapybara.UploadResponse> {
         return await this.fern.instance.upload(file, this.id, request, requestOptions);
+    }
+
+    /**
+     * Expose a port on the instance with a public-facing URL.
+     */
+    public async exposePort(
+        request: Scrapybara.ExposePortRequest,
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<Scrapybara.ExposePortResponse> {
+        return await this.fern.instance.exposePort(this.id, request, requestOptions);
+    }
+
+    /**
+     * Deploy a directory from the instance to Netlify.
+     */
+    public async deployToNetlify(
+        request: Scrapybara.NetlifyDeployRequest,
+        requestOptions?: FernClient.RequestOptions
+    ): Promise<Scrapybara.NetlifyDeployResponse> {
+        return await this.fern.instance.deployToNetlify(this.id, request, requestOptions);
     }
 }
 
@@ -676,6 +738,12 @@ export class BrowserInstance extends BaseInstance {
     ): Promise<Scrapybara.BrowserAuthenticateResponse> {
         return await this.fern.browser.authenticate(this.id, request, requestOptions);
     }
+
+    public async getStreamUrl(
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.BrowserGetStreamUrlResponse> {
+        return await this.fern.browser.getStreamUrl(this.id, requestOptions);
+    }
 }
 
 export class WindowsInstance extends BaseInstance {
@@ -690,8 +758,8 @@ export class Browser {
         private readonly fern: FernClient,
     ) {}
 
-    public async start(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StartBrowserResponse> {
-        return await this.fern.browser.start(this.instanceId, requestOptions);
+    public async start(request: Scrapybara.BrowserStartRequest = {}, requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StartBrowserResponse> {
+        return await this.fern.browser.start(this.instanceId, request, requestOptions);
     }
 
     public async getCdpUrl(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.BrowserGetCdpUrlResponse> {
@@ -723,6 +791,12 @@ export class Browser {
         requestOptions?: FernClient.RequestOptions,
     ): Promise<Scrapybara.BrowserAuthenticateResponse> {
         return await this.fern.browser.authenticate(this.instanceId, request, requestOptions);
+    }
+
+    public async getStreamUrl(
+        requestOptions?: FernClient.RequestOptions,
+    ): Promise<Scrapybara.BrowserGetStreamUrlResponse> {
+        return await this.fern.browser.getStreamUrl(this.instanceId, requestOptions);
     }
 
     public async stop(requestOptions?: FernClient.RequestOptions): Promise<Scrapybara.StopBrowserResponse> {

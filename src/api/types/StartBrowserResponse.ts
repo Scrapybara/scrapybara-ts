@@ -4,4 +4,5 @@
 
 export interface StartBrowserResponse {
     cdpUrl: string;
+    streamUrl?: string;
 }

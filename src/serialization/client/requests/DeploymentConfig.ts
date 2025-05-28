@@ -18,6 +18,8 @@ export const DeploymentConfig: core.serialization.Schema<
         core.serialization.list(core.serialization.string()).optional(),
     ),
     resolution: core.serialization.list(core.serialization.number()).optional(),
+    backend: core.serialization.string().optional(),
+    snapshotId: core.serialization.property("snapshot_id", core.serialization.string().optional()),
 });
 
 export declare namespace DeploymentConfig {
@@ -26,5 +28,7 @@ export declare namespace DeploymentConfig {
         timeout_hours?: number | null;
         blocked_domains?: string[] | null;
         resolution?: number[] | null;
+        backend?: string | null;
+        snapshot_id?: string | null;
     }
 }

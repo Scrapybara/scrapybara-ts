@@ -1,6 +1,6 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">getAuthStates</a>() -> Scrapybara.AuthStateResponse[]</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">deleteAuthState</a>({ ...params }) -> Scrapybara.DeleteBrowserAuthResponse</code></summary>
 <dl>
 <dd>
 
@@ -13,7 +13,9 @@
 <dd>
 
 ```typescript
-await client.getAuthStates();
+await client.deleteAuthState({
+    authStateId: "auth_state_id",
+});
 ```
 
 </dd>
@@ -25,6 +27,14 @@ await client.getAuthStates();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.DeleteAuthStateRequest`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -605,9 +615,199 @@ await client.instance.resume("instance_id");
 </dl>
 </details>
 
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">rescheduleTermination</a>(instanceId, { ...params }) -> Scrapybara.StopInstanceResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.instance.rescheduleTermination("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.InstanceRescheduleTerminationRequest`
+
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">exposePort</a>(instanceId, { ...params }) -> Scrapybara.ExposePortResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Expose a port on the instance with a public-facing URL.
+
+This endpoint creates a temporary public URL that routes traffic to the specified port on the instance.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.instance.exposePort("instance_id", {
+    port: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.ExposePortRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Instance.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.instance.<a href="/src/api/resources/instance/client/Client.ts">deployToNetlify</a>(instanceId, { ...params }) -> Scrapybara.NetlifyDeployResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deploy a directory from the instance to Netlify.
+
+Args:
+directory_path: Path to the directory on the instance to deploy
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.instance.deployToNetlify("instance_id", {
+    directoryPath: "directory_path",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Scrapybara.NetlifyDeployRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Instance.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Browser
 
-<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">start</a>(instanceId) -> Scrapybara.StartBrowserResponse</code></summary>
+<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">start</a>(instanceId, { ...params }) -> Scrapybara.StartBrowserResponse</code></summary>
 <dl>
 <dd>
 
@@ -644,6 +844,14 @@ await client.browser.start("instance_id");
 <dl>
 <dd>
 
+**request:** `Scrapybara.BrowserStartRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Browser.RequestOptions`
 
 </dd>
@@ -669,6 +877,54 @@ await client.browser.start("instance_id");
 
 ```typescript
 await client.browser.getCdpUrl("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Browser.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.browser.<a href="/src/api/resources/browser/client/Client.ts">getStreamUrl</a>(instanceId) -> Scrapybara.BrowserGetStreamUrlResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.browser.getStreamUrl("instance_id");
 ```
 
 </dd>
@@ -1612,6 +1868,197 @@ await client.env.delete("instance_id", {
 <dd>
 
 **requestOptions:** `Env.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## BetaVmManagement
+
+<details><summary><code>client.betaVmManagement.<a href="/src/api/resources/betaVmManagement/client/Client.ts">takeSnapshot</a>(instanceId) -> Scrapybara.SnapshotResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Take a snapshot of an instance
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.betaVmManagement.takeSnapshot("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `BetaVmManagement.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.betaVmManagement.<a href="/src/api/resources/betaVmManagement/client/Client.ts">warmupSnapshot</a>(snapshotId) -> Scrapybara.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Warmup a snapshot
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.betaVmManagement.warmupSnapshot("snapshot_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**snapshotId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `BetaVmManagement.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.betaVmManagement.<a href="/src/api/resources/betaVmManagement/client/Client.ts">deleteSnapshot</a>(snapshotId) -> Scrapybara.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a snapshot
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.betaVmManagement.deleteSnapshot("snapshot_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**snapshotId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `BetaVmManagement.RequestOptions`
 
 </dd>
 </dl>

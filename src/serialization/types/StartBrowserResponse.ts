@@ -11,10 +11,12 @@ export const StartBrowserResponse: core.serialization.ObjectSchema<
     Scrapybara.StartBrowserResponse
 > = core.serialization.object({
     cdpUrl: core.serialization.property("cdp_url", core.serialization.string()),
+    streamUrl: core.serialization.property("stream_url", core.serialization.string().optional()),
 });
 
 export declare namespace StartBrowserResponse {
     export interface Raw {
         cdp_url: string;
+        stream_url?: string | null;
     }
 }
