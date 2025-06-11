@@ -49,8 +49,8 @@ export class Env {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.2",
-                "User-Agent": "scrapybara/2.5.2",
+                "X-Fern-SDK-Version": "2.5.3",
+                "User-Agent": "scrapybara/2.5.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -135,8 +135,8 @@ export class Env {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.2",
-                "User-Agent": "scrapybara/2.5.2",
+                "X-Fern-SDK-Version": "2.5.3",
+                "User-Agent": "scrapybara/2.5.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -220,8 +220,8 @@ export class Env {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "scrapybara",
-                "X-Fern-SDK-Version": "2.5.2",
-                "User-Agent": "scrapybara/2.5.2",
+                "X-Fern-SDK-Version": "2.5.3",
+                "User-Agent": "scrapybara/2.5.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
